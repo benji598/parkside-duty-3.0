@@ -7,8 +7,6 @@
     <title>Park Side</title>
     <meta name="description" content="New Parkside duty app" />
 
-
- 
     <script src="/components/duty-btn.js" defer></script>
     <script src="/components/circle-icon-btn.js" defer></script>
     <script src="/components/nav.js" defer></script>

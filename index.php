@@ -1,12 +1,6 @@
-<?php
-require 'db.php';
-session_start();
+<?php include 'header.php'; 
 
-// re-direct to splash.php if user isn't logged in.
-if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
-    header('Location: splash.php');
-    exit;
-}
+require 'db.php';
 
 $first_name = $_SESSION['first_name'];
 $last_name = $_SESSION['last_name'];
@@ -20,9 +14,10 @@ $last_name = $_SESSION['last_name'];
   <header-info>
       <div slot="title-slot">Dashboard</div>
       <div slot="subtitle-slot">
+        
       Welcome, <?php echo htmlspecialchars($first_name) . ' ' . htmlspecialchars($last_name); ?>.
-         <?php include 'header.php'; ?>
       </div>
+      
     </header-info>
 
     <main class="container overflow">
