@@ -1,0 +1,96 @@
+.hp-btn-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(165px, 1fr));
+  gap: 0.7rem;
+  padding-bottom: 0.5rem;
+  overflow-y: scroll;
+}
+header {
+  background-color: #f4f4f4; /* Example background color */
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+header div {
+  font-size: 1.2em; /* Example font size */
+}
+
+button[name="logout"],button[name="dashboard"],button[name="account"],button[name="admin"] {
+  padding: 5px 10px;
+  background-color: #3498db;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+}
+
+button[name="logout"]:hover,button[name="dashboard"]:hover,button[name="account"]:hover,button[name="admin"]:hover {
+  background-color: #2980b9;
+}
+.user-details{
+  padding:10px;
+}
+.account-container {
+  background: #fff;
+  padding: 20px;
+  margin: 20px auto;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 80%; /* Adjust width as necessary */
+  max-width: 400px; /* Maximum width of the form */
+}
+
+.account-container form {
+  display: flex;
+  flex-direction: column;
+}
+
+.account-container input {
+  margin-bottom: 10px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.account-container button {
+  padding: 10px;
+  margin-top: 5px; /* Add some space above the button */
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.account-container button:hover {
+  background-color: #2980b9;
+}
+
+.back-button {
+  display: block;
+  padding: 10px;
+  margin: 20px 0;
+  background-color: #95a5a6;
+  color: white;
+  text-decoration: none;
+  text-align: center;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.back-button:hover {
+  background-color: #7f8c8d;
+}
+.button[disabled] {
+  background-color: #cccccc; /* Light grey color for disabled buttons */
+  cursor: default; /* Change cursor to indicate non-clickable item */
+  color: #666666; /* Darker text color for contrast */
+}
+
+/* Optional: If you want to remove the hover effect from disabled buttons */
+.button[disabled]:hover {
+  background-color: #cccccc; /* Same as the normal state for disabled buttons */
+}
+

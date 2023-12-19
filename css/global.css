@@ -1,0 +1,45 @@
+:root {
+  --baby-blue-hover: #4187f7;
+  --background-color: #f3f8ff;
+  --baby-blue: #d3e3fd;
+  --bg-blue: #4187f7;
+
+  --btn-radius: 1rem;
+  --btn-transition: all 0.3s ease-in-out;
+
+  --anchor-decoration: none;
+
+  /* active state */
+  --baby-blue-active: #7cacf8;
+  --whatsapp-green: #25d366;
+  --sms-blue: #1982fc;
+}
+
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  overflow-y: hidden;
+}
+
+html,
+body {
+  min-height: 100%;
+  height: 100%;
+  background-color: var(--background-color);
+}
+
+.container {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.overflow {
+  overflow: auto;
+}
+

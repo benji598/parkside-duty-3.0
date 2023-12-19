@@ -1,0 +1,114 @@
+[
+  {
+    "firstName": "Stuart",
+    "lastName": "Mclean",
+    "number": "+447912251600",
+    "duties": ["Platform", "Auditorium Attendant", "Entrance Attendant", "Zoom Attendant", "BS Reader", "WT Reader", "Roving Mic"]
+  },
+  {
+    "firstName": "Jason",
+    "lastName": "Thould",
+    "number": "+447500695733",
+    "duties": ["Platform", "Auditorium Attendant", "Entrance Attendant", "BS Reader", "Zoom Attendant", "Roving Mic"]
+  },
+  {
+    "firstName": "Thomas",
+    "lastName": "Beecham",
+    "number": "+447812822824",
+    "duties": [
+      "Chairman",
+      "Platform",
+      "Auditorium Attendant",
+      "Entrance Attendant",
+      "Zoom Attendant",
+      "WT Reader",
+      "BS Reader",
+      "Roving Mic"
+    ]
+  },
+  {
+    "firstName": "Luke",
+    "lastName": "Channon",
+    "number": "+447812156813",
+    "duties": []
+  },
+  {
+    "firstName": "Dan",
+    "lastName": "Dawson",
+    "number": "+447725263218",
+    "duties": ["Platform", "Sound Box", "Zoom Attendant", "WT Reader", "BS Reader", "Roving Mic"]
+  },
+  {
+    "firstName": "Stewart",
+    "lastName": "Webster",
+    "number": "+447484835804",
+    "duties": ["Platform", "Roving Mic"]
+  },
+
+  {
+    "firstName": "Andrew",
+    "lastName": "Robinson",
+    "number": "+447740354219",
+    "duties": [
+      "Chairman",
+      "Platform",
+      "Auditorium Attendant",
+      "Entrance Attendant",
+      "Zoom Attendant",
+      "Sound Box",
+      "WT Reader",
+      "BS Reader",
+      "Roving Mic",
+      "Hall Cleaning"
+    ]
+  },
+  {
+    "firstName": "Brian",
+    "lastName": "Robinson",
+    "number": "+447956768956",
+    "duties": ["Chairman", "Auditorium Attendant", "Entrance Attendant", "Platform", "WT Reader"]
+  },
+  {
+    "firstName": "John",
+    "lastName": "Bell",
+    "number": "+447799794942",
+    "duties": ["Hall Cleaning", "Auditorium Attendant", "Entrance Attendant"]
+  },
+  {
+    "firstName": "Karl",
+    "lastName": "Boden",
+    "number": "+447905000609",
+    "duties": [
+      "Chairman",
+      "Platform",
+      "Sound Box",
+      "WT Reader",
+      "BS Reader",
+      "Auditorium Attendant",
+      "Entrance Attendant",
+      "Zoom Attendant",
+      "Hall Cleaning"
+    ]
+  },
+  {
+    "firstName": "John",
+    "lastName": "Dawson",
+    "number": "+447463386672",
+    "duties": [
+      "Chairman",
+      "Platform",
+      "Auditorium Attendant",
+      "Entrance Attendant",
+      "Zoom Attendant",
+      "WT Reader",
+      "BS Reader",
+      "Roving Mic"
+    ]
+  },
+  {
+    "firstName": "Jez",
+    "lastName": "SinClair",
+    "number": "+447788232490",
+    "duties": ["Platform", "Zoom Attendant", "WT Reader", "BS Reader", "Roving Mic"]
+  }
+]
