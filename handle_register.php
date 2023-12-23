@@ -44,8 +44,9 @@ $conn->close();
 
 // If there were errors, display them on the registration page
 if (!empty($error_messages)) {
-    $_SESSION['registration_errors'] = $error_messages;
-    header("location: register.php");
+    // $_SESSION['registration_errors'] = $error_messages;
+    echo $error_messages;
+    // header("location: register.php");
     exit();
 }
 ?>
