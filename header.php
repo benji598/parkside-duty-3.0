@@ -1,5 +1,6 @@
 <link rel="stylesheet" href="/css/hp.css" rel="prefetch" />
     <link rel="stylesheet" href="/css/global.css" rel="prefetch" />
+    <link rel="stylesheet" href="/css/tables.css" rel="prefetch" />
     <!-- <meta name="view-transition" content="same-origin" /> -->
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />

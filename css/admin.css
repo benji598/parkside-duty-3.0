@@ -53,3 +53,22 @@ th {
   color: #666;
   cursor: not-allowed;
 }
+.delete-button {
+  padding: 6px 12px;
+  background-color: #d9534f;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.2s;
+}
+
+.delete-button:hover {
+  background-color: #c9302c;
+}
+
+/* You might want to add a small margin for spacing between buttons if necessary */
+.delete-button + .delete-button {
+  margin-left: 10px;
+}

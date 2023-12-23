@@ -1,5 +1,5 @@
 <?php
-session_start();
+include 'header.php'; 
 
 // Redirect to splash.php if the user isn't logged in
 if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
@@ -53,7 +53,6 @@ $phone = $_SESSION['phone'];
     <header-info>
       <div slot="title-slot">Account Settings</div>
       <div slot="subtitle-slot">
-         <?php include 'header.php'; ?>
       </div>
     </header-info>
         <div class="account-container">
