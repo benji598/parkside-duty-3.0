@@ -33,15 +33,32 @@
 <?php if (!isset($_SESSION)) { session_start(); } ?>
 
 <!-- Redirect to splash.php if the user isn't logged in -->
-<?php if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
-    header('Location: splash.php');
-    exit;
-} ?>
+<?php 
+    // if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
+    //     header('Location: splash.php');
+    // exit;
+    //} 
+
+     if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
+        $isAdmin = false;
+     } 
+     else{
+        $isAdmin = true;
+     }
+?>
 
 <!-- User's first name and last name are stored in the session -->
 <?php
-$first_name = $_SESSION['first_name'] ?? 'Guest';
-$last_name = $_SESSION['last_name'] ?? '';
+if ($isAdmin) {
+    $first_name = $_SESSION['first_name'];
+    $last_name = $_SESSION['last_name'];
+    $fullName = $first_name . ' ' . $last_name;
+  }
+  else{
+    $first_name = "Guest";
+    $last_name = "Account";
+    $fullName = "";
+  }
 
 // Get the current page's filename
 $current_page = basename($_SERVER['PHP_SELF']);
@@ -54,6 +71,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
         <button type="submit" name="dashboard" class="button" <?php echo ($current_page == 'index.php') ? 'disabled' : ''; ?>>Dashboard</button>
     </form>
 
+    <?php if ($isAdmin) { ?>
         <!-- Admin Button -->
     <form style="display: inline;" action="admin.php" method="get">
         <button type="submit" name="admin" class="button" <?php echo ($current_page == 'admin.php') ? 'disabled' : ''; ?>>Admin</button>
@@ -68,4 +86,14 @@ $current_page = basename($_SERVER['PHP_SELF']);
     <form style="display: inline;" action="logout.php" method="post">
         <button type="submit" name="logout" class="button">Logout</button>
     </form>
+
+    <?php } ?>
+
+    <?php if (!$isAdmin) { ?>
+            <!-- Logout Button -->
+    <form style="display: inline;" action="splash.php" method="post">
+        <button type="submit" name="logout" class="button">Admin Login</button>
+    </form>
+
+    <?php } ?>
 </div>

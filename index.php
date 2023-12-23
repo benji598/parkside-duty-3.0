@@ -2,8 +2,16 @@
 
 require 'db.php';
 
-$first_name = $_SESSION['first_name'];
-$last_name = $_SESSION['last_name'];
+if ($isAdmin) {
+  $first_name = $_SESSION['first_name'];
+  $last_name = $_SESSION['last_name'];
+  $fullName = $first_name . ' ' . $last_name;
+}
+else{
+  $first_name = "Guest";
+  $last_name = "Account";
+  $fullName = "";
+}
 
 ?>
 <!DOCTYPE html>
@@ -14,8 +22,10 @@ $last_name = $_SESSION['last_name'];
   <header-info>
       <div slot="title-slot">Dashboard</div>
       <div slot="subtitle-slot">
-        
-      Welcome, <?php echo htmlspecialchars($first_name) . ' ' . htmlspecialchars($last_name); ?>.
+
+      Welcome<? echo $fullName ?>!
+
+
       </div>
       
     </header-info>

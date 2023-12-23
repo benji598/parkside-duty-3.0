@@ -4,12 +4,6 @@ require 'db.php';
 require 'functions.php';
 include 'header.php'; 
 
-// Redirect to splash.php if the user isn't logged in
-if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
-    header('Location: splash.php');
-    exit;
-}
-
 // Get the duty ID from the URL parameter
 $duty_id = isset($_GET['id']) ? intval($_GET['id']) : 0;
 
@@ -77,20 +71,20 @@ $stmt->close();
                 <th>First Name</th>
                 <th>Last Name</th>
                 <th>Phone Number</th>
-                <th>Actions</th>
+                <?php if ($isAdmin) { ?> <th>Actions</th> <?php } ?>
             </tr>
             <?php while ($sub_user = $result_sub_users->fetch_assoc()): ?>
                 <tr>
                     <td><?php echo htmlspecialchars($sub_user['firstname']); ?></td>
                     <td><?php echo htmlspecialchars($sub_user['lastname']); ?></td>
                     <td><?php echo htmlspecialchars($sub_user['phone']); ?></td>
-                    <td>
+                    <?php if ($isAdmin) { ?> <td>
                         <form method="post" onsubmit="return confirm('Are you sure?');">
                             <input type="hidden" name="sub_user_id" value="<?php echo $sub_user['sub_user_id']; ?>">
                             <input type="hidden" name="duty_id" value="<?php echo $duty_id; ?>">
-                            <button type="submit" class="delete-button" name="delete">Delete</button>
+                             <button type="submit" class="delete-button" name="delete">Delete</button>     
                         </form>
-                    </td>
+                    </td> <?php } ?>
                 </tr>
             <?php endwhile; ?>
         </table>
