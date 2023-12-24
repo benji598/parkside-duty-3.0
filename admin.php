@@ -105,6 +105,7 @@ $result_sub_users = $conn->query("
                 <td>
                     <button type="button" onclick="toggleEdit(<?php echo $row['id']; ?>)">Edit</button>
                     <button type="button" class="save-btn" onclick="saveEdit(<?php echo $row['id']; ?>)" style="display: none;">Save</button>
+                    <button type="button" class="delete-btn" onclick="deleteSubUser(<?php echo $row['id']; ?>)">Delete</button>
                 </td>
             </tr>
         <?php endwhile; ?>
@@ -147,14 +148,31 @@ fetch('save_sub_user.php', {
     return response.text();
 })
 .then(function(text) {
-    // Optionally log response for debugging
-    console.log(text);
+
     // Refresh the page, potentially with a reference to the edited user
     window.location.href = 'admin.php?edited=' + userId;
 })
 .catch(function(error) {
     console.error('Error:', error);
 });
+}
+
+function deleteSubUser(subUserId) {
+    if (confirm('Are you sure you want to delete this sub-user?')) {
+        fetch('delete_sub_user.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: 'id=' + subUserId
+        })
+        .then(response => response.text())
+        .then(text => {
+            // Refresh the page or remove the row from the table
+            window.location.href = 'admin.php?edited=1';
+        })
+        .catch(error => console.error('Error:', error));
+    }
 }
 </script>
 
