@@ -77,11 +77,11 @@ $result_sub_users = $conn->query("
                 <td><?php echo htmlspecialchars($row['id']); ?></td>
                 <td>
                     <span class="user-data"><?php echo htmlspecialchars($row['firstname']); ?></span>
-                    <input type="text" class="edit-field" value="<?php echo htmlspecialchars($row['firstname']); ?>" style="display: none;">
-                </td>
+                    <input type="text" name="firstname" class="edit-field firstname" value="<?php echo htmlspecialchars($row['firstname']); ?>" style="display: none;">
+ </td>
                 <td>
                     <span class="user-data"><?php echo htmlspecialchars($row['lastname']); ?></span>
-                    <input type="text" class="edit-field" value="<?php echo htmlspecialchars($row['lastname']); ?>" style="display: none;">
+                    <input type="text" name="lastname" class="edit-field lastname" value="<?php echo htmlspecialchars($row['lastname']); ?>" style="display: none;">
                 </td>
                 <td>
                     <span class="user-data"><?php echo htmlspecialchars($row['phone']); ?></span>
@@ -127,13 +127,15 @@ function toggleEdit(userId) {
 }
 
 function saveEdit(userId) {
-    var firstname = document.querySelector('#user-row-' + userId + ' input[type="text"]').value;
-    var lastname = document.querySelector('#user-row-' + userId + ' input[type="text"]').value;
+    var firstname = document.querySelector('#user-row-' + userId + ' .firstname').value;
+    var lastname = document.querySelector('#user-row-' + userId + ' .lastname').value;
+
+
     var phone = document.querySelector('#user-row-' + userId + ' input[type="tel"]').value;
     var selectedDuties = Array.from(document.querySelector('#user-row-' + userId + ' select').selectedOptions).map(option => option.value);
 
     // Perform AJAX request to save changes
-
+// Perform AJAX request to save changes
 fetch('save_sub_user.php', {
     method: 'POST',
     headers: {
@@ -155,6 +157,7 @@ fetch('save_sub_user.php', {
 });
 }
 </script>
+
 
 
         <div class="account-container">
