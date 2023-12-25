@@ -3,30 +3,12 @@ const navTemplate = document.createElement('template');
 
 navTemplate.innerHTML = /*html*/ `
 <style>
-    .material-icons {
-        font-family: 'Material Icons';
-        font-weight: 400;
-        font-style: normal;
-        font-size: 26px;
-        display: inline-block;
-        line-height: 1;
-        text-transform: none;
-        letter-spacing: normal;
-        word-wrap: normal;
-        white-space: nowrap;
-        direction: ltr;
-        -webkit-font-smoothing: antialiased;
-        text-rendering: optimizeLegibility;
-        -moz-osx-font-smoothing: grayscale;
-        font-feature-settings: 'liga';
+    :host {
+        margin-top: auto;
     }
 
     a {
         text-decoration: var(--anchor-decoration);
-    }
-
-    :host {
-        margin-top: auto;
     }
 
     .icon-bar {
@@ -54,17 +36,17 @@ navTemplate.innerHTML = /*html*/ `
 
 <div class="icon-bar">
     <a class="active" href="index.html">
-        <i class="material-icons">groups</i>
+        <duties-icon></duties-icon>
         <small>Duties</small>
     </a>
 
-    <a href="rota.html">
-        <i class="material-icons"><span class="material-symbols-rounded">library_books</span></i>
+    <a href="#">
+        <rota-icon></rota-icon>
         <small>Rota</small>
     </a>
 
-    <a href="counter.html">
-        <i class="material-icons">person_add</i>
+    <a href="#">
+        <counter-icon></counter-icon>
         <small>Counter</small>
     </a>
 </div>

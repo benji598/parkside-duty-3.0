@@ -1,3 +1,5 @@
+'use strict';
+
 const FilteredBrothers = document.createElement('template');
 
 FilteredBrothers.innerHTML = /*html*/ `
@@ -76,15 +78,13 @@ class BrothersData extends HTMLElement {
     addToDom(el, i) {
         const insertCode = this.shadowRoot.querySelector('#data');
 
-        const btnClass = `sender-btn-${i + 1}`;
-
         const html = `<div class="name-holder">${el.firstName} ${el.lastName}</div>
-<button class="btn send-btn ${btnClass}">
-    <circle-icon-btn icon="send"></circle-icon-btn>
-</button>`;
+<duty-button class="sender-btn-${i + 1}" title="" subtitle="" icon="<send-icon></send-icon>"></duty-button>
+
+`;
 
         insertCode.insertAdjacentHTML('beforeend', html);
-        insertCode.querySelector(`.${btnClass}`).addEventListener('click', () => {
+        insertCode.querySelector(`.sender-btn-${i + 1}`).addEventListener('click', () => {
             this.openSlideUpModal(el);
         });
     }

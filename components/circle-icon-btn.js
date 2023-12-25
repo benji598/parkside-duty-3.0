@@ -1,8 +1,8 @@
 const circleBtnTemplate = document.createElement('template');
-
 circleBtnTemplate.innerHTML = /*html*/ `
+
 <style>
-    .material-icons {
+    /* .material-icons {
         font-family: 'Material Icons';
         font-weight: 400;
         font-style: normal;
@@ -18,22 +18,19 @@ circleBtnTemplate.innerHTML = /*html*/ `
         text-rendering: optimizeLegibility;
         -moz-osx-font-smoothing: grayscale;
         font-feature-settings: 'liga';
-    }
+    } */
 
-    .icon-circle {
-        background-color: var(--background-color);
-        border-radius: 50%;
-        width: auto;
-        margin-bottom: 10px;
-        margin-top: 10px;
-        padding: 0.6rem;
-        line-height: 0;
-    }
+    /* :host {
+        display: flex;
+        justify-content: center;
+    } */
+
+   
 </style>
 
 
 <div class="icon-circle">
-    <slot class="slot-icon material-icons"></slot>
+    <slot name="icon-slot"></slot> <!-- Slot for specific icon -->
 </div>
 
 `;
@@ -49,13 +46,7 @@ class circleBtn extends HTMLElement {
   }
 
   connectedCallback() {
-    this.showIcon();
-  }
-
-  showIcon() {
-    const icon = this.getAttribute('icon');
-
-    this.shadowRoot.querySelector('.slot-icon').textContent = icon;
+    console.log('circle-icon is running');
   }
 }
 

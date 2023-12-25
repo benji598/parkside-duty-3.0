@@ -6,19 +6,16 @@ HeaderTemplate.innerHTML = /*html*/ `
     }
 
     header {
-        padding: 1rem;
         text-align: center;
     }
 </style>
 
+
 <header>
-    <h1 id="duty">
-        <slot name="title-slot"></slot>
-    </h1>
-    <h2>
-        <slot name="subtitle-slot"></slot>
-    </h2>
+    <h1 id="title">App Name</h1>
+    <h2 id="subtitle">Choose a Option</h2>
 </header>
+
 `;
 
 class HeaderInfo extends HTMLElement {
@@ -30,18 +27,36 @@ class HeaderInfo extends HTMLElement {
         this.shadowRoot.appendChild(HeaderTemplate.content.cloneNode(true));
     }
 
+    static get observedAttributes() {
+        return ['title', 'subtitle'];
+    }
+
+    attributeChangedCallback(name, oldValue, newValue) {
+        switch (name) {
+            case 'title':
+                this.shadowRoot.getElementById('title').textContent = newValue;
+                break;
+            case 'subtitle':
+                this.shadowRoot.getElementById('subtitle').textContent = newValue;
+                break;
+        }
+    }
+
     connectedCallback() {
         this.getTitle();
+        if (this.hasAttribute('title')) {
+            this.shadowRoot.getElementById('title').textContent = this.getAttribute('title');
+        }
+        if (this.hasAttribute('subtitle')) {
+            this.shadowRoot.getElementById('subtitle').textContent = this.getAttribute('subtitle');
+        }
     }
 
     getTitle() {
-        const slot = this.shadowRoot.querySelector('slot[name="title-slot"]');
+        const slot = this.shadowRoot.querySelector('#title');
 
-        const nodes = slot.assignedNodes();
-
-        nodes.forEach((element) => {
-            this.sendTitle(element);
-        });
+        this.sendTitle(slot);
+        console.log(slot.textContent);
     }
 
     sendTitle(element) {

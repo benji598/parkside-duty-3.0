@@ -10,7 +10,7 @@ SlideUpModalTemplate.innerHTML = /*html*/ `
         width: 100%;
         left: 0;
         border-radius: 2rem 2rem 0 0;
-        transition: all 0.6s ease-in-out;
+        transition: all 0.35s ease-in-out;
         z-index: 2;
     }
 
@@ -21,7 +21,7 @@ SlideUpModalTemplate.innerHTML = /*html*/ `
 
     .cancel-btn {
         background-color: #dc3545;
-        padding: 1rem 0rem;
+
         grid-column: span 2;
 
         &:active {
@@ -70,11 +70,10 @@ SlideUpModalTemplate.innerHTML = /*html*/ `
         align-items: center;
         border: 2px solid white;
         fill: white;
-        padding: 0.5rem 0rem;
+        padding: 1rem 0rem;
         border: 2px solid white;
         gap: 0.8rem;
         color: white;
-        letter-spacing: 1px;
         cursor: pointer;
         border-radius: var(--btn-radius)
     }
@@ -90,7 +89,6 @@ SlideUpModalTemplate.innerHTML = /*html*/ `
     .whatsapp-cover-btn {
         background-color: rgb(255, 255, 255, 0);
         border: 2px solid black;
-        border-radius: 1rem;
         color: black;
         padding: 0.8rem 0rem;
         cursor: pointer;
@@ -132,102 +130,108 @@ SlideUpModalTemplate.innerHTML = /*html*/ `
 `;
 
 class SlideUpModal extends HTMLElement {
-  constructor() {
-    super();
+    constructor() {
+        super();
+        this.pageTitle;
 
-    this.attachShadow({
-      mode: 'open',
-    });
-    this.shadowRoot.appendChild(SlideUpModalTemplate.content.cloneNode(true));
-  }
+        this.attachShadow({
+            mode: 'open',
+        });
+        this.shadowRoot.appendChild(SlideUpModalTemplate.content.cloneNode(true));
+    }
 
-  connectedCallback() {
-    this.popUp = this.shadowRoot.querySelector('.slide-pop-up');
-    this.whatsapp = this.shadowRoot.querySelector('.whatsapp-btn');
-    this.find = this.shadowRoot.querySelector('.whatsapp-cover-btn');
-    this.sms = this.shadowRoot.querySelector('.sms-btn');
-    this.smsCover = this.shadowRoot.querySelector('.sms-cover-btn');
-    this.cancelBtn = this.shadowRoot.querySelector('.cancel-btn');
-    this.overlay = this.shadowRoot.querySelector('.overlay');
-    this.popUpName = this.shadowRoot.querySelector('.pop-up-title');
+    connectedCallback() {
+        this.popUp = this.shadowRoot.querySelector('.slide-pop-up');
+        this.whatsapp = this.shadowRoot.querySelector('.whatsapp-btn');
+        this.find = this.shadowRoot.querySelector('.whatsapp-cover-btn');
+        this.sms = this.shadowRoot.querySelector('.sms-btn');
+        this.smsCover = this.shadowRoot.querySelector('.sms-cover-btn');
+        this.cancelBtn = this.shadowRoot.querySelector('.cancel-btn');
+        this.overlay = this.shadowRoot.querySelector('.overlay');
+        this.popUpName = this.shadowRoot.querySelector('.pop-up-title');
 
-    document.addEventListener('open-modal', (el) => this.openSlideUpModal(el));
-  }
+        document.addEventListener('page-title', (title) => {
+            this.pageTitle = title.detail;
+        });
 
-  openSlideUpModal(el) {
-    console.log(el.detail);
-    this.popUp.classList.add('open');
-    this.overlay.classList.add('dark');
-    this.btnOption(el);
-  }
+        document.addEventListener('open-modal', (el) => this.openSlideUpModal(el));
+    }
 
-  closePopUp() {
-    this.popUp.classList.remove('open');
-    this.overlay.classList.remove('dark');
-  }
+    openSlideUpModal(el) {
+        console.log(el.detail);
+        this.popUp.classList.add('open');
+        this.overlay.classList.add('dark');
+        this.btnOption(el);
+        console.log(el);
+    }
 
-  btnOption(el) {
-    this.find.addEventListener('click', () => {
-      this.findCover(el);
-      this.closePopUp();
-    });
+    closePopUp() {
+        this.popUp.classList.remove('open');
+        this.overlay.classList.remove('dark');
+    }
 
-    this.whatsapp.addEventListener('click', () => {
-      this.whatsApp(el);
-      this.closePopUp();
-    });
+    btnOption(el) {
+        this.find.addEventListener('click', () => {
+            this.findCover(el);
+            this.closePopUp();
+        });
 
-    this.sms.addEventListener('click', () => {
-      this.sms(el);
-      this.closePopUp();
-    });
+        this.whatsapp.addEventListener('click', () => {
+            this.whatsApp(el);
+            this.closePopUp();
+        });
 
-    this.smsCover.addEventListener('click', () => {
-      this.smsCover(el);
-      this.closePopUp();
-    });
+        this.sms.addEventListener('click', () => {
+            this.sms(el);
+            this.closePopUp();
+        });
 
-    this.cancelBtn.addEventListener('click', () => {
-      console.assert('clicked');
-      this.closePopUp();
-    });
+        this.smsCover.addEventListener('click', () => {
+            this.smsCover(el);
+            this.closePopUp();
+        });
 
-    this.overlay.addEventListener('click', () => {
-      this.closePopUp();
-    });
-  }
+        this.cancelBtn.addEventListener('click', () => {
+            console.assert('clicked');
+            this.closePopUp();
+        });
 
-  sms(el) {
-    window.location.assign(
-      `sms:${el.number}?&body=Reminder!%0aHello ${
-        el.firstName
-      }, You are scheduled for %0a${pageTitle} on ${dayOfWeek()}, Please let me know if you can NOT cover the duty. Thanks.`
-    );
-  }
+        this.overlay.addEventListener('click', () => {
+            this.closePopUp();
+        });
+    }
 
-  smsCover(el) {
-    window.location.assign(
-      `sms:${el.number}?&body=Cover Needed!%0aHello ${
-        el.firstName
-      }, Would you be available to cover ${pageTitle} on ${dayOfWeek()}, Please let me know if you are able to stand in. Thanks.`
-    );
-  }
+    sms(el) {
+        window.location.assign(
+            `sms:${el.number}?&body=Reminder!%0aHello ${el.firstName}, You are scheduled for %0a${
+this.pageTitle
+} on ${dayOfWeek()}, Please let me know if you can NOT cover the duty. Thanks.`
+        );
+    }
 
-  whatsApp(el) {
-    window.location.assign(
-      `whatsapp://send?phone= ${el.number} &text=*Reminder!*%0aHello ${
-        el.firstName
-      }, You are scheduled for %0a*${pageTitle}* on *${dayOfWeek()}*, Please let me know if you can *NOT* cover the duty. Thanks.`
-    );
-  }
+    smsCover(el) {
+        window.location.assign(
+            `sms:${el.number}?&body=Cover Needed!%0aHello ${el.firstName}, Would you be available to cover ${
+this.pageTitle
+} on ${dayOfWeek()}, Please let me know if you are able to stand in. Thanks.`
+        );
+    }
 
-  findCover(el) {
-    window.location.assign(
-      `whatsapp://send?phone= ${el.number} &text=*Cover Needed!*%0aHello ${
-        el.firstName
-      }, Would you be available to cover *${pageTitle}* on *${dayOfWeek()}*, Please let me know if you are able to stand in. Thanks.`
-    );
-  }
+    whatsApp(el) {
+        window.location.assign(
+            `whatsapp://send?phone= ${el.number} &text=*Reminder!*%0aHello ${el.firstName}, You are scheduled for %0a*${
+this.pageTitle
+}* on *${dayOfWeek()}*, Please let me know if you can *NOT* cover the duty. Thanks.`
+        );
+    }
+
+    findCover(el) {
+        window.location.assign(
+            `whatsapp://send?phone= ${el.number} &text=*Cover Needed!*%0aHello ${el.firstName}, Would you be available to cover *${
+this.pageTitle
+}* on *${dayOfWeek()}*, Please let me know if you are able to stand in. Thanks.`
+        );
+    }
 }
 
 customElements.define('slideup-modal', SlideUpModal);

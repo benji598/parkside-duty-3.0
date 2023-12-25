@@ -27,16 +27,10 @@ $phone = $_SESSION['phone'];
     <!-- <meta name="view-transition" content="same-origin" /> -->
 
     <!-- material icons -->
-    <link rel="preload" href="/icons/MaterialIcons-Regular.woff2" as="font" type="font/woff2" crossorigin />
+    <!-- <link rel="preload" href="/icons/MaterialIcons-Regular.woff2" as="font" type="font/woff2" crossorigin /> -->
 
     <style>
-      @font-face {
-        font-family: 'Material Icons';
-        src: url(/icons/MaterialIcons-Regular.woff2) format('woff2');
-        font-style: normal;
-        font-weight: 400;
-        font-display: block;
-      }
+    
 
       body {
         font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans',

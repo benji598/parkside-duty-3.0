@@ -1,6 +1,6 @@
-<link rel="stylesheet" href="/css/hp.css" rel="prefetch" />
-    <link rel="stylesheet" href="/css/global.css" rel="prefetch" />
-    <link rel="stylesheet" href="/css/tables.css" rel="prefetch" />
+<!DOCTYPE html>
+<html lang="en">
+  <head>
     <!-- <meta name="view-transition" content="same-origin" /> -->
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -8,21 +8,37 @@
     <title>Park Side</title>
     <meta name="description" content="New Parkside duty app" />
 
-    <script src="/components/duty-btn.js" defer></script>
-    <script src="/components/circle-icon-btn.js" defer></script>
-    <script src="/components/nav.js" defer></script>
-    <script src="/components/header-info.js" defer></script>
+    <link rel="stylesheet" href="/css/hp.css" rel="preload" />
+    <link rel="stylesheet" href="/css/tables.css" rel="preload" />
+
+    <!-- Preload the stylesheets -->
+    <link rel="preload" href="/css/global.css" as="style" />
+
+    <!-- Apply the stylesheets -->
+    <link rel="stylesheet" href="/css/global.css" />
+
+    <script src="components/header-info.js" defer></script>
+    <script src="components/grid-layout.js" defer></script>
+    <script src="components/duty-btn.js" defer></script>
+
+    <script src="icons/chairman-icon.js" defer></script>
+    <script src="icons/platform-icon.js" defer></script>
+    <script src="icons/entrance-attendant-icon.js" defer></script>
+    <script src="icons/auditorium-attendant-icon.js" defer></script>
+    <script src="icons/zoom-attendant-icon.js" defer></script>
+    <script src="icons/sound-box-icon.js" defer></script>
+    <script src="icons/bs-reader-icon.js" defer></script>
+    <script src="icons/wt-reader-icon.js" defer></script>
+    <script src="icons/roving-mic-icon.js" defer></script>
+    <script src="icons/hall-cleaning-icon.js" defer></script>
+
+    <script src="icons/duties-icon.js" defer></script>
+    <script src="icons/rota-icon.js" defer></script>
+    <script src="icons/counter-icon.js" defer></script>
+    <script src="components/nav.js" defer></script>
   </head>
-    <!-- material icons -->
-    <link rel="preload" href="/icons/MaterialIcons-Regular.woff2" as="font" type="font/woff2" crossorigin />
+
     <style>
-      @font-face {
-        font-family: 'Material Icons';
-        src: url(/icons/MaterialIcons-Regular.woff2) format('woff2');
-        font-style: normal;
-        font-weight: 400;
-        font-display: block;
-      }
 
       body {
         font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans',

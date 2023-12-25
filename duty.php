@@ -58,11 +58,13 @@ $stmt->close();
 </head>
 <body>
 
-<header-info>
+<header-info title="<?php echo htmlspecialchars($duty_name); ?>" subtitle="Choose a Duty"></header-info>
+
+<!-- <header-info>
     <div slot="subtitle-slot">
         <h1><?php echo htmlspecialchars($duty_name); ?> Duties</h1>
     </div>
-</header-info>
+</header-info> -->
 
 <main class="container overflow">
     <div class="hp-btn-container">
