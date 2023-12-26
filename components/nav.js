@@ -49,20 +49,34 @@ navTemplate.innerHTML = /*html*/ `
         <counter-icon></counter-icon>
         <small>Counter</small>
     </a>
+
+    <div>
+        <!-- <a href="#"> -->
+        <?php if (!$isAdmin) { ?>
+        <!-- Logout Button -->
+        <form action="splash.php" method="post">
+            <button type="submit" name="logout" class="button">Admin Login</button>
+            <login-icon></login-icon>
+            <small>Login</small>
+        </form>
+        <?php } ?>
+
+        <!-- </a> -->
+    </div>
 </div>
 
 
 `;
 
 class Nav extends HTMLElement {
-  constructor() {
-    super();
+    constructor() {
+        super();
 
-    this.attachShadow({
-      mode: 'open',
-    });
-    this.shadowRoot.appendChild(navTemplate.content.cloneNode(true));
-  }
+        this.attachShadow({
+            mode: 'open',
+        });
+        this.shadowRoot.appendChild(navTemplate.content.cloneNode(true));
+    }
 }
 
 customElements.define('nav-bar', Nav);

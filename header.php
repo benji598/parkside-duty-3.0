@@ -17,28 +17,30 @@
     <!-- Apply the stylesheets -->
     <link rel="stylesheet" href="/css/global.css" />
 
-    <script src="components/filterbrothers-data.js" defer></script>
-    <script src="components/send-options-content.js" defer></script>
+    <!-- <script src="components/filterbrothers-data.js" defer></script> -->
     <script src="components/slide-up-modal.js" defer></script>
     <script src="components/header-info.js" defer></script>
     <script src="components/grid-layout.js" defer></script>
     <script src="components/duty-btn.js" defer></script>
+    <script src="components/send-options-content.js" defer></script>
 
-    <script src="icons/chairman-icon.js" defer></script>
-    <script src="icons/platform-icon.js" defer></script>
-    <script src="icons/entrance-attendant-icon.js" defer></script>
-    <script src="icons/auditorium-attendant-icon.js" defer></script>
-    <script src="icons/zoom-attendant-icon.js" defer></script>
-    <script src="icons/sound-box-icon.js" defer></script>
-    <script src="icons/bs-reader-icon.js" defer></script>
-    <script src="icons/wt-reader-icon.js" defer></script>
-    <script src="icons/roving-mic-icon.js" defer></script>
-    <script src="icons/hall-cleaning-icon.js" defer></script>
-  
-
-    <script src="icons/duties-icon.js" defer></script>
-    <script src="icons/rota-icon.js" defer></script>
-    <script src="icons/counter-icon.js" defer></script>
+    <script src="icon/chairman-icon.js" defer></script>
+    <script src="icon/platform-icon.js" defer></script>
+    <script src="icon/entrance-attendant-icon.js" defer></script>
+    <script src="icon/auditorium-attendant-icon.js" defer></script>
+    <script src="icon/zoom-attendant-icon.js" defer></script>
+    <script src="icon/sound-box-icon.js" defer></script>
+    <script src="icon/bs-reader-icon.js" defer></script>
+    <script src="icon/wt-reader-icon.js" defer></script>
+    <script src="icon/roving-mic-icon.js" defer></script>
+    <script src="icon/hall-cleaning-icon.js" defer></script>
+    <script src="icon/send-icon.js" defer></script>
+    
+    
+    <script src="icon/duties-icon.js" defer></script>
+    <script src="icon/rota-icon.js" defer></script>
+    <script src="icon/counter-icon.js" defer></script>
+    <script src="icon/login-icon.js" defer></script>
     <script src="components/nav.js" defer></script>
     <style>
 

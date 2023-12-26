@@ -2,42 +2,6 @@ const SendOptionsTemplate = document.createElement('template');
 SendOptionsTemplate.innerHTML = /*html*/ `
 
 <style>
-    /* .slide-pop-up {
-        position: absolute;
-        bottom: 0;
-        height: 0;
-        background-color: var(--baby-blue);
-        width: 100%;
-        left: 0;
-        border-radius: 2rem 2rem 0 0;
-        transition: all 0.35s ease-in-out;
-        z-index: 2;
-    }
-
-    .open {
-        bottom: 0px;
-        height: 320px;
-    }
-
-    .dark {
-        position: absolute;
-        top: 0;
-        background-color: rgba(0, 0, 0, 0.4);
-        backdrop-filter: blur(4px);
-        -webkit-backdrop-filter: blur(4px);
-        position: absolute;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: 1;
-    } */
-
-    /* 
-    .overlay {
-        position: absolute;
-        transition: all 0.4s ease;
-    } */
-
     .cancel-btn {
         background-color: #dc3545;
 
@@ -153,53 +117,47 @@ class SendOptions extends HTMLElement {
             this.pageTitle = title.detail;
         });
 
-        // document.addEventListener('open-modal', (el) => {
-        // console.log('recieved', el);
-        // this.openSlideUpModal(el);
-        // });
+        this.cancelButton();
     }
 
-    // openSlideUpModal(el) {
-    // console.log(el.detail);
-    // this.popUp.classList.add('open');
-    // this.overlay.classList.add('dark');
-    // this.btnOption(el);
-    // console.log(el);
-    // }
-
-    // closePopUp() {
-    // this.popUp.classList.remove('open');
-    // this.overlay.classList.remove('dark');
-    // }
+    closeModal() {
+        this.dispatchEvent(
+            new CustomEvent('close-modal', {
+                bubbles: true,
+                composed: true,
+            })
+        );
+    }
 
     btnOption(el) {
         this.find.addEventListener('click', () => {
             this.findCover(el);
-            this.closePopUp();
+            this.closeModal();
         });
 
         this.whatsapp.addEventListener('click', () => {
             this.whatsApp(el);
-            this.closePopUp();
+            this.closeModal();
         });
 
         this.sms.addEventListener('click', () => {
             this.sms(el);
-            this.closePopUp();
+            this.closeModal();
         });
 
         this.smsCover.addEventListener('click', () => {
             this.smsCover(el);
-            this.closePopUp();
-        });
-
-        this.cancelBtn.addEventListener('click', () => {
-            console.assert('clicked');
-            this.closePopUp();
+            this.closeModal();
         });
 
         this.overlay.addEventListener('click', () => {
-            this.closePopUp();
+            this.closeModal();
+        });
+    }
+
+    cancelButton() {
+        this.cancelBtn.addEventListener('click', () => {
+            this.closeModal();
         });
     }
 

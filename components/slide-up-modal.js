@@ -10,7 +10,7 @@ SlideUpModalTemplate.innerHTML = /*html*/ `
         width: 100%;
         left: 0;
         border-radius: 2rem 2rem 0 0;
-        transition: all 1s ease;
+        transition: all 0.35s ease-in-out;
         z-index: 2;
     }
 
@@ -32,6 +32,11 @@ SlideUpModalTemplate.innerHTML = /*html*/ `
         z-index: 1;
     }
 
+    .overlay {
+        position: absolute;
+        transition: all 0.35s ease;
+    }
+
     .cancel-btn {
         background-color: #dc3545;
 
@@ -40,11 +45,6 @@ SlideUpModalTemplate.innerHTML = /*html*/ `
         &:active {
             background-color: #ae2d3a;
         }
-    }
-
-    .overlay {
-        position: absolute;
-        transition: all 0.4s ease;
     }
 </style>
 
@@ -56,109 +56,54 @@ SlideUpModalTemplate.innerHTML = /*html*/ `
 `;
 
 class SlideUpModal extends HTMLElement {
-  constructor() {
-    super();
-    this.pageTitle;
+    constructor() {
+        super();
+        this.pageTitle;
 
-    this.attachShadow({
-      mode: 'open',
-    });
-    this.shadowRoot.appendChild(SlideUpModalTemplate.content.cloneNode(true));
-  }
+        this.attachShadow({
+            mode: 'open',
+        });
+        this.shadowRoot.appendChild(SlideUpModalTemplate.content.cloneNode(true));
+    }
 
-  connectedCallback() {
-    this.popUp = this.shadowRoot.querySelector('.slide-pop-up');
-    this.overlay = this.shadowRoot.querySelector('.overlay');
+    connectedCallback() {
+        this.popUp = this.shadowRoot.querySelector('.slide-pop-up');
+        this.overlay = this.shadowRoot.querySelector('.overlay');
 
-    document.addEventListener('open-modal', (el) => {
-      console.log('received', el);
-      this.openSlideUpModal(el);
-    });
-    this.getContent();
-  }
+        this.getContent();
 
-  openSlideUpModal(el) {
-    // console.log(el.detail);
-    this.popUp.classList.add('open');
-    this.overlay.classList.add('dark');
-    // this.btnOption(el);
-    console.log(el);
-  }
+        document.addEventListener('open-modal', (el) => {
+            console.log('received', el);
+            this.openSlideUpModal(el);
+        });
 
-  closePopUp() {
-    this.popUp.classList.remove('open');
-    this.overlay.classList.remove('dark');
-  }
+        document.addEventListener('close-modal', () => {
+            this.closeSlideUpModal();
+        });
+    }
 
-  getContent() {
-    const modalContent = this.getAttribute('content');
-    console.log('modal content', modalContent);
+    disconnectedCallback() {
+        // Remove event listeners
+        document.removeEventListener('open-modal', this.openSlideUpModal);
+        document.removeEventListener('close-modal', this.closeSlideUpModal);
+    }
 
-    this.shadowRoot.querySelector('.modal-content').innerHTML = modalContent;
-  }
+    openSlideUpModal() {
+        this.popUp.classList.add('open');
+        this.overlay.classList.add('dark');
+    }
 
-  // btnOption(el) {
-  // this.find.addEventListener('click', () => {
-  // this.findCover(el);
-  // this.closePopUp();
-  // });
+    closeSlideUpModal() {
+        this.popUp.classList.remove('open');
+        this.overlay.classList.remove('dark');
+    }
 
-  // this.whatsapp.addEventListener('click', () => {
-  // this.whatsApp(el);
-  // this.closePopUp();
-  // });
+    getContent() {
+        const modalContent = this.getAttribute('content');
+        console.log('modal content', modalContent);
 
-  // this.sms.addEventListener('click', () => {
-  // this.sms(el);
-  // this.closePopUp();
-  // });
-
-  // this.smsCover.addEventListener('click', () => {
-  // this.smsCover(el);
-  // this.closePopUp();
-  // });
-
-  // this.cancelBtn.addEventListener('click', () => {
-  // console.assert('clicked');
-  // this.closePopUp();
-  // });
-
-  // this.overlay.addEventListener('click', () => {
-  // this.closePopUp();
-  // });
-  // }
-
-  // sms(el) {
-  // window.location.assign(
-  // `sms:${el.number}?&body=Reminder!%0aHello ${el.firstName}, You are scheduled for %0a${
-  // this.pageTitle
-  // } on ${dayOfWeek()}, Please let me know if you can NOT cover the duty. Thanks.`
-  // );
-  // }
-
-  // smsCover(el) {
-  // window.location.assign(
-  // `sms:${el.number}?&body=Cover Needed!%0aHello ${el.firstName}, Would you be available to cover ${
-  // this.pageTitle
-  // } on ${dayOfWeek()}, Please let me know if you are able to stand in. Thanks.`
-  // );
-  // }
-
-  // whatsApp(el) {
-  // window.location.assign(
-  // `whatsapp://send?phone= ${el.number} &text=*Reminder!*%0aHello ${el.firstName}, You are scheduled for %0a*${
-  // this.pageTitle
-  // }* on *${dayOfWeek()}*, Please let me know if you can *NOT* cover the duty. Thanks.`
-  // );
-  // }
-
-  // findCover(el) {
-  // window.location.assign(
-  // `whatsapp://send?phone= ${el.number} &text=*Cover Needed!*%0aHello ${el.firstName}, Would you be available to cover *${
-  // this.pageTitle
-  // }* on *${dayOfWeek()}*, Please let me know if you are able to stand in. Thanks.`
-  // );
-  // }
+        this.shadowRoot.querySelector('.modal-content').innerHTML = modalContent;
+    }
 }
 
 customElements.define('slideup-modal', SlideUpModal);
