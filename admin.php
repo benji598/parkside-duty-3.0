@@ -37,7 +37,7 @@ $result_sub_users = $conn->query("
             <div slot="title-slot">Admin Management</div>
             <div slot="subtitle-slot"></div>
         </header-info>
-        
+
         <div class="account-container">
             <h2>Manage Duty Types</h2>
             <table>
@@ -213,6 +213,8 @@ function deleteSubUser(subUserId) {
         // Get URL parameters
         var params = new URLSearchParams(window.location.search);
         var editedUserId = params.get('edited');
+
+        console.log(editedUserId)
 
         if (editedUserId) {
             if (editedUserId === '99999') {

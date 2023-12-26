@@ -17,6 +17,9 @@
     <!-- Apply the stylesheets -->
     <link rel="stylesheet" href="/css/global.css" />
 
+    <script src="components/filterbrothers-data.js" defer></script>
+    <script src="components/send-options-content.js" defer></script>
+    <script src="components/slide-up-modal.js" defer></script>
     <script src="components/header-info.js" defer></script>
     <script src="components/grid-layout.js" defer></script>
     <script src="components/duty-btn.js" defer></script>
@@ -31,13 +34,12 @@
     <script src="icons/wt-reader-icon.js" defer></script>
     <script src="icons/roving-mic-icon.js" defer></script>
     <script src="icons/hall-cleaning-icon.js" defer></script>
+  
 
     <script src="icons/duties-icon.js" defer></script>
     <script src="icons/rota-icon.js" defer></script>
     <script src="icons/counter-icon.js" defer></script>
     <script src="components/nav.js" defer></script>
-  </head>
-
     <style>
 
       body {
@@ -45,6 +47,8 @@
           'Helvetica Neue', sans-serif;
       }
     </style>
+  </head>
+
 
 <?php if (!isset($_SESSION)) { session_start(); } ?>
 

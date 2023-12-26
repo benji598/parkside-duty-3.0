@@ -59,13 +59,9 @@ $stmt->close();
 <body>
 
 <header-info title="<?php echo htmlspecialchars($duty_name); ?>" subtitle="Choose a Duty"></header-info>
-
-<!-- <header-info>
-    <div slot="subtitle-slot">
-        <h1><?php echo htmlspecialchars($duty_name); ?> Duties</h1>
-    </div>
-</header-info> -->
-
+<filtered-data></filtered-data>
+<!-- <send-options></send-options> -->
+<slideup-modal content="<send-options></send-options>"></slideup-modal>
 <main class="container overflow">
     <div class="hp-btn-container">
     <table>
@@ -80,6 +76,8 @@ $stmt->close();
                     <td><?php echo htmlspecialchars($sub_user['firstname']); ?></td>
                     <td><?php echo htmlspecialchars($sub_user['lastname']); ?></td>
                     <td><?php echo htmlspecialchars($sub_user['phone']); ?></td>
+                    
+                    <!-- delete button -->
                     <?php if ($isAdmin) { ?> <td>
                         <form method="post" onsubmit="return confirm('Are you sure?');">
                             <input type="hidden" name="sub_user_id" value="<?php echo $sub_user['sub_user_id']; ?>">
@@ -92,6 +90,7 @@ $stmt->close();
         </table>
     </div>
 </main>
+
 
 </body>
 </html>

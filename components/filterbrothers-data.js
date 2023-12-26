@@ -53,6 +53,10 @@ class BrothersData extends HTMLElement {
         this.filterBroData();
     }
 
+    // disconnectedCallback() {
+    // document.removeEventListener('page-title', this.pageTitleListener);
+    // }
+
     openSlideUpModal(el) {
         this.dispatchEvent(
             new CustomEvent('open-modal', {
@@ -77,14 +81,14 @@ class BrothersData extends HTMLElement {
 
     addToDom(el, i) {
         const insertCode = this.shadowRoot.querySelector('#data');
+        console.log(el);
 
         const html = `<div class="name-holder">${el.firstName} ${el.lastName}</div>
 <duty-button class="sender-btn-${i + 1}" title="" subtitle="" icon="<send-icon></send-icon>"></duty-button>
-
 `;
-
         insertCode.insertAdjacentHTML('beforeend', html);
         insertCode.querySelector(`.sender-btn-${i + 1}`).addEventListener('click', () => {
+            console.log(el);
             this.openSlideUpModal(el);
         });
     }
