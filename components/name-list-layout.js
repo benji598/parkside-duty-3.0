@@ -7,20 +7,21 @@ NameListLayoutTemplate.innerHTML = /*html*/ `
         gap: 1rem;
         padding-left: 1rem;
         padding-right: 1rem;
+        overflow: auto;
     }
 </style>
 <slot></slot>
 `;
 
 class NameListLayout extends HTMLElement {
-    constructor() {
-        super();
+  constructor() {
+    super();
 
-        this.attachShadow({
-            mode: 'open',
-        });
-        this.shadowRoot.appendChild(NameListLayoutTemplate.content.cloneNode(true));
-    }
+    this.attachShadow({
+      mode: 'open',
+    });
+    this.shadowRoot.appendChild(NameListLayoutTemplate.content.cloneNode(true));
+  }
 }
 
 customElements.define('name-list-layout', NameListLayout);
