@@ -4,7 +4,7 @@ NameListLayoutTemplate.innerHTML = /*html*/ `
     :host {
         display: grid;
         grid-template-columns: auto 35%;
-        gap: 1rem;
+        gap: 0.7rem;
         padding-left: 1rem;
         padding-right: 1rem;
         overflow: auto;

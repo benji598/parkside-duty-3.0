@@ -72,12 +72,12 @@ $stmt->close();
                 <?php echo htmlspecialchars($sub_user['firstname']); ?> 
                 <?php echo htmlspecialchars($sub_user['lastname']); ?>">
         </name-holder>
-
         <send-button firstName="<?php echo htmlspecialchars($sub_user['firstname']); ?>"
             lastName="<?php echo htmlspecialchars($sub_user['lastname']); ?>"
             dutyName="<?php echo htmlspecialchars($duty_name); ?>"
             number="<?php echo htmlspecialchars($sub_user['phone']); ?>" icon="<send-icon></send-icon>">
         </send-button>
+
         <?php endwhile; ?>
     </name-list-layout>
 

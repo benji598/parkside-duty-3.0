@@ -56,53 +56,53 @@ SlideUpModalTemplate.innerHTML = /*html*/ `
 `;
 
 class SlideUpModal extends HTMLElement {
-    constructor() {
-        super();
-        this.pageTitle;
+  constructor() {
+    super();
+    this.pageTitle;
 
-        this.attachShadow({
-            mode: 'open',
-        });
-        this.shadowRoot.appendChild(SlideUpModalTemplate.content.cloneNode(true));
-    }
+    this.attachShadow({
+      mode: 'open',
+    });
+    this.shadowRoot.appendChild(SlideUpModalTemplate.content.cloneNode(true));
+  }
 
-    connectedCallback() {
-        this.popUp = this.shadowRoot.querySelector('.slide-pop-up');
-        this.overlay = this.shadowRoot.querySelector('.overlay');
+  connectedCallback() {
+    this.popUp = this.shadowRoot.querySelector('.slide-pop-up');
+    this.overlay = this.shadowRoot.querySelector('.overlay');
 
-        this.getContent();
+    this.getContent();
 
-        document.addEventListener('open-modal', (el) => {
-            this.openSlideUpModal(el);
-        });
+    document.addEventListener('open-modal', (el) => {
+      this.openSlideUpModal(el);
+    });
 
-        document.addEventListener('close-modal', () => {
-            this.closeSlideUpModal();
-        });
-    }
+    document.addEventListener('close-modal', () => {
+      this.closeSlideUpModal();
+    });
+  }
 
-    disconnectedCallback() {
-        // Remove event listeners
-        document.removeEventListener('open-modal', this.openSlideUpModal);
-        document.removeEventListener('close-modal', this.closeSlideUpModal);
-    }
+  disconnectedCallback() {
+    // Remove event listeners
+    document.removeEventListener('open-modal', this.openSlideUpModal);
+    document.removeEventListener('close-modal', this.closeSlideUpModal);
+  }
 
-    openSlideUpModal(obj) {
-        this.popUp.classList.add('open');
-        this.overlay.classList.add('dark');
-    }
+  openSlideUpModal(obj) {
+    this.popUp.classList.add('open');
+    this.overlay.classList.add('dark');
+  }
 
-    closeSlideUpModal() {
-        this.popUp.classList.remove('open');
-        this.overlay.classList.remove('dark');
-    }
+  closeSlideUpModal() {
+    this.popUp.classList.remove('open');
+    this.overlay.classList.remove('dark');
+  }
 
-    getContent() {
-        const modalContent = this.getAttribute('content');
-        console.log('modal content', modalContent);
+  getContent() {
+    const modalContent = this.getAttribute('content');
+    console.log('modal content', modalContent);
 
-        this.shadowRoot.querySelector('.modal-content').innerHTML = modalContent;
-    }
+    this.shadowRoot.querySelector('.modal-content').innerHTML = modalContent;
+  }
 }
 
 customElements.define('slideup-modal', SlideUpModal);

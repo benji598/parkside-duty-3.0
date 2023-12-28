@@ -2,11 +2,14 @@ const NameHolderTemplate = document.createElement('template');
 NameHolderTemplate.innerHTML = /*html*/ `
 
 <style>
-    .names-holder {
-        display: grid;
-        grid-template-columns: auto 35%;
+    .name-holder {
+        display: flex;
+        align-items: center;
+        padding-left: 1rem;
+        height: 100%;
         gap: 0.5rem;
-        padding-bottom: 0.5rem;
+        border-radius: var(--btn-radius);
+        background-color: var(--baby-blue);
     }
 </style>
 
