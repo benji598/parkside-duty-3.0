@@ -107,8 +107,8 @@ class SendOptions extends HTMLElement {
         this.popUp = this.shadowRoot.querySelector('.slide-pop-up');
         this.whatsapp = this.shadowRoot.querySelector('.whatsapp-btn');
         this.find = this.shadowRoot.querySelector('.whatsapp-cover-btn');
-        this.sms = this.shadowRoot.querySelector('.sms-btn');
-        this.smsCover = this.shadowRoot.querySelector('.sms-cover-btn');
+        this.smsBtn = this.shadowRoot.querySelector('.sms-btn');
+        this.smsCoverBtn = this.shadowRoot.querySelector('.sms-cover-btn');
         this.cancelBtn = this.shadowRoot.querySelector('.cancel-btn');
         this.overlay = this.shadowRoot.querySelector('.overlay');
         this.popUpName = this.shadowRoot.querySelector('.pop-up-title');
@@ -134,9 +134,8 @@ class SendOptions extends HTMLElement {
     }
 
     btnOption(obj) {
-        console.log(obj.detail.number);
         this.find.addEventListener('click', () => {
-            // this.findCover(el);
+            this.findCover(obj);
             // this.closeModal();
         });
 
@@ -145,13 +144,13 @@ class SendOptions extends HTMLElement {
             this.closeModal();
         });
 
-        this.sms.addEventListener('click', () => {
-            this.sms(el);
+        this.smsBtn.addEventListener('click', () => {
+            this.sms(obj);
             this.closeModal();
         });
 
-        this.smsCover.addEventListener('click', () => {
-            this.smsCover(el);
+        this.smsCoverBtn.addEventListener('click', () => {
+            this.smsCover(obj);
             this.closeModal();
         });
 
@@ -166,19 +165,16 @@ class SendOptions extends HTMLElement {
         });
     }
 
-    sms(el) {
+    sms(obj) {
         window.location.assign(
-            `sms:${el.number}?&body=Reminder!%0aHello ${el.firstName}, You are scheduled for %0a${
-this.pageTitle
-} on ${dayOfWeek()}, Please let me know if you can NOT cover the duty. Thanks.`
+            `sms:${obj.detail.number}?&body=Reminder!%0aHello ${obj.detail.firstName},
+You are scheduled for %0a${obj.detail.dutyName} on Sunday, Please let me know if you can NOT cover the duty. Thanks.`
         );
     }
 
-    smsCover(el) {
+    smsCover(obj) {
         window.location.assign(
-            `sms:${el.number}?&body=Cover Needed!%0aHello ${el.firstName}, Would you be available to cover ${
-this.pageTitle
-} on ${dayOfWeek()}, Please let me know if you are able to stand in. Thanks.`
+            `sms:${obj.detail.number}?&body=Cover Needed!%0aHello ${obj.detail.firstName}, Would you be available to cover ${obj.detail.dutyName} on Sunday, Please let me know if you are able to stand in. Thanks.`
         );
     }
 
@@ -188,11 +184,9 @@ this.pageTitle
         );
     }
 
-    findCover(el) {
+    findCover(obj) {
         window.location.assign(
-            `whatsapp://send?phone= ${el.number} &text=*Cover Needed!*%0aHello ${el.firstName}, Would you be available to cover *${
-this.pageTitle
-}* on *${dayOfWeek()}*, Please let me know if you are able to stand in. Thanks.`
+            `whatsapp://send?phone= ${obj.detail.number} &text=*Cover Needed!*%0aHello ${obj.detail.firstName}, Would you be available to cover *${obj.detail.dutyName}* on *Sunday*, Please let me know if you are able to stand in. Thanks.`
         );
     }
 }
