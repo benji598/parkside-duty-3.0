@@ -45,8 +45,7 @@ $duty_name = $duty['name'];
 $stmt->close();
 ?>
 
-<filtered-data></filtered-data>
-<slideup-modal content="<send-options></send-options>"></slideup-modal>
+
 
 <!-- <!DOCTYPE html>
 <html lang="en"> -->
@@ -119,7 +118,8 @@ $stmt->close();
     </div>-->
     <!-- </main> -->
 
-
+    <filtered-data></filtered-data>
+    <slideup-modal content="<send-options></send-options>"></slideup-modal>
     <nav-bar></nav-bar>
 </body>
 

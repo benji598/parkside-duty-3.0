@@ -72,7 +72,10 @@ SendOptionsTemplate.innerHTML = /*html*/ `
     }
 </style>
 
-<div class="pop-up-title">Send Reminder to</div>
+<div class="pop-up-title">
+    Send Reminder to <div class="pop-up-name"></div>
+</div>
+
 <div class="btn-container">
     <button class="sms-btn btn">
         <sms-icon></sms-icon>
@@ -93,102 +96,103 @@ SendOptionsTemplate.innerHTML = /*html*/ `
 `;
 
 class SendOptions extends HTMLElement {
-    constructor() {
-        super();
-        this.pageTitle;
+  constructor() {
+    super();
+    this.pageTitle;
 
-        this.attachShadow({
-            mode: 'open',
-        });
-        this.shadowRoot.appendChild(SendOptionsTemplate.content.cloneNode(true));
-    }
+    this.attachShadow({
+      mode: 'open',
+    });
+    this.shadowRoot.appendChild(SendOptionsTemplate.content.cloneNode(true));
+  }
 
-    connectedCallback() {
-        this.popUp = this.shadowRoot.querySelector('.slide-pop-up');
-        this.whatsapp = this.shadowRoot.querySelector('.whatsapp-btn');
-        this.find = this.shadowRoot.querySelector('.whatsapp-cover-btn');
-        this.smsBtn = this.shadowRoot.querySelector('.sms-btn');
-        this.smsCoverBtn = this.shadowRoot.querySelector('.sms-cover-btn');
-        this.cancelBtn = this.shadowRoot.querySelector('.cancel-btn');
-        this.overlay = this.shadowRoot.querySelector('.overlay');
-        this.popUpName = this.shadowRoot.querySelector('.pop-up-title');
+  connectedCallback() {
+    this.popUp = this.shadowRoot.querySelector('.slide-pop-up');
+    this.whatsapp = this.shadowRoot.querySelector('.whatsapp-btn');
+    this.find = this.shadowRoot.querySelector('.whatsapp-cover-btn');
+    this.smsBtn = this.shadowRoot.querySelector('.sms-btn');
+    this.smsCoverBtn = this.shadowRoot.querySelector('.sms-cover-btn');
+    this.cancelBtn = this.shadowRoot.querySelector('.cancel-btn');
+    this.overlay = this.shadowRoot.querySelector('.overlay');
+    this.popUpName = this.shadowRoot.querySelector('.pop-up-name');
 
-        // document.addEventListener('page-title', (title) => {
-        // this.pageTitle = title.detail;
-        // });
+    // document.addEventListener('page-title', (title) => {
+    // this.pageTitle = title.detail;
+    // });
 
-        document.addEventListener('message-details', (obj) => {
-            this.btnOption(obj);
-        });
+    document.addEventListener('message-details', (obj) => {
+      this.popUpName.textContent = `${obj.detail.firstName} ${obj.detail.lastName}`;
+      this.btnOption(obj);
+    });
 
-        this.cancelButton();
-    }
+    this.cancelButton();
+  }
 
-    closeModal() {
-        this.dispatchEvent(
-            new CustomEvent('close-modal', {
-                bubbles: true,
-                composed: true,
-            })
-        );
-    }
+  closeModal() {
+    this.dispatchEvent(
+      new CustomEvent('close-modal', {
+        bubbles: true,
+        composed: true,
+      })
+    );
+  }
 
-    btnOption(obj) {
-        this.find.addEventListener('click', () => {
-            this.findCover(obj);
-            // this.closeModal();
-        });
+  btnOption(obj) {
+    this.find.addEventListener('click', () => {
+      this.findCover(obj);
+      // this.closeModal();
+    });
 
-        this.whatsapp.addEventListener('click', () => {
-            this.whatsApp(obj);
-            this.closeModal();
-        });
+    this.whatsapp.addEventListener('click', () => {
+      this.whatsApp(obj);
+      this.closeModal();
+    });
 
-        this.smsBtn.addEventListener('click', () => {
-            this.sms(obj);
-            this.closeModal();
-        });
+    this.smsBtn.addEventListener('click', () => {
+      this.sms(obj);
+      this.closeModal();
+    });
 
-        this.smsCoverBtn.addEventListener('click', () => {
-            this.smsCover(obj);
-            this.closeModal();
-        });
+    this.smsCoverBtn.addEventListener('click', () => {
+      this.smsCover(obj);
+      this.closeModal();
+    });
 
-        this.overlay.addEventListener('click', () => {
-            this.closeModal();
-        });
-    }
+    this.overlay.addEventListener('click', () => {
+      this.closeModal();
+    });
+  }
 
-    cancelButton() {
-        this.cancelBtn.addEventListener('click', () => {
-            this.closeModal();
-        });
-    }
+  cancelButton() {
+    this.cancelBtn.addEventListener('click', () => {
+      this.closeModal();
+    });
+  }
 
-    sms(obj) {
-        window.location.assign(
-            `sms:${obj.detail.number}?&body=Reminder!%0aHello ${obj.detail.firstName},
+  sms(obj) {
+    window.location.assign(
+      `sms:${obj.detail.number}?&body=Reminder!%0aHello ${obj.detail.firstName},
 You are scheduled for %0a${obj.detail.dutyName} on Sunday, Please let me know if you can NOT cover the duty. Thanks.`
-        );
-    }
+    );
+  }
 
-    smsCover(obj) {
-        window.location.assign(
-            `sms:${obj.detail.number}?&body=Cover Needed!%0aHello ${obj.detail.firstName}, Would you be available to cover ${obj.detail.dutyName} on Sunday, Please let me know if you are able to stand in. Thanks.`
-        );
-    }
+  smsCover(obj) {
+    window.location.assign(
+      `sms:${obj.detail.number}?&body=Cover Needed!%0aHello ${obj.detail.firstName}, Would you be available to cover ${obj.detail.dutyName} on Sunday, Please let me know if you are able to stand in. Thanks.`
+    );
+  }
 
-    whatsApp(obj) {
-        window.location.assign(
-            `whatsapp://send?phone=+${obj.detail.number} &text=*Reminder!*%0aHello ${obj.detail.firstName}, You are scheduled for %0a*${obj.detail.dutyName}* on *sunday*, Please let me know if you can *NOT* cover the duty. Thanks.`
-        );
-    }
+  whatsApp(obj) {
+    window.location.assign(
+      `whatsapp://send?phone=+${obj.detail.number} &text=*Reminder!*%0aHello ${obj.detail.firstName}, You are scheduled for %0a*${obj.detail.dutyName}* on *sunday*, Please let me know if you can *NOT* cover the duty. Thanks.`
+    );
+  }
 
-    findCover(obj) {
-        window.location.assign(
-            `whatsapp://send?phone= ${obj.detail.number} &text=*Cover Needed!*%0aHello ${obj.detail.firstName}, Would you be available to cover *${obj.detail.dutyName}* on *Sunday*, Please let me know if you are able to stand in. Thanks.`
-        );
-    }
+  findCover(obj) {
+    window.location.assign(
+      `whatsapp://send?phone= ${obj.detail.number} &text=*Cover Needed!*%0aHello ${obj.detail.firstName}, Would you be available to cover *${obj.detail.dutyName}* on *Sunday*, Please let me know if you are able to stand in. Thanks.`
+    );
+  }
 }
 
 customElements.define('send-options', SendOptions);
