@@ -18,7 +18,6 @@ SendBtnTemplate.innerHTML = /*html*/ `
         height: 24px;
         padding: 0.6rem;
         line-height: 0;
-        margin-bottom: 7px;
     }
 
 
