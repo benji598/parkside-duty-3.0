@@ -35,20 +35,20 @@ navTemplate.innerHTML = /*html*/ `
 
 
 <div class="icon-bar">
-    <a class="active" href="index.html">
+    <a class="active" href="/">
         <duties-icon></duties-icon>
         <small>Duties</small>
     </a>
 
-    <a href="#">
+    <!-- <a href="#">
         <rota-icon></rota-icon>
         <small>Rota</small>
-    </a>
+    </a> -->
 
-    <a href="#">
+    <!-- <a href="#">
         <counter-icon></counter-icon>
         <small>Counter</small>
-    </a>
+    </a> -->
 
     <div>
         <!-- <a href="#"> -->

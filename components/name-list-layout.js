@@ -3,7 +3,8 @@ NameListLayoutTemplate.innerHTML = /*html*/ `
 <style>
     :host {
         display: grid;
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: auto 35%;
+        gap: 1rem;
         padding-left: 1rem;
         padding-right: 1rem;
     }
@@ -19,7 +20,6 @@ class NameListLayout extends HTMLElement {
             mode: 'open',
         });
         this.shadowRoot.appendChild(NameListLayoutTemplate.content.cloneNode(true));
-        document.addEventListener('filtered-bros', (el) => console.log('name list', el.detail));
     }
 }
 

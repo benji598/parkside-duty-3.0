@@ -13,23 +13,24 @@
     }
 ?>
 
-  <body>
-      <header-info title="Dashboard" subtitle="Welcome, <?php echo $fullName; ?>"></header-info>
-      
-      <?php
+<body>
+    <header-info title="Dashboard" subtitle="Welcome, <?php echo $fullName; ?>"></header-info>
+
+    <?php
             $result = $conn->query("SELECT * FROM duty_type");
       ?>
-      <grid-layout>
+    <grid-layout>
         <?php while($row = $result->fetch_assoc()): ?>
-          <duty-button
-              link="duty.php?id=<?php echo htmlspecialchars($row['id']); ?>"
-              title="<?php echo htmlspecialchars($row['name']); ?>"
-              subtitle="Duty"
-              icon="<auditorium-attendant-icon></auditorium-attendant-icon> <?php echo htmlspecialchars($row['icon']); ?>">
-            </duty-button>
+        <duty-button link="duty.php?id=<?php echo htmlspecialchars($row['id']); ?>"
+            title="<?php echo htmlspecialchars($row['name']); ?>" subtitle="Duty"
+            icon="<auditorium-attendant-icon></auditorium-attendant-icon> <?php echo htmlspecialchars($row['icon']); ?>">
+        </duty-button>
         <?php endwhile; ?>
     </grid-layout>
 
+
+
     <nav-bar></nav-bar>
-  </body>
+</body>
+
 </html>

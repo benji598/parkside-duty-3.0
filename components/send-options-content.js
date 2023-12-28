@@ -113,8 +113,12 @@ class SendOptions extends HTMLElement {
         this.overlay = this.shadowRoot.querySelector('.overlay');
         this.popUpName = this.shadowRoot.querySelector('.pop-up-title');
 
-        document.addEventListener('page-title', (title) => {
-            this.pageTitle = title.detail;
+        // document.addEventListener('page-title', (title) => {
+        // this.pageTitle = title.detail;
+        // });
+
+        document.addEventListener('message-details', (obj) => {
+            this.btnOption(obj);
         });
 
         this.cancelButton();
@@ -129,14 +133,15 @@ class SendOptions extends HTMLElement {
         );
     }
 
-    btnOption(el) {
+    btnOption(obj) {
+        console.log(obj.detail.number);
         this.find.addEventListener('click', () => {
-            this.findCover(el);
-            this.closeModal();
+            // this.findCover(el);
+            // this.closeModal();
         });
 
         this.whatsapp.addEventListener('click', () => {
-            this.whatsApp(el);
+            this.whatsApp(obj);
             this.closeModal();
         });
 
@@ -177,11 +182,9 @@ this.pageTitle
         );
     }
 
-    whatsApp(el) {
+    whatsApp(obj) {
         window.location.assign(
-            `whatsapp://send?phone= ${el.number} &text=*Reminder!*%0aHello ${el.firstName}, You are scheduled for %0a*${
-this.pageTitle
-}* on *${dayOfWeek()}*, Please let me know if you can *NOT* cover the duty. Thanks.`
+            `whatsapp://send?phone=+${obj.detail.number} &text=*Reminder!*%0aHello ${obj.detail.firstName}, You are scheduled for %0a*${obj.detail.dutyName}* on *sunday*, Please let me know if you can *NOT* cover the duty. Thanks.`
         );
     }
 

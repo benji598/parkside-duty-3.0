@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <!-- <meta name="view-transition" content="same-origin" /> -->
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -21,8 +22,11 @@
     <script src="components/slide-up-modal.js" defer></script>
     <script src="components/header-info.js" defer></script>
     <script src="components/grid-layout.js" defer></script>
-    <script src="components/duty-btn.js" defer></script>
     <script src="components/send-options-content.js" defer></script>
+    <script src="components/duty-btn.js" defer></script>
+    <script src="components/name-list-layout.js" defer></script>
+    <script src="components/name-holder.js" defer></script>
+    <script src="components/send-btn.js" defer></script>
 
     <script src="icon/chairman-icon.js" defer></script>
     <script src="icon/platform-icon.js" defer></script>
@@ -35,21 +39,20 @@
     <script src="icon/roving-mic-icon.js" defer></script>
     <script src="icon/hall-cleaning-icon.js" defer></script>
     <script src="icon/send-icon.js" defer></script>
-    
-    
+
+
     <script src="icon/duties-icon.js" defer></script>
     <script src="icon/rota-icon.js" defer></script>
     <script src="icon/counter-icon.js" defer></script>
     <script src="icon/login-icon.js" defer></script>
     <script src="components/nav.js" defer></script>
     <style>
-
-      body {
+    body {
         font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans',
-          'Helvetica Neue', sans-serif;
-      }
+            'Helvetica Neue', sans-serif;
+    }
     </style>
-  </head>
+</head>
 
 
 <?php if (!isset($_SESSION)) { session_start(); } ?>
@@ -90,20 +93,23 @@ $current_page = basename($_SERVER['PHP_SELF']);
 
     <!-- Dashboard Button -->
     <form style="display: inline;" action="index.php" method="get">
-        <button type="submit" name="dashboard" class="button" <?php echo ($current_page == 'index.php') ? 'disabled' : ''; ?>>Dashboard</button>
+        <button type="submit" name="dashboard" class="button"
+            <?php echo ($current_page == 'index.php') ? 'disabled' : ''; ?>>Dashboard</button>
     </form>
 
     <?php if ($isAdmin) { ?>
-        <!-- Admin Button -->
+    <!-- Admin Button -->
     <form style="display: inline;" action="admin.php" method="get">
-        <button type="submit" name="admin" class="button" <?php echo ($current_page == 'admin.php') ? 'disabled' : ''; ?>>Admin</button>
+        <button type="submit" name="admin" class="button"
+            <?php echo ($current_page == 'admin.php') ? 'disabled' : ''; ?>>Admin</button>
     </form>
-    
+
     <!-- Account Button -->
     <form style="display: inline;" action="account.php" method="get">
-        <button type="submit" name="account" class="button" <?php echo ($current_page == 'account.php') ? 'disabled' : ''; ?>>Account</button>
+        <button type="submit" name="account" class="button"
+            <?php echo ($current_page == 'account.php') ? 'disabled' : ''; ?>>Account</button>
     </form>
-    
+
     <!-- Logout Button -->
     <form style="display: inline;" action="logout.php" method="post">
         <button type="submit" name="logout" class="button">Logout</button>
@@ -112,7 +118,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
     <?php } ?>
 
     <?php if (!$isAdmin) { ?>
-            <!-- Logout Button -->
+    <!-- Logout Button -->
     <form style="display: inline;" action="splash.php" method="post">
         <button type="submit" name="logout" class="button">Admin Login</button>
     </form>

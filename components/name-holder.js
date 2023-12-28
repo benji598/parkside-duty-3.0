@@ -1,4 +1,4 @@
-const NameHolderTemplate = document.querySelector('template');
+const NameHolderTemplate = document.createElement('template');
 NameHolderTemplate.innerHTML = /*html*/ `
 
 <style>
@@ -10,17 +10,30 @@ NameHolderTemplate.innerHTML = /*html*/ `
     }
 </style>
 
+<div class="name-holder"></div>
+
+
+
+<slot></slot>
+
 `;
 
 class NameHolder extends HTMLElement {
-  constructor() {
-    super();
+    constructor() {
+        super();
 
-    this.attachShadow({
-      mode: 'open',
-    });
-    this.shadowRoot.appendChild(NameHolderTemplate.content.cloneNode(true));
-  }
+        this.attachShadow({
+            mode: 'open',
+        });
+        this.shadowRoot.appendChild(NameHolderTemplate.content.cloneNode(true));
+
+        this.getName();
+    }
+
+    getName() {
+        const name = this.getAttribute('name');
+        this.shadowRoot.querySelector('.name-holder').innerHTML = name;
+    }
 }
 
 customElements.define('name-holder', NameHolder);

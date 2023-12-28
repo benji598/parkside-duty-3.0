@@ -73,7 +73,6 @@ class SlideUpModal extends HTMLElement {
         this.getContent();
 
         document.addEventListener('open-modal', (el) => {
-            console.log('received', el);
             this.openSlideUpModal(el);
         });
 
@@ -88,7 +87,7 @@ class SlideUpModal extends HTMLElement {
         document.removeEventListener('close-modal', this.closeSlideUpModal);
     }
 
-    openSlideUpModal() {
+    openSlideUpModal(obj) {
         this.popUp.classList.add('open');
         this.overlay.classList.add('dark');
     }
