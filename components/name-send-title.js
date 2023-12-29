@@ -15,7 +15,8 @@ NameSendTitleTemplate.innerHTML = /*html*/ `
         background-color: var(--bg-blue);
         border-radius: var(--btn-radius);
         padding: 0.6rem;
-        color: var(--color-white);
+        color: var(--color-black);
+        font-weight: 500;
     }
 
     .send {

@@ -28,7 +28,7 @@ SendOptionsTemplate.innerHTML = /*html*/ `
         padding: 0.5rem 0rem;
         border: 2px solid white;
         gap: 0.8rem;
-        color: white;
+        color: var(--color-black);
         cursor: pointer;
         border-radius: var(--btn-radius);
     }
@@ -37,7 +37,7 @@ SendOptionsTemplate.innerHTML = /*html*/ `
         background-color: var(--whatsapp-green);
 
         &:active {
-            background-color: #1fa550;
+            background-color: #17c558;
         }
     }
 

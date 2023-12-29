@@ -6,7 +6,11 @@ NameHolderTemplate.innerHTML = /*html*/ `
         display: flex;
         align-items: center;
         padding-left: 1rem;
+        padding-right: 1rem;
         height: 100%;
+        min-height: 3.6rem;
+
+        /* padding: 1.25rem; */
         gap: 0.5rem;
         border-radius: var(--btn-radius);
         background-color: var(--baby-blue);
