@@ -2,22 +2,12 @@ const SendOptionsTemplate = document.createElement('template');
 SendOptionsTemplate.innerHTML = /*html*/ `
 
 <style>
-    .cancel-btn {
-        background-color: #dc3545;
-
-        grid-column: span 2;
-
-        &:active {
-            background-color: #ae2d3a;
-        }
-    }
-
     .pop-up-title {
         text-align: center;
         font-weight: 600;
         font-size: 1.3rem;
-        padding-bottom: 1rem;
         line-height: 1.8;
+        padding-top: 0.7rem;
     }
 
     .btn-container {
@@ -35,12 +25,12 @@ SendOptionsTemplate.innerHTML = /*html*/ `
         align-items: center;
         border: 2px solid white;
         fill: white;
-        padding: 1rem 0rem;
+        padding: 0.5rem 0rem;
         border: 2px solid white;
         gap: 0.8rem;
         color: white;
         cursor: pointer;
-        border-radius: var(--btn-radius)
+        border-radius: var(--btn-radius);
     }
 
     .whatsapp-btn {
@@ -51,24 +41,24 @@ SendOptionsTemplate.innerHTML = /*html*/ `
         }
     }
 
+    .sms-btn {
+        background-color: var(--sms-blue);
+    }
+
+    .sms-cover-btn,
     .whatsapp-cover-btn {
         background-color: rgb(255, 255, 255, 0);
         border: 2px solid black;
         color: black;
         padding: 0.8rem 0rem;
         cursor: pointer;
+        border-radius: var(--btn-radius);
     }
 
-    .sms-btn {
-        background-color: var(--sms-blue);
-    }
-
-    .sms-cover-btn {
-        background-color: rgb(255, 255, 255, 0);
-        border: 2px solid black;
-        color: black;
-        padding: 0.8rem 0rem;
-        cursor: pointer;
+    .cancel-btn {
+        background-color: #dc3545;
+        padding: 1rem 0;
+        grid-column: span 2;
     }
 </style>
 
@@ -109,16 +99,12 @@ class SendOptions extends HTMLElement {
   connectedCallback() {
     this.popUp = this.shadowRoot.querySelector('.slide-pop-up');
     this.whatsapp = this.shadowRoot.querySelector('.whatsapp-btn');
-    this.find = this.shadowRoot.querySelector('.whatsapp-cover-btn');
+    this.whatsappCoverBtn = this.shadowRoot.querySelector('.whatsapp-cover-btn');
     this.smsBtn = this.shadowRoot.querySelector('.sms-btn');
     this.smsCoverBtn = this.shadowRoot.querySelector('.sms-cover-btn');
     this.cancelBtn = this.shadowRoot.querySelector('.cancel-btn');
     this.overlay = this.shadowRoot.querySelector('.overlay');
     this.popUpName = this.shadowRoot.querySelector('.pop-up-name');
-
-    // document.addEventListener('page-title', (title) => {
-    // this.pageTitle = title.detail;
-    // });
 
     document.addEventListener('message-details', (obj) => {
       this.popUpName.textContent = `${obj.detail.firstName} ${obj.detail.lastName}`;
@@ -138,13 +124,13 @@ class SendOptions extends HTMLElement {
   }
 
   btnOption(obj) {
-    this.find.addEventListener('click', () => {
-      this.findCover(obj);
-      // this.closeModal();
-    });
-
     this.whatsapp.addEventListener('click', () => {
       this.whatsApp(obj);
+      this.closeModal();
+    });
+
+    this.whatsappCoverBtn.addEventListener('click', () => {
+      this.whatsappCover(obj);
       this.closeModal();
     });
 
@@ -169,6 +155,18 @@ class SendOptions extends HTMLElement {
     });
   }
 
+  whatsApp(obj) {
+    window.location.assign(
+      `whatsapp://send?phone=+${obj.detail.number} &text=*Reminder!*%0aHello ${obj.detail.firstName}, You are scheduled for %0a*${obj.detail.dutyName}* on *sunday*, Please let me know if you can *NOT* cover the duty. Thanks.`
+    );
+  }
+
+  whatsappCover(obj) {
+    window.location.assign(
+      `whatsapp://send?phone= ${obj.detail.number} &text=*Cover Needed!*%0aHello ${obj.detail.firstName}, Would you be available to cover *${obj.detail.dutyName}* on *Sunday*, Please let me know if you are able to stand in. Thanks.`
+    );
+  }
+
   sms(obj) {
     window.location.assign(
       `sms:${obj.detail.number}?&body=Reminder!%0aHello ${obj.detail.firstName},
@@ -179,18 +177,6 @@ You are scheduled for %0a${obj.detail.dutyName} on Sunday, Please let me know if
   smsCover(obj) {
     window.location.assign(
       `sms:${obj.detail.number}?&body=Cover Needed!%0aHello ${obj.detail.firstName}, Would you be available to cover ${obj.detail.dutyName} on Sunday, Please let me know if you are able to stand in. Thanks.`
-    );
-  }
-
-  whatsApp(obj) {
-    window.location.assign(
-      `whatsapp://send?phone=+${obj.detail.number} &text=*Reminder!*%0aHello ${obj.detail.firstName}, You are scheduled for %0a*${obj.detail.dutyName}* on *sunday*, Please let me know if you can *NOT* cover the duty. Thanks.`
-    );
-  }
-
-  findCover(obj) {
-    window.location.assign(
-      `whatsapp://send?phone= ${obj.detail.number} &text=*Cover Needed!*%0aHello ${obj.detail.firstName}, Would you be available to cover *${obj.detail.dutyName}* on *Sunday*, Please let me know if you are able to stand in. Thanks.`
     );
   }
 }

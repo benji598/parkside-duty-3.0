@@ -39,6 +39,8 @@
     <script src="icon/roving-mic-icon.js" defer></script>
     <script src="icon/hall-cleaning-icon.js" defer></script>
     <script src="icon/send-icon.js" defer></script>
+    <script src="icon/whatsapp-icon.js" defer></script>
+    <script src="icon/sms-icon.js" defer></script>
 
 
     <script src="icon/duties-icon.js" defer></script>
