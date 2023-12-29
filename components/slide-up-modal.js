@@ -24,7 +24,6 @@ SlideUpModalTemplate.innerHTML = /*html*/ `
         z-index: -1;
         top: 0;
         left: 0;
-
         background-color: rgba(0, 0, 0, 0.4);
         backdrop-filter: blur(4px);
         -webkit-backdrop-filter: blur(4px);
@@ -33,7 +32,7 @@ SlideUpModalTemplate.innerHTML = /*html*/ `
     .slide-pop-up,
     .overlay {
         width: 100%;
-        transition: all 0.6s ease;
+        transition: all 0.8s ease;
     }
 
     .overlay.dark {
@@ -73,6 +72,10 @@ class SlideUpModal extends HTMLElement {
   connectedCallback() {
     this.popUp = this.shadowRoot.querySelector('.slide-pop-up');
     this.overlay = this.shadowRoot.querySelector('.overlay');
+
+    this.overlay.addEventListener('click', () => {
+      this.closeSlideUpModal();
+    });
 
     this.getContent();
 

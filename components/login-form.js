@@ -25,7 +25,7 @@ LoginFormTemplate.innerHTML = /*html*/ `
         width: 100%;
         width: clamp(260px, 69vw, 380px);
         padding: 15px;
-        border: 1px solid #dfe4ea;
+        border: 2px solid #dfe4ea;
         border-radius: 2rem;
     }
 
@@ -150,15 +150,15 @@ LoginFormTemplate.innerHTML = /*html*/ `
 `;
 
 class LoginForm extends HTMLElement {
-    constructor() {
-        super();
-        const shadowRoot = this.attachShadow({
-            mode: 'open',
-        });
-        shadowRoot.appendChild(LoginFormTemplate.content.cloneNode(true));
-    }
+  constructor() {
+    super();
+    const shadowRoot = this.attachShadow({
+      mode: 'open',
+    });
+    shadowRoot.appendChild(LoginFormTemplate.content.cloneNode(true));
+  }
 
-    connectedCallback() {}
+  connectedCallback() {}
 }
 
 customElements.define('login-form', LoginForm);
