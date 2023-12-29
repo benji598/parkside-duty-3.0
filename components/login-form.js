@@ -96,6 +96,16 @@ LoginFormTemplate.innerHTML = /*html*/ `
         background-color: var(--bg-blue)
     }
 
+    input[type=email]:invalid:not(:placeholder-shown),
+    input[type=password]:invalid:not(:placeholder-shown) {
+        border-color: red;
+    }
+
+    input[type=email]:valid,
+    input[type=password]:valid {
+        border-color: green;
+    }
+
     .error-message {
         color: red;
         margin-bottom: 10px;
@@ -118,11 +128,11 @@ LoginFormTemplate.innerHTML = /*html*/ `
 
     <form action="login.php" method="post">
         <div class="input-wrapper">
-            <input type="email" id="email" name="email" placeholder=" " required>
+            <input type="email" id="email" name="email" placeholder="" required>
             <label for="email">Email</label>
         </div>
         <div class="input-wrapper">
-            <input type="password" id="password" name="password" placeholder=" " required>
+            <input type="password" id="password" name="password" placeholder="" required>
             <label for="password">Password</label>
         </div>
 
