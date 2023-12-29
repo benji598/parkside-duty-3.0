@@ -53,7 +53,8 @@ LoginFormTemplate.innerHTML = /*html*/ `
     /* When the input is not empty, move the label up */
     input[type=email]:not(:placeholder-shown)+label,
     input[type=password]:not(:placeholder-shown)+label {
-        font-size: px;
+        top: -14px;
+        font-size: 10px;
     }
 
     /* Also move the label up when the input is focused */
@@ -139,15 +140,15 @@ LoginFormTemplate.innerHTML = /*html*/ `
 `;
 
 class LoginForm extends HTMLElement {
-  constructor() {
-    super();
-    const shadowRoot = this.attachShadow({
-      mode: 'open',
-    });
-    shadowRoot.appendChild(LoginFormTemplate.content.cloneNode(true));
-  }
+    constructor() {
+        super();
+        const shadowRoot = this.attachShadow({
+            mode: 'open',
+        });
+        shadowRoot.appendChild(LoginFormTemplate.content.cloneNode(true));
+    }
 
-  connectedCallback() {}
+    connectedCallback() {}
 }
 
 customElements.define('login-form', LoginForm);
