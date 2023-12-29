@@ -25,6 +25,7 @@ body {
   display: flex;
   flex-direction: column;
   margin: 0;
+  font-size: 1rem;
   overflow-y: hidden;
 }
 
@@ -40,6 +41,6 @@ body {
   padding-right: 1rem;
 }
 
-/* .overflow {
+.overflow {
   overflow: auto;
-} */
+}
