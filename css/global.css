@@ -1,8 +1,8 @@
 :root {
-  --baby-blue-hover: #4187f7;
   --background-color: #f3f8ff;
   --baby-blue: #d3e3fd;
   --bg-blue: #4187f7;
+  --color-white: #ffffff;
 
   --btn-radius: 1rem;
   --btn-transition: all 0.3s ease-in-out;
@@ -39,6 +39,6 @@ body {
   padding-right: 1rem;
 }
 
-.overflow {
+/* .overflow {
   overflow: auto;
-}
+} */

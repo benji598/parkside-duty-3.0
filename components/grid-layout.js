@@ -2,7 +2,6 @@ const GridLayoutTemplate = document.createElement('template');
 GridLayoutTemplate.innerHTML = `
 
 <style>
-
     :host {
         display:grid;
         gap: 0.7rem;
@@ -10,7 +9,7 @@ GridLayoutTemplate.innerHTML = `
         overflow:auto;
         padding-left: 1rem;
         padding-right: 1rem;
-
+        padding-bottom: 1rem;
     }
 </style>
 <slot></slot> 

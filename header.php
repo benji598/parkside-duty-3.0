@@ -27,6 +27,7 @@
     <script src="components/name-list-layout.js" defer></script>
     <script src="components/name-holder.js" defer></script>
     <script src="components/send-btn.js" defer></script>
+    <script src="components/name-send-title.js" defer></script>
 
     <script src="icon/chairman-icon.js" defer></script>
     <script src="icon/platform-icon.js" defer></script>

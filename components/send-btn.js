@@ -34,7 +34,7 @@ SendBtnTemplate.innerHTML = /*html*/ `
     }
 
     .send-btns:hover {
-        background-color: var(--baby-blue-hover);
+        background-color: var(--bg-blue);
     }
 
     .send-btns:active {

@@ -64,6 +64,10 @@ $stmt->close();
 
     <header-info title="<?php echo htmlspecialchars($duty_name); ?>" subtitle="Choose a Duty"></header-info>
 
+    <!-- <name-list-layout> -->
+    <name-send></name-send>
+    <!-- </name-list-layout> -->
+
 
     <name-list-layout>
         <?php while ($sub_user = $result_sub_users->fetch_assoc()): ?>

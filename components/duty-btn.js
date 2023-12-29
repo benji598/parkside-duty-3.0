@@ -34,7 +34,7 @@ dutyBtns.innerHTML = /*html*/ `
     }
 
     .duty-btns:hover {
-        background-color: var(--baby-blue-hover);
+        background-color: var(--bg-blue);
     }
 
     .duty-btns:active {
