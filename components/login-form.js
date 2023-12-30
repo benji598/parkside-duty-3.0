@@ -42,7 +42,7 @@ LoginFormTemplate.innerHTML = /*html*/ `
         align-items: center;
         position: absolute;
         top: 0;
-        left: 15px;
+        left: 20px;
         color: grey;
         width: 100%;
         height: 100%;
@@ -53,16 +53,70 @@ LoginFormTemplate.innerHTML = /*html*/ `
     /* When the input is not empty, move the label up */
     input[type=email]:not(:placeholder-shown)+label,
     input[type=password]:not(:placeholder-shown)+label {
-        top: -14px;
+        top: -5px;
+        color: red;
+        font-size: 10px;
+        background-color: white;
+        width: fit-content;
+        padding-left: 5px;
+        padding-right: 5px;
+        padding-top: 0;
+        height: fit-content;
+        left: 15px;
         font-size: 10px;
     }
 
     /* Also move the label up when the input is focused */
     input[type=email]:focus+label,
     input[type=password]:focus+label {
-        top: -14px;
+        top: -5px;
         font-size: 10px;
+        background-color: white;
+        width: fit-content;
+        padding-left: 5px;
+        padding-right: 5px;
+        padding-top: 0;
+        height: fit-content;
+        color: blue;
+        left: 15px;
     }
+
+    input[type=email]:focus,
+    input[type=password]:focus {
+        border-color: blue;
+        outline: none;
+    }
+
+    input[type=email]:invalid:not(:placeholder-shown),
+    input[type=password]:invalid:not(:placeholder-shown) {
+        border-color: red;
+    }
+
+    input[type=email]:invalid:not(:placeholder-shown)+label,
+    input[type=password]:invalid:not(:placeholder-shown)+label {
+        color: red;
+    }
+
+
+
+    input[type=email]:valid,
+    input[type=password]:valid {
+        border-color: green;
+    }
+
+    input[type=email]:valid+label,
+    input[type=password]:valid+label {
+        color: green;
+    }
+
+    input:-webkit-autofill,
+    input:-webkit-autofill:hover,
+    input:-webkit-autofill:focus,
+    input:-webkit-autofill:active {
+        -webkit-box-shadow: 0 0 0 30px white inset;
+        /* -webkit-text-fill-color: #000000; */
+    }
+
 
 
     .login-btn {
@@ -96,15 +150,8 @@ LoginFormTemplate.innerHTML = /*html*/ `
         background-color: var(--bg-blue)
     }
 
-    input[type=email]:invalid:not(:placeholder-shown),
-    input[type=password]:invalid:not(:placeholder-shown) {
-        border-color: red;
-    }
 
-    input[type=email]:valid,
-    input[type=password]:valid {
-        border-color: green;
-    }
+
 
     .error-message {
         color: red;
@@ -115,7 +162,7 @@ LoginFormTemplate.innerHTML = /*html*/ `
 
 <div class="form-container">
     <admin-icon></admin-icon>
-    <h1>Login In</h1>
+    <h1>Login</h1>
 
     <!-- Display any login error messages -->
     <?php if (isset($_SESSION['login_error'])): ?>
