@@ -188,15 +188,9 @@ class LoginForm extends HTMLElement {
         });
         this.shadowRoot.appendChild(LoginFormTemplate.content.cloneNode(true));
 
-        // this.validatePassword = this.validatePassword.bind(this);
-        // this.shadowRoot.querySelector('form').addEventListener('input', this.validatePassword);
+        this.validatePassword = this.validatePassword.bind(this);
+        this.shadowRoot.querySelector('form').addEventListener('input', this.validatePassword);
 
-        // Only bind getMessage to the form's submit event
-        // this.shadowRoot.querySelector('form').addEventListener('submit', this.getMessage.bind(this));
-    }
-
-    getMessage(event) {
-        event.preventDefault();
         const errorMessage = this.getAttribute('data-error');
         this.shadowRoot.querySelector('.error-message').textContent = errorMessage;
     }
