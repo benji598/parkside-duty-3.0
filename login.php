@@ -30,7 +30,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             
             // Redirect to index.php
             if (isset($_SESSION['login_error'])) {
-                unset($_SESSION['login_error']);
+                $_SESSION['login_error'] = "";
             }
             
             header("location: index.php");
@@ -38,13 +38,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         } else {
             // Password is not valid
             $_SESSION['login_error'] = "Your password is incorrect.";
-            header("location: splash.php");
+            header("location: splash.php?e=1");
             exit; 
         }
     } else {
         // Email not found
         $_SESSION['login_error'] = "Invalid email.";
-        header("location: splash.php");
+        header("location: splash.php?e=1");
         exit; 
     }
 

@@ -3,7 +3,15 @@ require 'db.php';
 require 'functions.php';
 include 'header.php';
 
-$errMessage = $_SESSION['login_error'];
+if (!isset($_GET['e'])) {
+    $_SESSION['login_error'] = "";
+}
+
+if (isset($_SESSION['login_error']))
+    $errMessage = $_SESSION['login_error'];
+else
+    $errMessage = "";
+
 ?>
 
 <body>
