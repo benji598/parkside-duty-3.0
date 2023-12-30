@@ -17,11 +17,10 @@
     <?php
             $result = $conn->query("SELECT * FROM duty_type");
       ?>
+
+
     <header-info title="Parkside Duties" subtitle="Choose a Duty"></header-info>
-    <!-- admin see only -->
-    <?php if ($isAdmin) { ?>
-    <header-info title="Dashboard" subtitle="Welcome, <?php echo $fullName; ?>"></header-info>
-    <?php } ?>
+
 
     <grid-layout>
         <?php while($row = $result->fetch_assoc()): ?>

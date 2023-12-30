@@ -149,6 +149,11 @@ LoginFormTemplate.innerHTML = /*html*/ `
     .register-btn:hover {
         background-color: var(--bg-blue)
     }
+
+    .error-message {
+        display: block;
+        color: red;
+    }
 </style>
 
 
@@ -158,7 +163,6 @@ LoginFormTemplate.innerHTML = /*html*/ `
 
     <!-- Display any login error messages -->
     <?php if (isset($_SESSION['login_error'])): ?>
-
     <div class="error-message">
         <?php echo $_SESSION['login_error']; ?>
         <?php unset($_SESSION['login_error']); // Remove the message after displaying it ?>
@@ -187,13 +191,24 @@ LoginFormTemplate.innerHTML = /*html*/ `
 class LoginForm extends HTMLElement {
   constructor() {
     super();
-    const shadowRoot = this.attachShadow({
+    this.attachShadow({
       mode: 'open',
     });
-    shadowRoot.appendChild(LoginFormTemplate.content.cloneNode(true));
+    this.shadowRoot.appendChild(LoginFormTemplate.content.cloneNode(true));
 
     this.validatePassword = this.validatePassword.bind(this);
     this.shadowRoot.querySelector('form').addEventListener('input', this.validatePassword);
+  }
+
+  connectedCallback() {
+    this.fetchLoginScript();
+  }
+
+  async fetchLoginScript() {
+    const response = fetch('login.php');
+    const message = (await response).text();
+
+    console.log(message);
   }
 
   validatePassword() {

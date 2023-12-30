@@ -40,6 +40,11 @@ $result_sub_users = $conn->query("
             <div slot="subtitle-slot"></div>
         </header-info>
 
+        <!-- admin see only -->
+        <?php if ($isAdmin) { ?>
+        <welcome-message greeting="Welcome, " name="<?php echo $fullName; ?>"></welcome-message>
+        <?php } ?>
+
         <div class="account-container">
             <h2>Manage Duty Types</h2>
             <table>

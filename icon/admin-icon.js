@@ -9,14 +9,14 @@ AdminIconTemplate.innerHTML = /*html*/ `
 `;
 
 class Adminicon extends HTMLElement {
-    constructor() {
-        super();
+  constructor() {
+    super();
 
-        this.attachShadow({
-            mode: 'open',
-        });
-        this.shadowRoot.appendChild(AdminIconTemplate.content.cloneNode(true));
-    }
+    this.attachShadow({
+      mode: 'open',
+    });
+    this.shadowRoot.appendChild(AdminIconTemplate.content.cloneNode(true));
+  }
 }
 
 customElements.define('admin-icon', Adminicon);
