@@ -10,7 +10,7 @@
     <title>Park Side</title>
     <meta name="description" content="New Parkside duty app" />
 
-    <link rel="stylesheet" type="text/css" href="css/splash.css">
+    <link rel="styles   heet" type="text/css" href="css/splash.css">
     <link rel="stylesheet" href="/css/hp.css" rel="preload" />
     <link rel="stylesheet" href="/css/tables.css" rel="preload" />
 
@@ -32,6 +32,7 @@
     <script src="components/name-send-title.js" defer></script>
     <script src="components/login-form.js" defer></script>
 
+    <script src="icon/admin-icon.js" defer></script>
     <script src="icon/chairman-icon.js" defer></script>
     <script src="icon/platform-icon.js" defer></script>
     <script src="icon/entrance-attendant-icon.js" defer></script>
@@ -45,7 +46,6 @@
     <script src="icon/send-icon.js" defer></script>
     <script src="icon/whatsapp-icon.js" defer></script>
     <script src="icon/sms-icon.js" defer></script>
-    <script src="icon/admin-icon.js" defer></script>
 
 
     <script src="icon/duties-icon.js" defer></script>

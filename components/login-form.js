@@ -2,18 +2,21 @@ const LoginFormTemplate = document.createElement('template');
 LoginFormTemplate.innerHTML = /*html*/ `
 <style>
     :host {
-        display: grid;
-        justify-content: center;
-        padding-left: 1rem;
-        padding-right: 1rem;
         place-content: center;
-        height: 100%;
+        display: grid;
+        height: 80%;
+        text-align: center;
+        overflow: auto;
+
+    }
+
+    admin-icon {
+        min-height: 30px;
     }
 
     .form-container {
         background-color: white;
-        padding: 2rem;
-        text-align: center;
+        padding: clamp(1rem, 6vw, 2rem);
         border-radius: var(--btn-radius);
     }
 
@@ -23,9 +26,9 @@ LoginFormTemplate.innerHTML = /*html*/ `
     input[type=tel],
     input[type=password] {
         width: 100%;
-        width: clamp(260px, 69vw, 380px);
+        width: clamp(240px, 69vw, 380px);
         padding: 15px;
-        border: 2px solid #dfe4ea;
+        border: 2px solid var(--color-light-grey);
         border-radius: 2rem;
     }
 
@@ -43,8 +46,8 @@ LoginFormTemplate.innerHTML = /*html*/ `
         position: absolute;
         top: 0;
         left: 20px;
-        color: grey;
-        width: 100%;
+        color: var(--color-dark-grey);
+        /* width: 100%;*/
         height: 100%;
         pointer-events: none;
         transition: all 0.3s ease;
@@ -118,6 +121,8 @@ LoginFormTemplate.innerHTML = /*html*/ `
         border-radius: var(--btn-radius);
         width: 100%;
         padding: 15px;
+        font-weight: 600;
+        font-size: 1rem;
         border: none;
         background-color: var(--baby-blue);
         cursor: pointer;
@@ -146,6 +151,7 @@ LoginFormTemplate.innerHTML = /*html*/ `
     }
 </style>
 
+
 <div class="form-container">
     <admin-icon></admin-icon>
     <h1>Login</h1>
@@ -153,13 +159,12 @@ LoginFormTemplate.innerHTML = /*html*/ `
     <!-- Display any login error messages -->
     <?php if (isset($_SESSION['login_error'])): ?>
 
-    <!-- <div class="error-message">
+    <div class="error-message">
         <?php echo $_SESSION['login_error']; ?>
         <?php unset($_SESSION['login_error']); // Remove the message after displaying it ?>
-    </div> -->
+    </div>
     <?php endif; ?>
 
-    <div class="error-message"></div>
     <form action="login.php" method="post">
         <div class="input-wrapper">
             <input type="email" id="email" name="email" pattern=".*@.*\.(com|co\.uk|org|net|edu|gov|mil|info|uk)$" placeholder="" required>
@@ -172,15 +177,11 @@ LoginFormTemplate.innerHTML = /*html*/ `
 
         <button class="login-btn" type="submit" name="login">Login</button>
 
-
-        <!-- The Guest button should point to a PHP file or a specific HTML page for guest users -->
-        <!-- <button disabled="true" onclick="location.href='guest_access.php'">Guest</button> -->
         <!-- The Register button should point to a PHP file that handles registration -->
         <button class="register-btn" onclick="location.href='register.php'">Register</button>
-
-
     </form>
 </div>
+
 `;
 
 class LoginForm extends HTMLElement {
