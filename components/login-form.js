@@ -144,12 +144,6 @@ LoginFormTemplate.innerHTML = /*html*/ `
     .register-btn:hover {
         background-color: var(--bg-blue)
     }
-
-    /* .error-message {
-        color: red;
-        margin-bottom: 10px;
-        text-align: center;
-    } */
 </style>
 
 <div class="form-container">
@@ -159,19 +153,20 @@ LoginFormTemplate.innerHTML = /*html*/ `
     <!-- Display any login error messages -->
     <?php if (isset($_SESSION['login_error'])): ?>
 
-    <div class="error-message">
+    <!-- <div class="error-message">
         <?php echo $_SESSION['login_error']; ?>
         <?php unset($_SESSION['login_error']); // Remove the message after displaying it ?>
-    </div>
+    </div> -->
     <?php endif; ?>
 
+    <div class="error-message"></div>
     <form action="login.php" method="post">
         <div class="input-wrapper">
-            <input type="email" id="email" name="email" placeholder="" required>
+            <input type="email" id="email" name="email" pattern=".*@.*\.(com|co\.uk|org|net|edu|gov|mil|info|uk)$" placeholder="" required>
             <label for="email">Email</label>
         </div>
         <div class="input-wrapper">
-            <input type="password" id="password" name="password" placeholder="" required>
+            <input type="password" id="password" name="password" placeholder="" pattern=".*[A-Z].*" minlength="8" maxlength="30" required>
             <label for="password">Password</label>
         </div>
 
@@ -189,15 +184,33 @@ LoginFormTemplate.innerHTML = /*html*/ `
 `;
 
 class LoginForm extends HTMLElement {
-    constructor() {
-        super();
-        const shadowRoot = this.attachShadow({
-            mode: 'open',
-        });
-        shadowRoot.appendChild(LoginFormTemplate.content.cloneNode(true));
+  constructor() {
+    super();
+    const shadowRoot = this.attachShadow({
+      mode: 'open',
+    });
+    shadowRoot.appendChild(LoginFormTemplate.content.cloneNode(true));
+
+    this.validatePassword = this.validatePassword.bind(this);
+    this.shadowRoot.querySelector('form').addEventListener('input', this.validatePassword);
+  }
+
+  validatePassword() {
+    const passwordInput = this.shadowRoot.querySelector('#password');
+    const hasUpperCase = /[A-Z]/.test(passwordInput.value);
+    const isLongEnough = passwordInput.value.length >= 8;
+
+    if (!hasUpperCase || !isLongEnough) {
+      if (!hasUpperCase && !isLongEnough) {
+        passwordInput.setCustomValidity('Password must be at least 8 characters long and include at least one uppercase letter.');
+      } else if (!hasUpperCase) {
+        passwordInput.setCustomValidity('Password must include at least one uppercase letter.');
+      } else if (!isLongEnough) {
+        passwordInput.setCustomValidity('Password must be at least 8 characters long.');
+      }
+    } else {
+      passwordInput.setCustomValidity('');
     }
-
-    connectedCallback() {}
+  }
 }
-
 customElements.define('login-form', LoginForm);
