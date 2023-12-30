@@ -54,7 +54,7 @@ LoginFormTemplate.innerHTML = /*html*/ `
     input[type=email]:not(:placeholder-shown)+label,
     input[type=password]:not(:placeholder-shown)+label {
         top: -5px;
-        color: red;
+        color: var(--color-red);
         font-size: 10px;
         background-color: white;
         width: fit-content;
@@ -77,36 +77,34 @@ LoginFormTemplate.innerHTML = /*html*/ `
         padding-right: 5px;
         padding-top: 0;
         height: fit-content;
-        color: blue;
+        color: var(--bg-blue);
         left: 15px;
     }
 
     input[type=email]:focus,
     input[type=password]:focus {
-        border-color: blue;
+        border-color: var(--bg-blue);
         outline: none;
     }
 
     input[type=email]:invalid:not(:placeholder-shown),
     input[type=password]:invalid:not(:placeholder-shown) {
-        border-color: red;
+        border-color: var(--color-red);
     }
 
     input[type=email]:invalid:not(:placeholder-shown)+label,
     input[type=password]:invalid:not(:placeholder-shown)+label {
-        color: red;
+        color: var(--color-red);
     }
-
-
 
     input[type=email]:valid,
     input[type=password]:valid {
-        border-color: green;
+        border-color: var(--color-green);
     }
 
     input[type=email]:valid+label,
     input[type=password]:valid+label {
-        color: green;
+        color: var(--color-green);
     }
 
     input:-webkit-autofill,
@@ -114,10 +112,7 @@ LoginFormTemplate.innerHTML = /*html*/ `
     input:-webkit-autofill:focus,
     input:-webkit-autofill:active {
         -webkit-box-shadow: 0 0 0 30px white inset;
-        /* -webkit-text-fill-color: #000000; */
     }
-
-
 
     .login-btn {
         border-radius: var(--btn-radius);
@@ -150,14 +145,11 @@ LoginFormTemplate.innerHTML = /*html*/ `
         background-color: var(--bg-blue)
     }
 
-
-
-
-    .error-message {
+    /* .error-message {
         color: red;
         margin-bottom: 10px;
         text-align: center;
-    }
+    } */
 </style>
 
 <div class="form-container">
@@ -197,15 +189,15 @@ LoginFormTemplate.innerHTML = /*html*/ `
 `;
 
 class LoginForm extends HTMLElement {
-  constructor() {
-    super();
-    const shadowRoot = this.attachShadow({
-      mode: 'open',
-    });
-    shadowRoot.appendChild(LoginFormTemplate.content.cloneNode(true));
-  }
+    constructor() {
+        super();
+        const shadowRoot = this.attachShadow({
+            mode: 'open',
+        });
+        shadowRoot.appendChild(LoginFormTemplate.content.cloneNode(true));
+    }
 
-  connectedCallback() {}
+    connectedCallback() {}
 }
 
 customElements.define('login-form', LoginForm);
