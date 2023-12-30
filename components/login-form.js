@@ -192,16 +192,17 @@ class LoginForm extends HTMLElement {
     this.shadowRoot.appendChild(LoginFormTemplate.content.cloneNode(true));
 
     this.validatePassword = this.validatePassword.bind(this);
-    this.shadowRoot.querySelector('form').addEventListener('input', this.validatePassword);
+    // this.shadowRoot.querySelector('form').addEventListener('input', this.validatePassword);
 
-    this.shadowRoot.querySelector('form').addEventListener('click', this.handleLogin);
+    // Only bind getMessage to the form's submit event
+    this.shadowRoot.querySelector('form').addEventListener('submit', this.getMessage.bind(this));
   }
 
-  connectedCallback() {}
-
-  getMessage() {
+  getMessage(event) {
+    event.preventDefault();
     const errorMessage = this.getAttribute('data-error');
-    this.shadowRoot.querySelector('.error-message').textContent = errorMessage;
+    const test = (this.shadowRoot.querySelector('.error-message').textContent = errorMessage);
+    console.log(test);
   }
 
   validatePassword() {
@@ -210,7 +211,6 @@ class LoginForm extends HTMLElement {
     const isLongEnough = passwordInput.value.length >= 8;
 
     const error = this.getAttribute('data-error');
-    console.log(error);
     this.shadowRoot.querySelector('.error-message').textContent = error;
 
     if (!hasUpperCase || !isLongEnough) {
