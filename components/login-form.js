@@ -7,7 +7,6 @@ LoginFormTemplate.innerHTML = /*html*/ `
         height: 80%;
         text-align: center;
         overflow: auto;
-
     }
 
     admin-icon {
@@ -151,7 +150,6 @@ LoginFormTemplate.innerHTML = /*html*/ `
     }
 
     .error-message {
-        display: block;
         color: red;
     }
 </style>
@@ -162,12 +160,9 @@ LoginFormTemplate.innerHTML = /*html*/ `
     <h1>Login</h1>
 
     <!-- Display any login error messages -->
-    <?php if (isset($_SESSION['login_error'])): ?>
-    <div class="error-message">
-        <?php echo $_SESSION['login_error']; ?>
-        <?php unset($_SESSION['login_error']); // Remove the message after displaying it ?>
-    </div>
-    <?php endif; ?>
+
+    <div class="error-message"></div>
+
 
     <form action="login.php" method="post">
         <div class="input-wrapper">
@@ -198,23 +193,25 @@ class LoginForm extends HTMLElement {
 
     this.validatePassword = this.validatePassword.bind(this);
     this.shadowRoot.querySelector('form').addEventListener('input', this.validatePassword);
+
+    this.shadowRoot.querySelector('form').addEventListener('click', this.handleLogin);
   }
 
-  connectedCallback() {
-    this.fetchLoginScript();
-  }
+  connectedCallback() {}
 
-  async fetchLoginScript() {
-    const response = fetch('login.php');
-    const message = (await response).text();
-
-    console.log(message);
+  getMessage() {
+    const errorMessage = this.getAttribute('data-error');
+    this.shadowRoot.querySelector('.error-message').textContent = errorMessage;
   }
 
   validatePassword() {
     const passwordInput = this.shadowRoot.querySelector('#password');
     const hasUpperCase = /[A-Z]/.test(passwordInput.value);
     const isLongEnough = passwordInput.value.length >= 8;
+
+    const error = this.getAttribute('data-error');
+    console.log(error);
+    this.shadowRoot.querySelector('.error-message').textContent = error;
 
     if (!hasUpperCase || !isLongEnough) {
       if (!hasUpperCase && !isLongEnough) {
