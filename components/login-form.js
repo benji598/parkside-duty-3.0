@@ -150,7 +150,7 @@ LoginFormTemplate.innerHTML = /*html*/ `
     }
 
     .error-message {
-        color: red;
+        color: var(--color-red);
     }
 </style>
 
@@ -181,39 +181,39 @@ LoginFormTemplate.innerHTML = /*html*/ `
 `;
 
 class LoginForm extends HTMLElement {
-    constructor() {
-        super();
-        this.attachShadow({
-            mode: 'open',
-        });
-        this.shadowRoot.appendChild(LoginFormTemplate.content.cloneNode(true));
+  constructor() {
+    super();
+    this.attachShadow({
+      mode: 'open',
+    });
+    this.shadowRoot.appendChild(LoginFormTemplate.content.cloneNode(true));
 
-        this.validatePassword = this.validatePassword.bind(this);
-        this.shadowRoot.querySelector('form').addEventListener('input', this.validatePassword);
+    this.validatePassword = this.validatePassword.bind(this);
+    this.shadowRoot.querySelector('form').addEventListener('input', this.validatePassword);
 
-        const errorMessage = this.getAttribute('data-error');
-        this.shadowRoot.querySelector('.error-message').textContent = errorMessage;
+    const errorMessage = this.getAttribute('data-error');
+    this.shadowRoot.querySelector('.error-message').textContent = errorMessage;
+  }
+
+  validatePassword() {
+    const passwordInput = this.shadowRoot.querySelector('#password');
+    const hasUpperCase = /[A-Z]/.test(passwordInput.value);
+    const isLongEnough = passwordInput.value.length >= 8;
+
+    const error = this.getAttribute('data-error');
+    this.shadowRoot.querySelector('.error-message').textContent = error;
+
+    if (!hasUpperCase || !isLongEnough) {
+      if (!hasUpperCase && !isLongEnough) {
+        passwordInput.setCustomValidity('Password must be at least 8 characters long and include at least one uppercase letter.');
+      } else if (!hasUpperCase) {
+        passwordInput.setCustomValidity('Password must include at least one uppercase letter.');
+      } else if (!isLongEnough) {
+        passwordInput.setCustomValidity('Password must be at least 8 characters long.');
+      }
+    } else {
+      passwordInput.setCustomValidity('');
     }
-
-    validatePassword() {
-        const passwordInput = this.shadowRoot.querySelector('#password');
-        const hasUpperCase = /[A-Z]/.test(passwordInput.value);
-        const isLongEnough = passwordInput.value.length >= 8;
-
-        const error = this.getAttribute('data-error');
-        this.shadowRoot.querySelector('.error-message').textContent = error;
-
-        if (!hasUpperCase || !isLongEnough) {
-            if (!hasUpperCase && !isLongEnough) {
-                passwordInput.setCustomValidity('Password must be at least 8 characters long and include at least one uppercase letter.');
-            } else if (!hasUpperCase) {
-                passwordInput.setCustomValidity('Password must include at least one uppercase letter.');
-            } else if (!isLongEnough) {
-                passwordInput.setCustomValidity('Password must be at least 8 characters long.');
-            }
-        } else {
-            passwordInput.setCustomValidity('');
-        }
-    }
+  }
 }
 customElements.define('login-form', LoginForm);

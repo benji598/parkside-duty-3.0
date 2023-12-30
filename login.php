@@ -37,13 +37,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             exit;
         } else {
             // Password is not valid
-            $_SESSION['login_error'] = "Your password is incorrect.";
+            $_SESSION['login_error'] = "Invalid Password.";
             header("location: splash.php?e=1");
             exit; 
         }
     } else {
         // Email not found
-        $_SESSION['login_error'] = "Invalid email.";
+        $_SESSION['login_error'] = "Invalid Email.";
         header("location: splash.php?e=1");
         exit; 
     }
