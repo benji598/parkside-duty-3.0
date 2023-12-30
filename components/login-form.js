@@ -160,9 +160,7 @@ LoginFormTemplate.innerHTML = /*html*/ `
     <h1>Login</h1>
 
     <!-- Display any login error messages -->
-
     <div class="error-message"></div>
-
 
     <form action="login.php" method="post">
         <div class="input-wrapper">
@@ -180,50 +178,48 @@ LoginFormTemplate.innerHTML = /*html*/ `
         <button class="register-btn" onclick="location.href='register.php'">Register</button>
     </form>
 </div>
-
 `;
 
 class LoginForm extends HTMLElement {
-  constructor() {
-    super();
-    this.attachShadow({
-      mode: 'open',
-    });
-    this.shadowRoot.appendChild(LoginFormTemplate.content.cloneNode(true));
+    constructor() {
+        super();
+        this.attachShadow({
+            mode: 'open',
+        });
+        this.shadowRoot.appendChild(LoginFormTemplate.content.cloneNode(true));
 
-    this.validatePassword = this.validatePassword.bind(this);
-    // this.shadowRoot.querySelector('form').addEventListener('input', this.validatePassword);
+        // this.validatePassword = this.validatePassword.bind(this);
+        // this.shadowRoot.querySelector('form').addEventListener('input', this.validatePassword);
 
-    // Only bind getMessage to the form's submit event
-    this.shadowRoot.querySelector('form').addEventListener('submit', this.getMessage.bind(this));
-  }
-
-  getMessage(event) {
-    event.preventDefault();
-    const errorMessage = this.getAttribute('data-error');
-    const test = (this.shadowRoot.querySelector('.error-message').textContent = errorMessage);
-    console.log(test);
-  }
-
-  validatePassword() {
-    const passwordInput = this.shadowRoot.querySelector('#password');
-    const hasUpperCase = /[A-Z]/.test(passwordInput.value);
-    const isLongEnough = passwordInput.value.length >= 8;
-
-    const error = this.getAttribute('data-error');
-    this.shadowRoot.querySelector('.error-message').textContent = error;
-
-    if (!hasUpperCase || !isLongEnough) {
-      if (!hasUpperCase && !isLongEnough) {
-        passwordInput.setCustomValidity('Password must be at least 8 characters long and include at least one uppercase letter.');
-      } else if (!hasUpperCase) {
-        passwordInput.setCustomValidity('Password must include at least one uppercase letter.');
-      } else if (!isLongEnough) {
-        passwordInput.setCustomValidity('Password must be at least 8 characters long.');
-      }
-    } else {
-      passwordInput.setCustomValidity('');
+        // Only bind getMessage to the form's submit event
+        // this.shadowRoot.querySelector('form').addEventListener('submit', this.getMessage.bind(this));
     }
-  }
+
+    getMessage(event) {
+        event.preventDefault();
+        const errorMessage = this.getAttribute('data-error');
+        this.shadowRoot.querySelector('.error-message').textContent = errorMessage;
+    }
+
+    validatePassword() {
+        const passwordInput = this.shadowRoot.querySelector('#password');
+        const hasUpperCase = /[A-Z]/.test(passwordInput.value);
+        const isLongEnough = passwordInput.value.length >= 8;
+
+        const error = this.getAttribute('data-error');
+        this.shadowRoot.querySelector('.error-message').textContent = error;
+
+        if (!hasUpperCase || !isLongEnough) {
+            if (!hasUpperCase && !isLongEnough) {
+                passwordInput.setCustomValidity('Password must be at least 8 characters long and include at least one uppercase letter.');
+            } else if (!hasUpperCase) {
+                passwordInput.setCustomValidity('Password must include at least one uppercase letter.');
+            } else if (!isLongEnough) {
+                passwordInput.setCustomValidity('Password must be at least 8 characters long.');
+            }
+        } else {
+            passwordInput.setCustomValidity('');
+        }
+    }
 }
 customElements.define('login-form', LoginForm);
