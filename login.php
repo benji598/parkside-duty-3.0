@@ -29,17 +29,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION['loggedin'] = true;
             
             // Redirect to index.php
+            if (isset($_SESSION['login_error'])) {
+                unset($_SESSION['login_error']);
+            }
+            
             header("location: index.php");
             exit;
         } else {
             // Password is not valid
-            $_SESSION['login_error'] = "Invalid email or password.";
+            $_SESSION['login_error'] = "Your password is incorrect.";
             header("location: splash.php");
             exit; 
         }
     } else {
         // Email not found
-        $_SESSION['login_error'] = "Invalid email or password.";
+        $_SESSION['login_error'] = "Invalid email.";
         header("location: splash.php");
         exit; 
     }
