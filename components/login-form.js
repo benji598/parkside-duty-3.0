@@ -167,6 +167,7 @@ LoginFormTemplate.innerHTML = /*html*/ `
             <input type="email" id="email" name="email" pattern=".*@.*\.(com|co\.uk|org|net|edu|gov|mil|info|uk)$" placeholder="" required>
             <label for="email">Email</label>
         </div>
+
         <div class="input-wrapper">
             <input type="password" id="password" name="password" placeholder="" pattern=".*[A-Z].*" minlength="8" maxlength="30" required>
             <label for="password">Password</label>

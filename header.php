@@ -32,8 +32,10 @@
     <script src="components/name-send-title.js" defer></script>
     <script src="components/login-form.js" defer></script>
     <script src="components/welcome-message.js" defer></script>
+    <script src="components/account-form.js" defer></script>
 
     <script src="icon/admin-icon.js" defer></script>
+    <script src="icon/account-icon.js" defer></script>
     <script src="icon/chairman-icon.js" defer></script>
     <script src="icon/platform-icon.js" defer></script>
     <script src="icon/entrance-attendant-icon.js" defer></script>
