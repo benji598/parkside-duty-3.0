@@ -13,10 +13,22 @@ LoginFormTemplate.innerHTML = /*html*/ `
         min-height: 30px;
     }
 
+
     .form-container {
         background-color: white;
         padding: clamp(1rem, 6vw, 2rem);
         border-radius: var(--btn-radius);
+    }
+
+
+    h1 {
+        margin-top: 0;
+    }
+
+
+    form {
+        display: grid;
+        gap: 0.6rem;
     }
 
 
@@ -34,7 +46,6 @@ LoginFormTemplate.innerHTML = /*html*/ `
     /* Add styles for your input wrapper and label */
     .input-wrapper {
         position: relative;
-        margin: 10px 0;
     }
 
     /* Style the label initially to look like a placeholder */
@@ -136,7 +147,6 @@ LoginFormTemplate.innerHTML = /*html*/ `
         border-radius: var(--btn-radius);
         width: 100%;
         padding: 15px;
-        margin: 10px 0;
         border: none;
         cursor: pointer;
         border: 2px solid var(--baby-blue);

@@ -19,9 +19,13 @@ AccountFormTemplate.innerHTML = /*html*/ `
         border-radius: var(--btn-radius);
     }
 
+    h1 {
+        margin-top: 0;
+    }
+
     form {
         display: grid;
-        gap: 0.8rem;
+        gap: 0.6rem;
     }
 
     input[type=text],
@@ -171,7 +175,7 @@ AccountFormTemplate.innerHTML = /*html*/ `
     <form action="handle_account_update.php" method="post">
 
         <div class="input-wrapper">
-            <input id="firstName" type="text" name="first_name" value="Benjmain" placeholder="" required>
+            <input id="firstName" type="text" name="first_name" value="" placeholder="" required>
             <label for="first_name">Firstname</label>
         </div>
 
