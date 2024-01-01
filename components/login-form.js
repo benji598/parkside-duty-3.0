@@ -46,7 +46,6 @@ LoginFormTemplate.innerHTML = /*html*/ `
         top: 0;
         left: 20px;
         color: var(--color-dark-grey);
-        /* width: 100%;*/
         height: 100%;
         pointer-events: none;
         transition: all 0.3s ease;

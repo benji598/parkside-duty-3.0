@@ -9,7 +9,7 @@ AccountFormTemplate.innerHTML = /*html*/ `
         overflow: auto;
     }
 
-    admin-icon {
+    account-icon {
         min-height: 30px;
     }
 
@@ -17,6 +17,11 @@ AccountFormTemplate.innerHTML = /*html*/ `
         background-color: white;
         padding: clamp(1rem, 6vw, 2rem);
         border-radius: var(--btn-radius);
+    }
+
+    form {
+        display: grid;
+        gap: 0.8rem;
     }
 
     input[type=text],
@@ -32,7 +37,6 @@ AccountFormTemplate.innerHTML = /*html*/ `
     /* Add styles for your input wrapper and label */
     .input-wrapper {
         position: relative;
-        margin: 10px 0;
     }
 
     /* Style the label initially to look like a placeholder */
@@ -123,6 +127,42 @@ AccountFormTemplate.innerHTML = /*html*/ `
     input:-webkit-autofill:active {
         -webkit-box-shadow: 0 0 0 30px white inset;
     }
+
+    .save-btn {
+        border-radius: var(--btn-radius);
+        width: 100%;
+        padding: 15px;
+        font-weight: 600;
+        font-size: 1rem;
+        border: none;
+        background-color: var(--baby-blue);
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .save-btn:hover {
+        background-color: var(--bg-blue);
+    }
+
+
+    .back-btn {
+        border-radius: var(--btn-radius);
+        padding: 15px;
+        border: none;
+        cursor: pointer;
+        border: 2px solid var(--baby-blue);
+        background-color: transparent;
+        transition: background-color 0.3s ease;
+    }
+
+    .back-btn:hover {
+        background-color: var(--bg-blue)
+    }
+
+    a {
+        color: var(--color-black);
+        text-decoration: var(--anchor-decoration);
+    }
 </style>
 
 <div class="form-container">
@@ -151,8 +191,8 @@ AccountFormTemplate.innerHTML = /*html*/ `
         </div>
 
         <!-- Include additional fields as necessary -->
-        <button type="submit" name="update_account">Update Account</button>
-        <a href="index.php" class="back-button">Back to Dashboard</a>
+        <button class="save-btn" type="submit" name="save">Save</button>
+        <a href="index.php" class="back-btn">Back to Dashboard</a>
     </form>
 </div>
 `;
