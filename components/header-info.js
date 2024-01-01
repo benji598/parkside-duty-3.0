@@ -54,9 +54,7 @@ class HeaderInfo extends HTMLElement {
 
     getTitle() {
         const slot = this.shadowRoot.querySelector('#title');
-
         this.sendTitle(slot);
-        console.log(slot.textContent);
     }
 
     sendTitle(element) {

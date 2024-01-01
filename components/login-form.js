@@ -160,6 +160,7 @@ LoginFormTemplate.innerHTML = /*html*/ `
 
     .error-message {
         color: var(--color-red);
+        margin-bottom: 0.6rem;
     }
 </style>
 

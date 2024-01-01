@@ -2,8 +2,10 @@ const WelcomeMessageTemplate = document.createElement('template');
 WelcomeMessageTemplate.innerHTML = `
 
 
-<div class="greeting"></div>
-<div class="name"></div>
+
+<span class="greeting"></span>
+<span class="name"></span>
+
 <slot></slot>
 `;
 
@@ -24,12 +26,26 @@ class WelcomeMessage extends HTMLElement {
     const greeting = this.getAttribute('greeting');
     const name = this.getAttribute('name');
 
-    this.shadowRoot.querySelector('.greeting').textContent = greeting;
     this.shadowRoot.querySelector('.name').textContent = name;
   }
 
   timeOfDay() {
-    // need to work out good morning / good afternoon / good evening message for logging in
+    const todayDate = new Date();
+
+    let greeting;
+    const time = todayDate.toLocaleTimeString('en-UK');
+    if (time < '12:00') {
+      greeting = 'Good Morning, ';
+    }
+
+    if (time >= '12:00' && time < '18:00') {
+      greeting = 'Good Afternoon, ';
+    }
+
+    if (time >= '18:00') {
+      greeting = 'Good Evening, ';
+    }
+    this.shadowRoot.querySelector('.greeting').textContent = greeting;
   }
 }
 

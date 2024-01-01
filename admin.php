@@ -42,7 +42,7 @@ $result_sub_users = $conn->query("
 
         <!-- admin see only -->
         <?php if ($isAdmin) { ?>
-        <welcome-message greeting="Welcome, " name="<?php echo $fullName; ?>"></welcome-message>
+        <welcome-message name="<?php echo $fullName; ?>"></welcome-message>
         <?php } ?>
 
         <div class="account-container">
@@ -231,8 +231,6 @@ window.onload = function() {
     // Get URL parameters
     var params = new URLSearchParams(window.location.search);
     var editedUserId = params.get('edited');
-
-    console.log(editedUserId)
 
     if (editedUserId) {
         if (editedUserId === '99999') {
