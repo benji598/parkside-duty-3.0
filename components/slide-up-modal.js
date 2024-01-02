@@ -32,7 +32,7 @@ SlideUpModalTemplate.innerHTML = /*html*/ `
     .slide-pop-up,
     .overlay {
         width: 100%;
-        transition: all 0.8s ease;
+        transition: all 0.6s ease;
     }
 
     .overlay.dark {
@@ -42,7 +42,6 @@ SlideUpModalTemplate.innerHTML = /*html*/ `
 
     .cancel-btn {
         background-color: #dc3545;
-
         grid-column: span 2;
 
         &:active {

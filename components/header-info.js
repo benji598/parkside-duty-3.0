@@ -10,61 +10,59 @@ HeaderTemplate.innerHTML = /*html*/ `
     }
 </style>
 
-
 <header>
     <h1 id="title">App Name</h1>
     <h2 id="subtitle">Choose a Option</h2>
 </header>
-
 `;
 
 class HeaderInfo extends HTMLElement {
-    constructor() {
-        super();
-        this.attachShadow({
-            mode: 'open',
-        });
-        this.shadowRoot.appendChild(HeaderTemplate.content.cloneNode(true));
-    }
+  constructor() {
+    super();
+    this.attachShadow({
+      mode: 'open',
+    });
+    this.shadowRoot.appendChild(HeaderTemplate.content.cloneNode(true));
+  }
 
-    static get observedAttributes() {
-        return ['title', 'subtitle'];
-    }
+  static get observedAttributes() {
+    return ['title', 'subtitle'];
+  }
 
-    attributeChangedCallback(name, oldValue, newValue) {
-        switch (name) {
-            case 'title':
-                this.shadowRoot.getElementById('title').textContent = newValue;
-                break;
-            case 'subtitle':
-                this.shadowRoot.getElementById('subtitle').textContent = newValue;
-                break;
-        }
+  attributeChangedCallback(name, oldValue, newValue) {
+    switch (name) {
+      case 'title':
+        this.shadowRoot.getElementById('title').textContent = newValue;
+        break;
+      case 'subtitle':
+        this.shadowRoot.getElementById('subtitle').textContent = newValue;
+        break;
     }
+  }
 
-    connectedCallback() {
-        this.getTitle();
-        if (this.hasAttribute('title')) {
-            this.shadowRoot.getElementById('title').textContent = this.getAttribute('title');
-        }
-        if (this.hasAttribute('subtitle')) {
-            this.shadowRoot.getElementById('subtitle').textContent = this.getAttribute('subtitle');
-        }
+  connectedCallback() {
+    this.getTitle();
+    if (this.hasAttribute('title')) {
+      this.shadowRoot.getElementById('title').textContent = this.getAttribute('title');
     }
+    if (this.hasAttribute('subtitle')) {
+      this.shadowRoot.getElementById('subtitle').textContent = this.getAttribute('subtitle');
+    }
+  }
 
-    getTitle() {
-        const slot = this.shadowRoot.querySelector('#title');
-        this.sendTitle(slot);
-    }
+  getTitle() {
+    const slot = this.shadowRoot.querySelector('#title');
+    this.sendTitle(slot);
+  }
 
-    sendTitle(element) {
-        const event = new CustomEvent('page-title', {
-            bubbles: true,
-            composed: true,
-            detail: element.textContent,
-        });
-        this.dispatchEvent(event);
-    }
+  sendTitle(element) {
+    const event = new CustomEvent('page-title', {
+      bubbles: true,
+      composed: true,
+      detail: element.textContent,
+    });
+    this.dispatchEvent(event);
+  }
 }
 
 customElements.define('header-info', HeaderInfo);

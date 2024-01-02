@@ -21,20 +21,23 @@
     <link rel="stylesheet" href="/css/global.css" />
 
     <!-- <script src="components/filterbrothers-data.js" defer></script> -->
-    <script src="components/slide-up-modal.js" defer></script>
     <script src="components/header-info.js" defer></script>
+    <script src="components/name-send-title.js" defer></script>
     <script src="components/grid-layout.js" defer></script>
+    <script src="components/name-list-layout.js" defer></script>
+    <script src="components/slide-up-modal.js" defer></script>
     <script src="components/send-options-content.js" defer></script>
     <script src="components/duty-btn.js" defer></script>
-    <script src="components/name-list-layout.js" defer></script>
     <script src="components/name-holder.js" defer></script>
     <script src="components/send-btn.js" defer></script>
-    <script src="components/name-send-title.js" defer></script>
     <script src="components/login-form.js" defer></script>
     <script src="components/welcome-message.js" defer></script>
     <script src="components/account-form.js" defer></script>
+    <script src="components/form-container.js" defer></script>
+    <script src="components/register-form.js" defer></script>
 
     <script src="icon/admin-icon.js" defer></script>
+    <script src="icon/register-icon.js" defer></script>
     <script src="icon/account-icon.js" defer></script>
     <script src="icon/chairman-icon.js" defer></script>
     <script src="icon/platform-icon.js" defer></script>

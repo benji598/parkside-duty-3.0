@@ -33,6 +33,7 @@ class WelcomeMessage extends HTMLElement {
     const todayDate = new Date();
 
     let greeting;
+
     const time = todayDate.toLocaleTimeString('en-UK');
     if (time < '12:00') {
       greeting = 'Good Morning, ';

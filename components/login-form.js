@@ -1,31 +1,6 @@
 const LoginFormTemplate = document.createElement('template');
 LoginFormTemplate.innerHTML = /*html*/ `
 <style>
-    :host {
-        place-content: center;
-        display: grid;
-        height: 80%;
-        text-align: center;
-        overflow: auto;
-    }
-
-    admin-icon {
-        min-height: 30px;
-    }
-
-
-    .form-container {
-        background-color: white;
-        padding: clamp(1rem, 6vw, 2rem);
-        border-radius: var(--btn-radius);
-    }
-
-
-    h1 {
-        margin-top: 0;
-    }
-
-
     form {
         display: grid;
         gap: 0.6rem;
@@ -157,74 +132,64 @@ LoginFormTemplate.innerHTML = /*html*/ `
     .register-btn:hover {
         background-color: var(--bg-blue)
     }
-
-    .error-message {
-        color: var(--color-red);
-        margin-bottom: 0.6rem;
-    }
 </style>
 
 
-<div class="form-container">
-    <admin-icon></admin-icon>
-    <h1>Login</h1>
 
-    <!-- Display any login error messages -->
-    <div class="error-message"></div>
+<!-- Display any login error messages -->
+<form action="login.php" method="post">
+    <div class="input-wrapper">
+        <input type="email" id="email" name="email" pattern=".*@.*\.(com|co\.uk|org|net|edu|gov|mil|info|uk)$" placeholder="" required>
+        <label for="email">Email</label>
+    </div>
 
-    <form action="login.php" method="post">
-        <div class="input-wrapper">
-            <input type="email" id="email" name="email" pattern=".*@.*\.(com|co\.uk|org|net|edu|gov|mil|info|uk)$" placeholder="" required>
-            <label for="email">Email</label>
-        </div>
+    <div class="input-wrapper">
+        <input type="password" id="password" name="password" placeholder="" pattern=".*[A-Z].*" minlength="8" maxlength="30" required>
+        <label for="password">Password</label>
+    </div>
 
-        <div class="input-wrapper">
-            <input type="password" id="password" name="password" placeholder="" pattern=".*[A-Z].*" minlength="8" maxlength="30" required>
-            <label for="password">Password</label>
-        </div>
+    <button class="login-btn" type="submit" name="login">Login</button>
 
-        <button class="login-btn" type="submit" name="login">Login</button>
+    <!-- The Register button should point to a PHP file that handles registration -->
+    <button class="register-btn" onclick="location.href='register.php'">Register</button>
+</form>
 
-        <!-- The Register button should point to a PHP file that handles registration -->
-        <button class="register-btn" onclick="location.href='register.php'">Register</button>
-    </form>
-</div>
 `;
 
 class LoginForm extends HTMLElement {
-  constructor() {
-    super();
-    this.attachShadow({
-      mode: 'open',
-    });
-    this.shadowRoot.appendChild(LoginFormTemplate.content.cloneNode(true));
+    constructor() {
+        super();
+        this.attachShadow({
+            mode: 'open',
+        });
+        this.shadowRoot.appendChild(LoginFormTemplate.content.cloneNode(true));
 
-    this.validatePassword = this.validatePassword.bind(this);
-    this.shadowRoot.querySelector('form').addEventListener('input', this.validatePassword);
+        this.validatePassword = this.validatePassword.bind(this);
+        this.shadowRoot.querySelector('form').addEventListener('input', this.validatePassword);
 
-    const errorMessage = this.getAttribute('data-error');
-    this.shadowRoot.querySelector('.error-message').textContent = errorMessage;
-  }
-
-  validatePassword() {
-    const passwordInput = this.shadowRoot.querySelector('#password');
-    const hasUpperCase = /[A-Z]/.test(passwordInput.value);
-    const isLongEnough = passwordInput.value.length >= 8;
-
-    const error = this.getAttribute('data-error');
-    this.shadowRoot.querySelector('.error-message').textContent = error;
-
-    if (!hasUpperCase || !isLongEnough) {
-      if (!hasUpperCase && !isLongEnough) {
-        passwordInput.setCustomValidity('Password must be at least 8 characters long and include at least one uppercase letter.');
-      } else if (!hasUpperCase) {
-        passwordInput.setCustomValidity('Password must include at least one uppercase letter.');
-      } else if (!isLongEnough) {
-        passwordInput.setCustomValidity('Password must be at least 8 characters long.');
-      }
-    } else {
-      passwordInput.setCustomValidity('');
+        const errorMessage = this.getAttribute('data-error');
+        this.shadowRoot.querySelector('.error-message').textContent = errorMessage;
     }
-  }
+
+    validatePassword() {
+        const passwordInput = this.shadowRoot.querySelector('#password');
+        const hasUpperCase = /[A-Z]/.test(passwordInput.value);
+        const isLongEnough = passwordInput.value.length >= 8;
+
+        const error = this.getAttribute('data-error');
+        this.shadowRoot.querySelector('.error-message').textContent = error;
+
+        if (!hasUpperCase || !isLongEnough) {
+            if (!hasUpperCase && !isLongEnough) {
+                passwordInput.setCustomValidity('Password must be at least 8 characters long and include at least one uppercase letter.');
+            } else if (!hasUpperCase) {
+                passwordInput.setCustomValidity('Password must include at least one uppercase letter.');
+            } else if (!isLongEnough) {
+                passwordInput.setCustomValidity('Password must be at least 8 characters long.');
+            }
+        } else {
+            passwordInput.setCustomValidity('');
+        }
+    }
 }
 customElements.define('login-form', LoginForm);
