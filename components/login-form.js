@@ -101,7 +101,7 @@ LoginFormTemplate.innerHTML = /*html*/ `
         -webkit-box-shadow: 0 0 0 30px white inset;
     }
 
-    .login-btn {
+    .primary-btn {
         border-radius: var(--btn-radius);
         width: 100%;
         padding: 15px;
@@ -113,12 +113,12 @@ LoginFormTemplate.innerHTML = /*html*/ `
         transition: background-color 0.3s ease;
     }
 
-    .login-btn:hover {
+    .primary-btn:hover {
         background-color: var(--bg-blue);
     }
 
 
-    .register-btn {
+    .secondary-btn {
         border-radius: var(--btn-radius);
         width: 100%;
         padding: 15px;
@@ -129,7 +129,7 @@ LoginFormTemplate.innerHTML = /*html*/ `
         transition: background-color 0.3s ease;
     }
 
-    .register-btn:hover {
+    .secondary-btn:hover {
         background-color: var(--bg-blue)
     }
 </style>
@@ -148,10 +148,11 @@ LoginFormTemplate.innerHTML = /*html*/ `
         <label for="password">Password</label>
     </div>
 
-    <button class="login-btn" type="submit" name="login">Login</button>
+    <button class="primary-btn" type="submit" name="login">Login</button>
 
     <!-- The Register button should point to a PHP file that handles registration -->
-    <button class="register-btn" onclick="location.href='register.php'">Register</button>
+    <!-- <button class="secondary-btn" onclick="location.href='register.php'">Register</button> -->
+    <button class="secondary-btn">Register</button>
 </form>
 
 `;
@@ -166,9 +167,10 @@ class LoginForm extends HTMLElement {
 
         this.validatePassword = this.validatePassword.bind(this);
         this.shadowRoot.querySelector('form').addEventListener('input', this.validatePassword);
+    }
 
-        const errorMessage = this.getAttribute('data-error');
-        this.shadowRoot.querySelector('.error-message').textContent = errorMessage;
+    connectedCallback() {
+        this.toRegister();
     }
 
     validatePassword() {
@@ -190,6 +192,13 @@ class LoginForm extends HTMLElement {
         } else {
             passwordInput.setCustomValidity('');
         }
+    }
+
+    toRegister() {
+        this.shadowRoot.querySelector('.secondary-btn').addEventListener('click', (e) => {
+            e.preventDefault();
+            window.location.href = 'register.php';
+        });
     }
 }
 customElements.define('login-form', LoginForm);

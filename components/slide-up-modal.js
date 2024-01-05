@@ -32,7 +32,7 @@ SlideUpModalTemplate.innerHTML = /*html*/ `
     .slide-pop-up,
     .overlay {
         width: 100%;
-        transition: all 0.6s ease;
+        transition: all 0.9s ease;
     }
 
     .overlay.dark {
@@ -79,7 +79,9 @@ class SlideUpModal extends HTMLElement {
     this.getContent();
 
     document.addEventListener('open-modal', (el) => {
-      this.openSlideUpModal(el);
+      setTimeout(() => {
+        this.openSlideUpModal(el);
+      }, 10);
     });
 
     document.addEventListener('close-modal', () => {

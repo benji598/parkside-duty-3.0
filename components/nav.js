@@ -49,24 +49,46 @@ navTemplate.innerHTML = /*html*/ `
         <counter-icon></counter-icon>
         <small>Counter</small>
     </a> -->
+    <!-- Redirect to splash.php if the user isn't logged in -->
 
-    <div>
-        <!-- <a href="#"> -->
-        <?php if (!$isAdmin) { ?>
-        <!-- Logout Button -->
-        <form action="splash.php" method="post">
-            <button type="submit" name="logout" class="button">Admin Login</button>
-            <login-icon></login-icon>
-            <small>Login</small>
+
+    <div class="user-details">
+
+        <!-- Dashboard Button -->
+        <!-- <form style="display: inline;" action="index.php" method="get">
+            <button type="submit" name="dashboard" class="button" <?php echo ($current_page == 'index.php') ? 'disabled' : ''; ?>>Dashboard</button>
+        </form> -->
+
+        <?php if ($isAdmin) { ?>
+        <!-- Admin Button -->
+        <form style="display: inline;" action="admin.php" method="get">
+            <button type="submit" name="admin" class="button" <?php echo ($current_page == 'admin.php') ? 'disabled' : ''; ?>Admin</button>
         </form>
+
+        <!-- Account Button -->
+        <form style="display: inline;" action="account.php" method="get">
+            <button type="submit" name="account" class="button" <?php echo ($current_page == 'account.php') ? 'disabled' : ''; ?>Account</button>
+        </form>
+
+        <!-- Logout Button -->
+        <form style="display: inline;" action="logout.php" method="post">
+            <button type="submit" name="logout" class="button">Logout</button>
+        </form>
+
         <?php } ?>
 
-        <!-- </a> -->
+        <?php if (!$isAdmin) { ?>
+        <!-- Logout Button -->
+        <form style="display: inline;" action="splash.php" method="post">
+            <button type="submit" name="logout" class="button">Admin Login</button>
+        </form>
+
+        <?php } ?>
+
     </div>
-</div>
 
 
-`;
+    `;
 
 class Nav extends HTMLElement {
   constructor() {

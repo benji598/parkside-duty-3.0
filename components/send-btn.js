@@ -52,56 +52,67 @@ SendBtnTemplate.innerHTML = /*html*/ `
 `;
 
 class SendBtn extends HTMLElement {
-  constructor() {
-    super();
-    const shadowRoot = this.attachShadow({
-      mode: 'open',
-    });
-    shadowRoot.appendChild(SendBtnTemplate.content.cloneNode(true));
-  }
+    constructor() {
+        super();
+        const shadowRoot = this.attachShadow({
+            mode: 'open',
+        });
+        shadowRoot.appendChild(SendBtnTemplate.content.cloneNode(true));
+    }
 
-  connectedCallback() {
-    this.getInfo();
-  }
+    connectedCallback() {
+        this.getInfo();
+    }
 
-  openSlideUpModal() {
-    this.dispatchEvent(
-      new CustomEvent('open-modal', {
-        bubbles: true,
-        composed: true,
-      })
-    );
-  }
+    createAndAppendModal() {
+        const modal = document.createElement('slideup-modal');
+        modal.setAttribute('content', '<send-options></send-options>');
+        document.body.appendChild(modal);
+    }
 
-  messageDetails(obj) {
-    this.dispatchEvent(
-      new CustomEvent('message-details', {
-        bubbles: true,
-        composed: true,
-        detail: obj,
-      })
-    );
-  }
+    openSlideUpModal() {
+        // Check if the modal already exists in the DOM
+        if (!document.querySelector('slideup-modal')) {
+            this.createAndAppendModal(); // Function to create and append the modal
+        }
 
-  getInfo() {
-    const firstName = this.getAttribute('firstName');
-    const lastName = this.getAttribute('lastName');
-    const dutyName = this.getAttribute('dutyName');
-    const number = this.getAttribute('number');
-    const icon = this.getAttribute('icon');
+        this.dispatchEvent(
+            new CustomEvent('open-modal', {
+                bubbles: true,
+                composed: true,
+            })
+        );
+    }
 
-    this.shadowRoot.querySelector('.icon').innerHTML = icon;
+    messageDetails(obj) {
+        this.dispatchEvent(
+            new CustomEvent('message-details', {
+                bubbles: true,
+                composed: true,
+                detail: obj,
+            })
+        );
+    }
 
-    this.addEventListener('click', function () {
-      this.openSlideUpModal();
-      this.messageDetails({
-        firstName,
-        lastName,
-        dutyName,
-        number,
-      });
-    });
-  }
+    getInfo() {
+        const firstName = this.getAttribute('firstName');
+        const lastName = this.getAttribute('lastName');
+        const dutyName = this.getAttribute('dutyName');
+        const number = this.getAttribute('number');
+        const icon = this.getAttribute('icon');
+
+        this.shadowRoot.querySelector('.icon').innerHTML = icon;
+
+        this.addEventListener('click', function() {
+            this.openSlideUpModal();
+            this.messageDetails({
+                firstName,
+                lastName,
+                dutyName,
+                number,
+            });
+        });
+    }
 }
 
 customElements.define('send-button', SendBtn);

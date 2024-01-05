@@ -10,7 +10,7 @@ AccountFormTemplate.innerHTML = /*html*/ `
     }
 
     account-icon {
-        min-height: 30px;
+        min-height: 40px;
     }
 
     .form-container {
@@ -132,7 +132,7 @@ AccountFormTemplate.innerHTML = /*html*/ `
         -webkit-box-shadow: 0 0 0 30px white inset;
     }
 
-    .save-btn {
+    .primary-btn {
         border-radius: var(--btn-radius);
         width: 100%;
         padding: 15px;
@@ -144,12 +144,12 @@ AccountFormTemplate.innerHTML = /*html*/ `
         transition: background-color 0.3s ease;
     }
 
-    .save-btn:hover {
+    .primary-btn:hover {
         background-color: var(--bg-blue);
     }
 
 
-    .back-btn {
+    .secondary-btn {
         border-radius: var(--btn-radius);
         padding: 15px;
         border: none;
@@ -159,7 +159,7 @@ AccountFormTemplate.innerHTML = /*html*/ `
         transition: background-color 0.3s ease;
     }
 
-    .back-btn:hover {
+    .secondary-btn:hover {
         background-color: var(--bg-blue)
     }
 
@@ -195,8 +195,8 @@ AccountFormTemplate.innerHTML = /*html*/ `
         </div>
 
         <!-- Include additional fields as necessary -->
-        <button class="save-btn" type="submit" name="save">Save</button>
-        <a href="index.php" class="back-btn">Back to Dashboard</a>
+        <button class="primary-btn" type="submit" name="save">Save</button>
+        <a class="secondary-btn" href="index.php">Back to Dashboard</a>
     </form>
 </div>
 `;

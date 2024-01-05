@@ -122,7 +122,7 @@ RegisterFormTemplate.innerHTML = /*html*/ `
         -webkit-box-shadow: 0 0 0 30px white inset;
     }
 
-    .login-btn {
+    .primary-btn {
         border-radius: var(--btn-radius);
         width: 100%;
         padding: 15px;
@@ -134,12 +134,12 @@ RegisterFormTemplate.innerHTML = /*html*/ `
         transition: background-color 0.3s ease;
     }
 
-    .login-btn:hover {
+    .primary-btn:hover {
         background-color: var(--bg-blue);
     }
 
 
-    .register-btn {
+    .secondary-btn {
         border-radius: var(--btn-radius);
         width: 100%;
         padding: 15px;
@@ -150,7 +150,7 @@ RegisterFormTemplate.innerHTML = /*html*/ `
         transition: background-color 0.3s ease;
     }
 
-    .register-btn:hover {
+    .secondary-btn:hover {
         background-color: var(--bg-blue)
     }
 
@@ -205,10 +205,10 @@ RegisterFormTemplate.innerHTML = /*html*/ `
             <label for="confirm_password">Confirm Password</label>
         </div>
 
-        <button id="register-btn" type="submit" name="register">Register</button>
+        <button class="primary-btn" id="register-btn" type="submit" name="register">Register</button>
+        <!-- <button class="secondary-btn" onclick="location.href='splash.php'">Back to Login</button> -->
+        <button class="secondary-btn">Back to Login</button>
     </form>
-
-    <button onclick="location.href='splash.php'">Back to Login</button>
 </div>
 `;
 
@@ -228,6 +228,10 @@ class RegisterForm extends HTMLElement {
         });
         this.comparePassword = this.comparePassword.bind(this);
         this.shadowRoot.querySelector('#register-btn').addEventListener('click', this.comparePassword);
+    }
+
+    connectedCallback() {
+        this.backToLogin();
     }
 
     checkPassword(passwordInput) {
@@ -266,6 +270,13 @@ class RegisterForm extends HTMLElement {
             passwordLabel.classList.remove('invalid-password-label');
             confirmPasswordLabel.classList.remove('invalid-password-label');
         }
+    }
+
+    backToLogin() {
+        this.shadowRoot.querySelector('.secondary-btn').addEventListener('click', (e) => {
+            e.preventDefault();
+            window.location.href = 'splash.php';
+        });
     }
 }
 customElements.define('register-form', RegisterForm);

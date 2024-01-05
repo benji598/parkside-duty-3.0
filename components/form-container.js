@@ -10,7 +10,7 @@ FormContainerTemplate.innerHTML = /*html*/ `
     }
 
     admin-icon {
-        min-height: 30px;
+        min-height: 40px;
     }
 
 
@@ -55,8 +55,8 @@ class FormContainer extends HTMLElement {
   getDetails() {
     const icon = this.getAttribute('icon');
     const title = this.getAttribute('title');
-    const form = this.getAttribute('form');
     const errorMessage = this.getAttribute('data-error');
+    const form = this.getAttribute('form');
 
     this.shadowRoot.querySelector('.icon').innerHTML = icon;
     this.shadowRoot.querySelector('.title').textContent = title;
