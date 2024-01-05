@@ -1,14 +1,14 @@
 <?php
 require 'db.php';
-require 'header.php';
+
 
 // Check if the form is submitted
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && $isAdmin) {
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Sanitize and validate input
-    $firstname = filter_input(INPUT_POST, 'firstname', FILTER_SANITIZE_STRING);
-    $lastname = filter_input(INPUT_POST, 'lastname', FILTER_SANITIZE_STRING);
-    $phone = filter_input(INPUT_POST, 'phone', FILTER_SANITIZE_STRING);
+    $firstname = isset($_POST['firstname']) ? filter_var($_POST['firstname'], FILTER_SANITIZE_SPECIAL_CHARS) : '';
+    $lastname = isset($_POST['lastname']) ? filter_var($_POST['lastname'], FILTER_SANITIZE_SPECIAL_CHARS) : '';
+    $phone = isset($_POST['phone']) ? filter_var($_POST['phone'], FILTER_SANITIZE_SPECIAL_CHARS) : '';
     $duty_ids = filter_input(INPUT_POST, 'duty_ids', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY);
 
     // Begin transaction
@@ -36,11 +36,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $isAdmin) {
         // An error occurred, rollback transaction
         $conn->rollback();
         // Set an error message to display to the admin
-        echo("theres an errror..");
-        print_r('Error adding sub user: ' . $e->getMessage(),true);
+        echo("there's an error..");
+        print_r('Error adding sub user: ' . $e->getMessage(), true);
     }
 
     // Redirect back to the admin page
     header('Location: admin.php?edited=99999');
     exit;
 }
+?>
