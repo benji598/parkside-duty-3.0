@@ -20,6 +20,7 @@
     <link rel="stylesheet" href="/css/hp.css" rel="preload" />
     <link rel="stylesheet" href="/css/tables.css" rel="preload" />
 
+
     <script src="icon/chairman-icon.js" defer></script>
     <script src="icon/platform-icon.js" defer></script>
     <script src="icon/entrance-attendant-icon.js" defer></script>
@@ -37,7 +38,7 @@
     <script src="icon/whatsapp-icon.js" defer></script>
     <script src="icon/sms-icon.js" defer></script>
 
-
+    <script src="components/network-status.js" defer></script>
     <!-- <script src="components/filterbrothers-data.js" defer></script> -->
     <script src="components/header-info.js" defer></script>
     <script src="components/name-send-title.js" defer></script>

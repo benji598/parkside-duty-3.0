@@ -38,12 +38,13 @@ SendBtnTemplate.innerHTML = /*html*/ `
     }
 
     .send-btns:active {
+        transform: scale(var(--btn-scale));
         background-color: var(--baby-blue-active);
     }
 </style>
 
 
-<a class="btn send-btns">
+<a class="send-btns">
     <div class="icon-circle">
         <div class="icon"></div>
         <slot></slot>
@@ -104,6 +105,7 @@ class SendBtn extends HTMLElement {
         this.shadowRoot.querySelector('.icon').innerHTML = icon;
 
         this.addEventListener('click', function() {
+            navigator.vibrate(10);
             this.openSlideUpModal();
             this.messageDetails({
                 firstName,

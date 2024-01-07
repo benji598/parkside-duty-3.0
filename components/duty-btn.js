@@ -38,12 +38,13 @@ dutyBtns.innerHTML = /*html*/ `
     }
 
     .duty-btns:active {
+        transform: scale(var(--btn-scale));
         background-color: var(--baby-blue-active);
     }
 </style>
 
 
-<a class="btn duty-btns">
+<a class="duty-btns">
     <div class="icon-circle">
         <slot name="icon-slot"></slot>
     </div>

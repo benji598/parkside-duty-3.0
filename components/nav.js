@@ -85,20 +85,21 @@ navTemplate.innerHTML = /*html*/ `
 
         <?php } ?>
 
+
     </div>
 
 
     `;
 
 class Nav extends HTMLElement {
-  constructor() {
-    super();
+    constructor() {
+        super();
 
-    this.attachShadow({
-      mode: 'open',
-    });
-    this.shadowRoot.appendChild(navTemplate.content.cloneNode(true));
-  }
+        this.attachShadow({
+            mode: 'open',
+        });
+        this.shadowRoot.appendChild(navTemplate.content.cloneNode(true));
+    }
 }
 
 customElements.define('nav-bar', Nav);

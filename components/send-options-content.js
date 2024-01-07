@@ -20,25 +20,22 @@ SendOptionsTemplate.innerHTML = /*html*/ `
     .whatsapp-btn,
     .sms-btn,
     .cancel-btn {
+        fill: white;
         display: flex;
         justify-content: center;
         align-items: center;
         border: 2px solid white;
-        fill: white;
         padding: 0.5rem 0rem;
         border: 2px solid white;
         gap: 0.8rem;
         color: var(--color-black);
+        font-weight: 600;
         cursor: pointer;
         border-radius: var(--btn-radius);
     }
 
     .whatsapp-btn {
         background-color: var(--whatsapp-green);
-
-        &:active {
-            background-color: #17c558;
-        }
     }
 
     .sms-btn {
@@ -56,9 +53,19 @@ SendOptionsTemplate.innerHTML = /*html*/ `
     }
 
     .cancel-btn {
-        background-color: #dc3545;
+        color: var(--color-white);
+        background-color: var(--color-red);
         padding: 1rem 0;
         grid-column: span 2;
+    }
+
+    .whatsapp-btn:active,
+    .sms-btn:active,
+    .cancel-btn:active,
+    .sms-cover-btn:active,
+    .whatsapp-cover-btn:active {
+        transform: scale(var(--btn-scale));
+        transition: var(--btn-transition);
     }
 </style>
 
@@ -151,6 +158,7 @@ class SendOptions extends HTMLElement {
 
   cancelButton() {
     this.cancelBtn.addEventListener('click', () => {
+      navigator.vibrate([30, 0, 0, 0, 30]);
       this.closeModal();
     });
   }
