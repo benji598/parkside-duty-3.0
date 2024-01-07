@@ -18,7 +18,7 @@
             $result = $conn->query("SELECT * FROM duty_type");
       ?>
 
-    <network-status></network-status>
+    <!-- <network-status></network-status> -->
     <header-info title="Parkside Duties" subtitle="Choose a Duty"></header-info>
 
 
