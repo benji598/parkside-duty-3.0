@@ -1,3 +1,4 @@
+'use strict';
 const NetworkStatusTemplate = document.createElement('template');
 NetworkStatusTemplate.innerHTML = /*html*/ `
 
@@ -49,50 +50,46 @@ NetworkStatusTemplate.innerHTML = /*html*/ `
 `;
 
 class NetworkStatus extends HTMLElement {
-    constructor() {
-        super();
+  constructor() {
+    super();
 
-        this.attachShadow({
-            mode: 'open',
-        });
-        this.shadowRoot.appendChild(NetworkStatusTemplate.content.cloneNode(true));
+    this.attachShadow({
+      mode: 'open',
+    });
+    this.shadowRoot.appendChild(NetworkStatusTemplate.content.cloneNode(true));
+  }
+
+  networkStatus() {
+    if (navigator.onLine) {
+      this.shadowRoot.querySelector('.online').classList.add('show');
+      this.shadowRoot.querySelector('.offline').classList.remove('show');
+
+      setTimeout(() => {
+        this.shadowRoot.querySelector('.online').classList.remove('show');
+      }, 5000);
+    } else {
+      setTimeout(() => {
+        this.shadowRoot.querySelector('.offline').classList.add('show');
+        this.shadowRoot.querySelector('.online').classList.remove('show');
+      }, 10);
     }
-
-    networkStatus() {
-        if (navigator.onLine) {
-            this.shadowRoot.querySelector('.online').classList.add('show');
-            this.shadowRoot.querySelector('.offline').classList.remove('show');
-
-            setTimeout(() => {
-                this.shadowRoot.querySelector('.online').classList.remove('show');
-            }, 5000);
-        } else {
-            setTimeout(() => {
-                this.shadowRoot.querySelector('.offline').classList.add('show');
-                this.shadowRoot.querySelector('.online').classList.remove('show');
-            }, 10)
-
-        }
-    }
+  }
 }
 
 customElements.define('network-status', NetworkStatus);
 
 // Global function to handle network status changes
-const handleNetworkStatusChange = function() {
-    let networkStatusElement = document.querySelector('network-status');
+const handleNetworkStatusChange = function () {
+  let networkStatusElement = document.querySelector('network-status');
 
-    if (!networkStatusElement) {
-        networkStatusElement = document.createElement('network-status');
-        // document.body.appendChild(networkStatusElement);
+  if (!networkStatusElement) {
+    networkStatusElement = document.createElement('network-status');
+    document.body.prepend(networkStatusElement);
+  }
 
-        document.body.prepend(networkStatusElement);
-    }
-
-    console.log(networkStatusElement);
-    networkStatusElement.networkStatus();
+  console.log(networkStatusElement);
+  networkStatusElement.networkStatus();
 };
 
-// Attach event listeners to the window
 window.addEventListener('online', handleNetworkStatusChange);
 window.addEventListener('offline', handleNetworkStatusChange);
