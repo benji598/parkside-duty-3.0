@@ -46,24 +46,28 @@ $result_sub_users = $conn->query("
         <?php } ?>
 
         <div class="account-container">
-            <h2>Manage Duty Types</h2>
-            <table>
-                <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Icon</th>
-                    <th>Link</th>
-                </tr>
-                <?php while ($row = $result_duty_types->fetch_assoc()): ?>
-                <tr>
-                    <td><?php echo htmlspecialchars($row['id']); ?></td>
-                    <td><?php echo htmlspecialchars($row['name']); ?></td>
-                    <td><?php echo htmlspecialchars($row['icon']); ?></td>
-                    <td><?php echo htmlspecialchars($row['link']); ?></td>
-                </tr>
-                <?php endwhile; ?>
-            </table>
-        </div>
+        <h2>Manage Duty Types</h2>
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Icon</th>
+                <th>Link</th>
+                <th>Message</th> <!-- New column header -->
+            </tr>
+            <?php while ($row = $result_duty_types->fetch_assoc()): ?>
+            <tr>
+                <td><?php echo isset($row['id']) ? htmlspecialchars($row['id']) : ''; ?></td>
+                <td><?php echo isset($row['name']) ? htmlspecialchars($row['name']) : ''; ?></td>
+                <td><?php echo isset($row['icon']) ? htmlspecialchars($row['icon']) : ''; ?></td>
+                <td><?php echo isset($row['link']) ? htmlspecialchars($row['link']) : ''; ?></td>
+                <td><?php echo isset($row['message']) ? htmlspecialchars($row['message']) : ''; ?></td> <!-- New column data -->
+            </tr>
+            <?php endwhile; ?>
+        </table>
+    </div>
+
+
         <!-- Manage Sub Users Section -->
         <div class="account-container">
             <h2>Manage Sub Users</h2>

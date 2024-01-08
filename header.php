@@ -1,6 +1,6 @@
 <?php if (!isset($_SESSION)) { session_start(); } ?>
-<!DOCTYPE html>
-<html lang="en">
+<!-- <!DOCTYPE html>
+<html lang="en"> -->
 
 <head>
     <!-- <meta name="view-transition" content="same-origin" /> -->
