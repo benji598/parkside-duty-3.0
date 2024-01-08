@@ -31,10 +31,11 @@ if (!$duty) {
 
 // Fetch sub-users assigned to this duty
 $stmt = $conn->prepare("
-    SELECT su.id as sub_user_id, su.firstname, su.lastname, su.phone 
+SELECT su.id as sub_user_id, su.firstname, su.lastname, su.phone, dt.message 
     FROM sub_user_duty_assignment as suda
     JOIN sub_users as su ON suda.sub_user_id = su.id
-    WHERE suda.duty_id = ?
+    join duty_type as dt on dt.id = ?
+    WHERE suda.duty_id = 1
 ");
 $stmt->bind_param("i", $duty_id);
 $stmt->execute();
@@ -57,6 +58,7 @@ $stmt->close();
         </name-holder>
         <send-button firstName="<?php echo htmlspecialchars($sub_user['firstname']); ?>"
             lastName="<?php echo htmlspecialchars($sub_user['lastname']); ?>"
+            message="<?php echo htmlspecialchars($sub_user['message']); ?>"
             dutyName="<?php echo htmlspecialchars($duty_name); ?>"
             number="<?php echo htmlspecialchars($sub_user['phone']); ?>" icon="<send-icon></send-icon>">
         </send-button>
