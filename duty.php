@@ -12,7 +12,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete'])) {
     $sub_user_id = $_POST['sub_user_id'] ?? null;
     if ($sub_user_id && deleteSubUserFromDuty($conn, $sub_user_id, $duty_id)) {
         // Deletion was successful
-    
     }
 }
 
@@ -30,20 +29,20 @@ if (!$duty) {
 }
 
 // Fetch sub-users assigned to this duty
-$stmt = $conn->prepare("
-SELECT su.id as sub_user_id, su.firstname, su.lastname, su.phone, dt.message 
-    FROM sub_user_duty_assignment as suda
-    JOIN sub_users as su ON suda.sub_user_id = su.id
-    join duty_type as dt on dt.id = ?
-    WHERE suda.duty_id = 1
-");
-$stmt->bind_param("i", $duty_id);
-$stmt->execute();
-$result_sub_users = $stmt->get_result();
+    $stmt = $conn->prepare("
+    SELECT su.id as sub_user_id, su.firstname, su.lastname, su.phone, dt.message 
+        FROM sub_user_duty_assignment as suda
+        JOIN sub_users as su ON suda.sub_user_id = su.id
+        join duty_type as dt on dt.id = ?
+        WHERE suda.duty_id = 1
+    ");
+    $stmt->bind_param("i", $duty_id);
+    $stmt->execute();
+    $result_sub_users = $stmt->get_result();
 
-// Duty name for the title
-$duty_name = $duty['name'];
-$stmt->close();
+    // Duty name for the title
+    $duty_name = $duty['name'];
+    $stmt->close();
 ?>
 
 <body>

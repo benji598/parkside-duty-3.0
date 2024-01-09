@@ -7,7 +7,7 @@ NameHolderTemplate.innerHTML = /*html*/ `
         align-items: center;
         padding-left: 1rem;
         padding-right: 1rem;
-        height: 100%;
+        /* height: 100%; */
         min-height: 3.6rem;
 
         /* padding: 1.25rem; */

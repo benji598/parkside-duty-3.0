@@ -53,70 +53,72 @@ SendBtnTemplate.innerHTML = /*html*/ `
 `;
 
 class SendBtn extends HTMLElement {
-    constructor() {
-        super();
-        const shadowRoot = this.attachShadow({
-            mode: 'open',
-        });
-        shadowRoot.appendChild(SendBtnTemplate.content.cloneNode(true));
+  constructor() {
+    super();
+    const shadowRoot = this.attachShadow({
+      mode: 'open',
+    });
+    shadowRoot.appendChild(SendBtnTemplate.content.cloneNode(true));
+  }
+
+  connectedCallback() {
+    this.getInfo();
+  }
+
+  createAndAppendModal() {
+    const modal = document.createElement('slideup-modal');
+    modal.setAttribute('content', '<send-options></send-options>');
+    document.body.appendChild(modal);
+  }
+
+  openSlideUpModal() {
+    // Check if the modal already exists in the DOM
+    if (!document.querySelector('slideup-modal')) {
+      this.createAndAppendModal(); // Function to create and append the modal
     }
 
-    connectedCallback() {
-        this.getInfo();
-    }
+    this.dispatchEvent(
+      new CustomEvent('open-modal', {
+        bubbles: true,
+        composed: true,
+      })
+    );
+  }
 
-    createAndAppendModal() {
-        const modal = document.createElement('slideup-modal');
-        modal.setAttribute('content', '<send-options></send-options>');
-        document.body.appendChild(modal);
-    }
+  messageDetails(obj) {
+    this.dispatchEvent(
+      new CustomEvent('message-details', {
+        bubbles: true,
+        composed: true,
+        detail: obj,
+      })
+    );
+  }
 
-    openSlideUpModal() {
-        // Check if the modal already exists in the DOM
-        if (!document.querySelector('slideup-modal')) {
-            this.createAndAppendModal(); // Function to create and append the modal
-        }
+  getInfo() {
+    const firstName = this.getAttribute('firstName');
+    const lastName = this.getAttribute('lastName');
+    const dutyName = this.getAttribute('dutyName');
+    const number = this.getAttribute('number');
+    const icon = this.getAttribute('icon');
+    const message = this.getAttribute('message');
 
-        this.dispatchEvent(
-            new CustomEvent('open-modal', {
-                bubbles: true,
-                composed: true,
-            })
-        );
-    }
+    this.shadowRoot.querySelector('.icon').innerHTML = icon;
 
-    messageDetails(obj) {
-        this.dispatchEvent(
-            new CustomEvent('message-details', {
-                bubbles: true,
-                composed: true,
-                detail: obj,
-            })
-        );
-    }
-
-    getInfo() {
-        const firstName = this.getAttribute('firstName');
-        const lastName = this.getAttribute('lastName');
-        const dutyName = this.getAttribute('dutyName');
-        const number = this.getAttribute('number');
-        const icon = this.getAttribute('icon');
-        const message = this.getAttribute('message');
-
-        this.shadowRoot.querySelector('.icon').innerHTML = icon;
-
-        this.addEventListener('click', function() {
-            navigator.vibrate(10);
-            this.openSlideUpModal();
-            this.messageDetails({
-                firstName,
-                lastName,
-                dutyName,
-                number,
-                message,
-            });
-        });
-    }
+    this.addEventListener('click', function () {
+      if ('vibrate' in navigator) {
+        navigator.vibrate(10);
+      }
+      this.openSlideUpModal();
+      this.messageDetails({
+        firstName,
+        lastName,
+        dutyName,
+        number,
+        message,
+      });
+    });
+  }
 }
 
 customElements.define('send-button', SendBtn);

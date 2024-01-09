@@ -116,6 +116,7 @@ class SendOptions extends HTMLElement {
     document.addEventListener('message-details', (obj) => {
       this.popUpName.textContent = `${obj.detail.firstName} ${obj.detail.lastName}`;
       this.btnOption(obj);
+      console.log(obj.detail.message);
     });
 
     this.cancelButton();
@@ -158,14 +159,16 @@ class SendOptions extends HTMLElement {
 
   cancelButton() {
     this.cancelBtn.addEventListener('click', () => {
-      navigator.vibrate([30, 0, 0, 0, 30]);
+      if ('vibrate' in navigator) {
+        navigator.vibrate([30, 0, 0, 0, 30]);
+      }
       this.closeModal();
     });
   }
 
   whatsApp(obj) {
     window.location.assign(
-      `whatsapp://send?phone=+${obj.detail.number} &text=*Reminder!*%0aHello ${obj.detail.firstName}, You are scheduled for %0a*${obj.detail.dutyName}* on *sunday*, Please let me know if you can *NOT* cover the duty. Thanks.`
+      `whatsapp://send?phone=+${obj.detail.number} &text=*Reminder!*%0aHello ${obj.detail.firstName}, You are scheduled for %0a*${obj.detail.dutyName}* on *Sunday*, Please let me know if you can *NOT* cover the duty. Thanks.`
     );
   }
 
