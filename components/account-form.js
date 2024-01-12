@@ -59,12 +59,11 @@ AccountFormTemplate.innerHTML = /*html*/ `
     }
 
 
-    /* When the input is not empty, move the label up */
-    input[type=text]:not(:placeholder-shown)+label,
-    input[type=email]:not(:placeholder-shown)+label,
-    input[type=tel]:not(:placeholder-shown)+label {
+    /* Style for label when input has content */
+    input[type=text]+label.has-content,
+    input[type=email]+label.has-content,
+    input[type=tel]+label.has-content {
         top: -5px;
-        color: var(--color-red);
         font-size: 10px;
         background-color: white;
         width: fit-content;
@@ -73,7 +72,6 @@ AccountFormTemplate.innerHTML = /*html*/ `
         padding-top: 0;
         height: fit-content;
         left: 15px;
-        font-size: 10px;
     }
 
 
@@ -101,27 +99,31 @@ AccountFormTemplate.innerHTML = /*html*/ `
     }
 
 
-    input[type=text]:invalid:not(:placeholder-shown),
-    input[type=email]:invalid:not(:placeholder-shown),
-    input[type=tel]:invalid:not(:placeholder-shown) {
+    /* Style for input border when it's invalid */
+    input[type=text].invalid,
+    input[type=email].invalid,
+    input[type=tel].invalid {
         border-color: var(--color-red);
     }
 
-    input[type=text]:invalid:not(:placeholder-shown)+label,
-    input[type=email]:invalid:not(:placeholder-shown)+label,
-    input[type=tel]:invalid:not(:placeholder-shown)+label {
+    /* Style for label when input is invalid */
+    input[type=text].invalid+label,
+    input[type=email].invalid+label,
+    input[type=tel].invalid+label {
         color: var(--color-red);
     }
 
-    input[type=text]:valid,
-    input[type=email]:valid,
-    input[type=tel]:valid {
+    /* Style for input border when it's valid */
+    input[type=text].valid,
+    input[type=email].valid,
+    input[type=tel].valid {
         border-color: var(--color-green);
     }
 
-    input[type=text]:valid+label,
-    input[type=email]:valid+label,
-    input[type=tel]:valid+label {
+    /* Style for label when input is valid */
+    input[type=text].valid+label,
+    input[type=email].valid+label,
+    input[type=tel].valid+label {
         color: var(--color-green);
     }
 
@@ -202,28 +204,55 @@ AccountFormTemplate.innerHTML = /*html*/ `
 `;
 
 class AccountForm extends HTMLElement {
-  constructor() {
-    super();
-    this.attachShadow({
-      mode: 'open',
-    });
-    this.shadowRoot.appendChild(AccountFormTemplate.content.cloneNode(true));
-  }
+    constructor() {
+        super();
+        this.attachShadow({
+            mode: 'open',
+        });
+        this.shadowRoot.appendChild(AccountFormTemplate.content.cloneNode(true));
+    }
 
-  connectedCallback() {
-    this.getDetails();
-  }
+    connectedCallback() {
+        this.getDetails();
+        this.initializeLabelPositions();
+    }
 
-  getDetails() {
-    const firstName = this.getAttribute('firstName');
-    const lastName = this.getAttribute('lastName');
-    const email = this.getAttribute('email');
-    const phone = this.getAttribute('phone');
+    getDetails() {
+        const firstName = this.getAttribute('firstName');
+        const lastName = this.getAttribute('lastName');
+        const email = this.getAttribute('email');
+        const phone = this.getAttribute('phone');
 
-    this.shadowRoot.querySelector('#firstName').value = firstName;
-    this.shadowRoot.querySelector('#lastName').value = lastName;
-    this.shadowRoot.querySelector('#email').value = email;
-    this.shadowRoot.querySelector('#phone').value = phone;
-  }
+        this.shadowRoot.querySelector('#firstName').value = firstName;
+        this.shadowRoot.querySelector('#lastName').value = lastName;
+        this.shadowRoot.querySelector('#email').value = email;
+        this.shadowRoot.querySelector('#phone').value = phone;
+    }
+
+    initializeLabelPositions() {
+        const inputs = this.shadowRoot.querySelectorAll('input[type=text], input[type=email], input[type=tel]');
+        inputs.forEach((input) => {
+            this.updateLabelPosition(input);
+            input.addEventListener('input', () => this.updateLabelPosition(input));
+        });
+    }
+
+    updateLabelPosition(input) {
+        const label = input.nextElementSibling;
+
+        if (input.value) {
+            label.classList.add('has-content');
+            if (input.checkValidity()) {
+                input.classList.add('valid');
+                input.classList.remove('invalid');
+            } else {
+                input.classList.add('invalid');
+                input.classList.remove('valid');
+            }
+        } else {
+            label.classList.remove('has-content');
+            input.classList.remove('invalid', 'valid');
+        }
+    }
 }
 customElements.define('account-form', AccountForm);

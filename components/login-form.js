@@ -7,9 +7,7 @@ LoginFormTemplate.innerHTML = /*html*/ `
     }
 
 
-    input[type=text],
     input[type=email],
-    input[type=tel],
     input[type=password] {
         width: 100%;
         width: clamp(240px, 69vw, 380px);
@@ -37,19 +35,6 @@ LoginFormTemplate.innerHTML = /*html*/ `
         transition: all 0.3s ease;
     }
 
-    /* When the input is not empty, move the label up */
-    /* input[type=email]:not(:placeholder-shown)+label,
-    input[type=password]:not(:placeholder-shown)+label {
-        top: -5px;
-        font-size: 10px;
-        background-color: white;
-        width: fit-content;
-        padding-left: 5px;
-        padding-right: 5px;
-        padding-top: 0;
-        height: fit-content;
-        left: 15px;
-    } */
 
     /* Style for label when input has content */
     input[type=email]+label.has-content,
@@ -87,26 +72,30 @@ LoginFormTemplate.innerHTML = /*html*/ `
         outline: none;
     }
 
-    /* input[type=email]:user-invalid:not(:placeholder-shown),
-    input[type=password]:user-invalid:not(:placeholder-shown) {
+
+    /* Style for input border when it's invalid */
+    input[type=email].invalid,
+    input[type=password].invalid {
         border-color: var(--color-red);
-    } */
+    }
 
-    /* 
-    input[type=email]:user-invalid:not(:placeholder-shown)+label,
-    input[type=password]:user-invalid:not(:placeholder-shown)+label {
+    /* Style for label when input is invalid */
+    input[type=email].invalid+label,
+    input[type=password].invalid+label {
         color: var(--color-red);
-    } */
+    }
 
-    /* input[type=email]:user-valid,
-    input[type=password]:user-valid {
+    /* Style for input border when it's valid */
+    input[type=email].valid,
+    input[type=password].valid {
         border-color: var(--color-green);
     }
 
-    input[type=email]:user-valid+label,
-    input[type=password]:user-valid+label {
+    /* Style for label when input is valid */
+    input[type=email].valid+label,
+    input[type=password].valid+label {
         color: var(--color-green);
-    } */
+    }
 
     input:-webkit-autofill,
     input:-webkit-autofill:hover,
@@ -145,31 +134,6 @@ LoginFormTemplate.innerHTML = /*html*/ `
 
     .secondary-btn:hover {
         background-color: var(--bg-blue)
-    }
-
-
-    /* Style for input border when it's invalid */
-    input[type=email].invalid,
-    input[type=password].invalid {
-        border-color: var(--color-red);
-    }
-
-    /* Style for label when input is invalid */
-    input[type=email].invalid+label,
-    input[type=password].invalid+label {
-        color: var(--color-red);
-    }
-
-    /* Style for input border when it's valid */
-    input[type=email].valid,
-    input[type=password].valid {
-        border-color: var(--color-green);
-    }
-
-    /* Style for label when input is valid */
-    input[type=email].valid+label,
-    input[type=password].valid+label {
-        color: var(--color-green);
     }
 </style>
 

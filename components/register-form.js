@@ -44,13 +44,12 @@ RegisterFormTemplate.innerHTML = /*html*/ `
         transition: all 0.3s ease;
     }
 
-    /* When the input is not empty, move the label up */
-    input[type=text]:not(:placeholder-shown)+label,
-    input[type=tel]:not(:placeholder-shown)+label,
-    input[type=email]:not(:placeholder-shown)+label,
-    input[type=password]:not(:placeholder-shown)+label {
+
+    input[type=text]+label.has-content,
+    input[type=tel]+label.has-content,
+    input[type=email]+label.has-content,
+    input[type=password]+label.has-content {
         top: -5px;
-        color: var(--color-red);
         font-size: 10px;
         background-color: white;
         width: fit-content;
@@ -59,8 +58,8 @@ RegisterFormTemplate.innerHTML = /*html*/ `
         padding-top: 0;
         height: fit-content;
         left: 15px;
-        font-size: 10px;
     }
+
 
     /* Also move the label up when the input is focused */
     input[type=text]:focus+label,
@@ -87,31 +86,36 @@ RegisterFormTemplate.innerHTML = /*html*/ `
         outline: none;
     }
 
-    input[type=text]:invalid:not(:placeholder-shown),
-    input[type=tel]:invalid:not(:placeholder-shown),
-    input[type=email]:invalid:not(:placeholder-shown),
-    input[type=password]:invalid:not(:placeholder-shown) {
+
+    /* Style for input border when it's invalid */
+    input[type=text].invalid,
+    input[type=tel].invalid,
+    input[type=email].invalid,
+    input[type=password].invalid {
         border-color: var(--color-red);
     }
 
-    input[type=text]:invalid:not(:placeholder-shown)+label,
-    input[type=tel]:invalid:not(:placeholder-shown)+label,
-    input[type=email]:invalid:not(:placeholder-shown)+label,
-    input[type=password]:invalid:not(:placeholder-shown)+label {
+    /* Style for label when input is invalid */
+    input[type=text].invalid+label,
+    input[type=tel].invalid+label,
+    input[type=email].invalid+label,
+    input[type=password].invalid+label {
         color: var(--color-red);
     }
 
-    input[type=text]:valid,
-    input[type=tel]:valid,
-    input[type=email]:valid,
-    input[type=password]:valid {
+    /* Style for input border when it's valid */
+    input[type=text].valid,
+    input[type=tel].valid,
+    input[type=email].valid,
+    input[type=password].valid {
         border-color: var(--color-green);
     }
 
-    input[type=text]:valid+label,
-    input[type=tel]:valid+label,
-    input[type=email]:valid+label,
-    input[type=password]:valid+label {
+    /* Style for label when input is valid */
+    input[type=text].valid+label,
+    input[type=tel].valid+label,
+    input[type=email].valid+label,
+    input[type=password].valid+label {
         color: var(--color-green);
     }
 
@@ -213,70 +217,97 @@ RegisterFormTemplate.innerHTML = /*html*/ `
 `;
 
 class RegisterForm extends HTMLElement {
-    constructor() {
-        super();
-        this.attachShadow({
-            mode: 'open',
-        });
-        this.shadowRoot.appendChild(RegisterFormTemplate.content.cloneNode(true));
+  constructor() {
+    super();
+    this.attachShadow({
+      mode: 'open',
+    });
+    this.shadowRoot.appendChild(RegisterFormTemplate.content.cloneNode(true));
 
-        this.shadowRoot.querySelector('form').addEventListener('input', () => {
-            const passwordInput = this.shadowRoot.querySelector('#password');
-            const confirmPasswordInput = this.shadowRoot.querySelector('#confirm-password');
-            this.checkPassword(passwordInput);
-            this.checkPassword(confirmPasswordInput);
-        });
-        this.comparePassword = this.comparePassword.bind(this);
-        this.shadowRoot.querySelector('#register-btn').addEventListener('click', this.comparePassword);
+    this.shadowRoot.querySelector('form').addEventListener('input', () => {
+      const passwordInput = this.shadowRoot.querySelector('#password');
+      const confirmPasswordInput = this.shadowRoot.querySelector('#confirm-password');
+      this.checkPassword(passwordInput);
+      this.checkPassword(confirmPasswordInput);
+    });
+    this.comparePassword = this.comparePassword.bind(this);
+    this.shadowRoot.querySelector('#register-btn').addEventListener('click', this.comparePassword);
+  }
+
+  connectedCallback() {
+    this.backToLogin();
+    this.initializeLabelPositions();
+  }
+
+  checkPassword(passwordInput) {
+    const hasUpperCase = /[A-Z]/.test(passwordInput.value);
+    const isLongEnough = passwordInput.value.length >= 8;
+
+    if (!hasUpperCase && !isLongEnough) {
+      passwordInput.setCustomValidity('Password must be at least 8 characters long and include at least one uppercase letter.');
+    } else if (!hasUpperCase) {
+      passwordInput.setCustomValidity('Password must include at least one uppercase letter.');
+    } else if (!isLongEnough) {
+      passwordInput.setCustomValidity('Password must be at least 8 characters long.');
+    } else {
+      passwordInput.setCustomValidity('');
     }
+  }
 
-    connectedCallback() {
-        this.backToLogin();
+  comparePassword(e) {
+    const password = this.shadowRoot.querySelector('#password');
+    const confirmPassword = this.shadowRoot.querySelector('#confirm-password');
+    const errorMessage = this.shadowRoot.querySelector('.error-message');
+    const passwordLabel = this.shadowRoot.querySelector('label[for="password"]');
+    const confirmPasswordLabel = this.shadowRoot.querySelector('label[for="confirm_password"]');
+
+    if (password.value !== confirmPassword.value) {
+      e.preventDefault();
+      errorMessage.textContent = 'Passwords DO NOT match';
+      password.classList.add('invalid-password');
+      confirmPassword.classList.add('invalid-password');
+      passwordLabel.classList.add('invalid-password-label');
+      confirmPasswordLabel.classList.add('invalid-password-label');
+    } else {
+      errorMessage.textContent = '';
+      password.classList.remove('invalid-password');
+      confirmPassword.classList.remove('invalid-password');
+      passwordLabel.classList.remove('invalid-password-label');
+      confirmPasswordLabel.classList.remove('invalid-password-label');
     }
+  }
 
-    checkPassword(passwordInput) {
-        const hasUpperCase = /[A-Z]/.test(passwordInput.value);
-        const isLongEnough = passwordInput.value.length >= 8;
+  initializeLabelPositions() {
+    const inputs = this.shadowRoot.querySelectorAll('input[type=text], input[type=tel], input[type=email], input[type=password]');
+    inputs.forEach((input) => {
+      this.updateLabelPosition(input);
+      input.addEventListener('input', () => this.updateLabelPosition(input));
+    });
+  }
 
-        if (!hasUpperCase && !isLongEnough) {
-            passwordInput.setCustomValidity('Password must be at least 8 characters long and include at least one uppercase letter.');
-        } else if (!hasUpperCase) {
-            passwordInput.setCustomValidity('Password must include at least one uppercase letter.');
-        } else if (!isLongEnough) {
-            passwordInput.setCustomValidity('Password must be at least 8 characters long.');
-        } else {
-            passwordInput.setCustomValidity('');
-        }
+  updateLabelPosition(input) {
+    const label = input.nextElementSibling;
+
+    if (input.value) {
+      label.classList.add('has-content');
+      if (input.checkValidity()) {
+        input.classList.add('valid');
+        input.classList.remove('invalid');
+      } else {
+        input.classList.add('invalid');
+        input.classList.remove('valid');
+      }
+    } else {
+      label.classList.remove('has-content');
+      input.classList.remove('invalid', 'valid');
     }
+  }
 
-    comparePassword(e) {
-        const password = this.shadowRoot.querySelector('#password');
-        const confirmPassword = this.shadowRoot.querySelector('#confirm-password');
-        const errorMessage = this.shadowRoot.querySelector('.error-message');
-        const passwordLabel = this.shadowRoot.querySelector('label[for="password"]');
-        const confirmPasswordLabel = this.shadowRoot.querySelector('label[for="confirm_password"]');
-
-        if (password.value !== confirmPassword.value) {
-            e.preventDefault();
-            errorMessage.textContent = 'Passwords DO NOT match';
-            password.classList.add('invalid-password');
-            confirmPassword.classList.add('invalid-password');
-            passwordLabel.classList.add('invalid-password-label');
-            confirmPasswordLabel.classList.add('invalid-password-label');
-        } else {
-            errorMessage.textContent = '';
-            password.classList.remove('invalid-password');
-            confirmPassword.classList.remove('invalid-password');
-            passwordLabel.classList.remove('invalid-password-label');
-            confirmPasswordLabel.classList.remove('invalid-password-label');
-        }
-    }
-
-    backToLogin() {
-        this.shadowRoot.querySelector('.secondary-btn').addEventListener('click', (e) => {
-            e.preventDefault();
-            window.location.href = 'splash.php';
-        });
-    }
+  backToLogin() {
+    this.shadowRoot.querySelector('.secondary-btn').addEventListener('click', (e) => {
+      e.preventDefault();
+      window.location.href = 'splash.php';
+    });
+  }
 }
 customElements.define('register-form', RegisterForm);
