@@ -197,29 +197,30 @@ class SendOptions extends HTMLElement {
   }
 
   parseMessage(obj, message) {
-    // Adjust the daysOfWeek array so that Monday is the first day (index 0)
     const daysOfWeek = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
 
-    // Get the current day of the week (adjusted so Monday is 0, Tuesday is 1, etc.)
     const currentDate = new Date();
     const currentDayOfWeek = (currentDate.getDay() + 6) % 7;
 
-    // Determine the day indices for meeting_1 and meeting_2
     const meeting1DayIndex = daysOfWeek.indexOf(obj.detail.meeting_1);
     const meeting2DayIndex = daysOfWeek.indexOf(obj.detail.meeting_2);
 
     let selectedMeeting;
 
-    // Determine which meeting to select based on the current day
-    if (currentDayOfWeek < meeting2DayIndex || (currentDayOfWeek === meeting2DayIndex && currentDate.getHours() < 18)) {
-        // If it's currently before meeting_2, select meeting_2
+    if ((currentDayOfWeek > meeting2DayIndex) || 
+        (currentDayOfWeek === meeting2DayIndex && currentDate.getHours() >= 18)) {
+        // If it's currently after meeting_2, select meeting_1
+        selectedMeeting = obj.detail.meeting_1;
+    } else if (currentDayOfWeek < meeting2DayIndex && 
+               (currentDayOfWeek > meeting1DayIndex || 
+                (currentDayOfWeek === meeting1DayIndex && currentDate.getHours() >= 18))) {
+        // If it's currently before meeting_2 and after or on meeting_1, select meeting_2
         selectedMeeting = obj.detail.meeting_2;
     } else {
-        // Otherwise, select meeting_1
+        // If it's currently before both meetings, select the earlier one (meeting_1)
         selectedMeeting = obj.detail.meeting_1;
     }
 
-    // Replace tags in the message
     let parsedMessage = message
         .replace("{first_name}", obj.detail.firstName)
         .replace("{duty_name}", obj.detail.dutyName)
@@ -227,6 +228,7 @@ class SendOptions extends HTMLElement {
 
     return parsedMessage;
 }
+
 
 
 
