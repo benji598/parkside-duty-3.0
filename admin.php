@@ -33,6 +33,15 @@ while ($row = $result_messages->fetch_assoc()) {
 $duty_message = isset($messages['duty_message']) ? $messages['duty_message'] : '';
 $cover_message = isset($messages['cover_message']) ? $messages['cover_message'] : '';
 
+$query_meetings = "SELECT name, setting_1 FROM core_config_data WHERE name IN ('meeting_1', 'meeting_2')";
+$result_meetings = $conn->query($query_meetings);
+$meetings = [];
+while ($row = $result_meetings->fetch_assoc()) {
+    $meetings[$row['name']] = $row['setting_1'];
+}
+
+$meeting_1 = isset($meetings['meeting_1']) ? $meetings['meeting_1'] : '';
+$meeting_2 = isset($meetings['meeting_2']) ? $meetings['meeting_2'] : '';
 
 ?>
 <!DOCTYPE html>
@@ -70,6 +79,31 @@ $cover_message = isset($messages['cover_message']) ? $messages['cover_message'] 
             </form>
         </div>
 
+        <div class="account-container">
+    <h2>Manage Weekly Meetings</h2>
+    <form method="post" action="update_weekly_meetings.php">
+        <label for="meeting_1">First Weekly Meeting:</label>
+        <select id="meeting_1" name="meeting_1">
+            <?php
+            $days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+            foreach ($days as $day) {
+                echo '<option value="'.$day.'"'.($day == $meeting_1 ? ' selected' : '').'>'.$day.'</option>';
+            }
+            ?>
+        </select>
+
+        <label for="meeting_2">Second Weekly Meeting:</label>
+        <select id="meeting_2" name="meeting_2">
+            <?php
+            foreach ($days as $day) {
+                echo '<option value="'.$day.'"'.($day == $meeting_2 ? ' selected' : '').'>'.$day.'</option>';
+            }
+            ?>
+        </select>
+
+        <button type="submit" name="update_meetings">Update Meetings</button>
+    </form>
+</div>
 
 
         <div class="account-container">

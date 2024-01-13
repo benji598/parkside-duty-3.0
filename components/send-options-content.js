@@ -196,15 +196,32 @@ class SendOptions extends HTMLElement {
     );
   }
 
-   parseMessage(obj, message) {
+  parseMessage(obj, message) {
+    // Get the current day of the week
+    const currentDayOfWeek = new Date().getDay();
+    const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
+    // Determine the day indices for meeting_1 and meeting_2
+    const meeting1DayIndex = daysOfWeek.indexOf(obj.detail.meeting_1);
+    const meeting2DayIndex = daysOfWeek.indexOf(obj.detail.meeting_2);
+
+    // Determine if the current day is the same as or past the day of meeting_2
+    const isCurrentOrPastMeeting2 = currentDayOfWeek >= meeting2DayIndex;
+
+    // Select the appropriate meeting
+    // If it's currently the same day as meeting_2 or past, select meeting_1; otherwise, select meeting_2
+    const selectedMeeting = isCurrentOrPastMeeting2 ? obj.detail.meeting_1 : obj.detail.meeting_2;
+
+    // Replace tags in the message
     let parsedMessage = message
         .replace("{first_name}", obj.detail.firstName)
         .replace("{duty_name}", obj.detail.dutyName)
-        .replace("{next_date}", "Monday"); // hardcoded 'Monday' for now
+        .replace("{next_date}", selectedMeeting);
 
     return parsedMessage;
 }
+
+
 }
 
 customElements.define('send-options', SendOptions);
