@@ -101,7 +101,8 @@ class SendBtn extends HTMLElement {
     const dutyName = this.getAttribute('dutyName');
     const number = this.getAttribute('number');
     const icon = this.getAttribute('icon');
-    const message = this.getAttribute('message');
+    const duty_message = this.getAttribute('duty_message');
+    const cover_message = this.getAttribute('cover_message');
 
     this.shadowRoot.querySelector('.icon').innerHTML = icon;
 
@@ -115,7 +116,8 @@ class SendBtn extends HTMLElement {
         lastName,
         dutyName,
         number,
-        message,
+        duty_message,
+        cover_message
       });
     });
   }

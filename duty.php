@@ -30,11 +30,18 @@ if (!$duty) {
 
 // Fetch sub-users assigned to this duty
     $stmt = $conn->prepare("
-    SELECT su.id as sub_user_id, su.firstname, su.lastname, su.phone, dt.message 
-        FROM sub_user_duty_assignment as suda
-        JOIN sub_users as su ON suda.sub_user_id = su.id
-        join duty_type as dt on dt.id = ?
-        WHERE suda.duty_id = 1
+        SELECT su.id as sub_user_id, 
+        su.firstname, 
+        su.lastname, 
+        su.phone,
+        ccd_duty.setting_1 as duty_message,
+        ccd_cover.setting_1 as cover_message
+    FROM sub_user_duty_assignment as suda
+    JOIN sub_users as su ON suda.sub_user_id = su.id
+    CROSS JOIN (SELECT setting_1 FROM core_config_data WHERE name = 'duty_message') as ccd_duty
+    CROSS JOIN (SELECT setting_1 FROM core_config_data WHERE name = 'cover_message') as ccd_cover
+    WHERE suda.duty_id = ?
+
     ");
     $stmt->bind_param("i", $duty_id);
     $stmt->execute();
@@ -57,7 +64,8 @@ if (!$duty) {
         </name-holder>
         <send-button firstName="<?php echo htmlspecialchars($sub_user['firstname']); ?>"
             lastName="<?php echo htmlspecialchars($sub_user['lastname']); ?>"
-            message="<?php echo htmlspecialchars($sub_user['message']); ?>"
+            duty_message="<?php echo htmlspecialchars($sub_user['duty_message']); ?>"
+            cover_message="<?php echo htmlspecialchars($sub_user['cover_message']); ?>"
             dutyName="<?php echo htmlspecialchars($duty_name); ?>"
             number="<?php echo htmlspecialchars($sub_user['phone']); ?>" icon="<send-icon></send-icon>">
         </send-button>

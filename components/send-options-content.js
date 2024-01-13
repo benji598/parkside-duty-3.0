@@ -116,7 +116,6 @@ class SendOptions extends HTMLElement {
     document.addEventListener('message-details', (obj) => {
       this.popUpName.textContent = `${obj.detail.firstName} ${obj.detail.lastName}`;
       this.btnOption(obj);
-      console.log(obj.detail.message);
     });
 
     this.cancelButton();
@@ -159,37 +158,53 @@ class SendOptions extends HTMLElement {
 
   cancelButton() {
     this.cancelBtn.addEventListener('click', () => {
-      if ('vibrate' in navigator) {
-        navigator.vibrate([30, 0, 0, 0, 30]);
-      }
+      navigator.vibrate([30, 0, 0, 0, 30]);
       this.closeModal();
     });
   }
 
   whatsApp(obj) {
+    const message_content = this.parseMessage(obj, obj.detail.duty_message);
+
     window.location.assign(
-      `whatsapp://send?phone=+${obj.detail.number} &text=*Reminder!*%0aHello ${obj.detail.firstName}, You are scheduled for %0a*${obj.detail.dutyName}* on *Sunday*, Please let me know if you can *NOT* cover the duty. Thanks.`
+      `whatsapp://send?phone=+${obj.detail.number} &text=${message_content}`
     );
   }
 
   whatsappCover(obj) {
+    const message_content = this.parseMessage(obj, obj.detail.cover_message);
+
     window.location.assign(
-      `whatsapp://send?phone= ${obj.detail.number} &text=*Cover Needed!*%0aHello ${obj.detail.firstName}, Would you be available to cover *${obj.detail.dutyName}* on *Sunday*, Please let me know if you are able to stand in. Thanks.`
+      `whatsapp://send?phone= ${obj.detail.number} &text=*${message_content}`
     );
   }
 
   sms(obj) {
+    console.log(obj);
+    const message_content = this.parseMessage(obj, obj.detail.duty_message);
+
     window.location.assign(
-      `sms:${obj.detail.number}?&body=Reminder!%0aHello ${obj.detail.firstName},
-You are scheduled for %0a${obj.detail.dutyName} on Sunday, Please let me know if you can NOT cover the duty. Thanks.`
+      `sms:${obj.detail.number}?&body=${message_content}`
     );
   }
 
   smsCover(obj) {
+    const message_content = this.parseMessage(obj, obj.detail.cover_message);
+
     window.location.assign(
-      `sms:${obj.detail.number}?&body=Cover Needed!%0aHello ${obj.detail.firstName}, Would you be available to cover ${obj.detail.dutyName} on Sunday, Please let me know if you are able to stand in. Thanks.`
+      `sms:${obj.detail.number}?&body=${message_content}`
     );
   }
+
+   parseMessage(obj, message) {
+
+    let parsedMessage = message
+        .replace("{first_name}", obj.detail.firstName)
+        .replace("{duty_name}", obj.detail.dutyName)
+        .replace("{next_date}", "Monday"); // hardcoded 'Monday' for now
+
+    return parsedMessage;
+}
 }
 
 customElements.define('send-options', SendOptions);

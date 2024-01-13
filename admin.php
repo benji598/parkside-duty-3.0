@@ -22,6 +22,18 @@ $result_sub_users = $conn->query("
     GROUP BY su.id
 ");
 
+// Fetch duty message and cover message from core_config_data
+$query_messages = "SELECT name, setting_1 FROM core_config_data WHERE name IN ('duty_message', 'cover_message')";
+$result_messages = $conn->query($query_messages);
+$messages = [];
+while ($row = $result_messages->fetch_assoc()) {
+    $messages[$row['name']] = $row['setting_1'];
+}
+
+$duty_message = isset($messages['duty_message']) ? $messages['duty_message'] : '';
+$cover_message = isset($messages['cover_message']) ? $messages['cover_message'] : '';
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -46,6 +58,21 @@ $result_sub_users = $conn->query("
         <?php } ?>
 
         <div class="account-container">
+            <h2>Global Messages</h2>
+            <form method="post" action="update_global_messages.php">
+                <label for="duty_message">Duty Message:</label>
+                <textarea id="duty_message" name="duty_message" rows="4" cols="50"><?php echo htmlspecialchars($duty_message); ?></textarea>
+
+                <label for="cover_message">Cover Message:</label>
+                <textarea id="cover_message" name="cover_message" rows="4" cols="50"><?php echo htmlspecialchars($cover_message); ?></textarea>
+
+                <button type="submit" name="update_messages">Update Messages</button>
+            </form>
+        </div>
+
+
+
+        <div class="account-container">
         <h2>Manage Duty Types</h2>
         <table>
             <tr>
@@ -53,7 +80,6 @@ $result_sub_users = $conn->query("
                 <th>Name</th>
                 <th>Icon</th>
                 <th>Link</th>
-                <th>Message</th> <!-- New column header -->
             </tr>
             <?php while ($row = $result_duty_types->fetch_assoc()): ?>
             <tr>
@@ -61,7 +87,6 @@ $result_sub_users = $conn->query("
                 <td><?php echo isset($row['name']) ? htmlspecialchars($row['name']) : ''; ?></td>
                 <td><?php echo isset($row['icon']) ? htmlspecialchars($row['icon']) : ''; ?></td>
                 <td><?php echo isset($row['link']) ? htmlspecialchars($row['link']) : ''; ?></td>
-                <td><?php echo isset($row['message']) ? htmlspecialchars($row['message']) : ''; ?></td> <!-- New column data -->
             </tr>
             <?php endwhile; ?>
         </table>
