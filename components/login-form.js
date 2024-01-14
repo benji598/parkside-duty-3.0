@@ -156,6 +156,9 @@ LoginFormTemplate.innerHTML = /*html*/ `
     <!-- The Register button should point to a PHP file that handles registration -->
     <!-- <button class="secondary-btn" onclick="location.href='register.php'">Register</button> -->
     <button class="secondary-btn">Register</button>
+    <div>
+    <a href="forgot_password.php">Forgot Password?</a>
+    </div>
 </form>
 
 `;
