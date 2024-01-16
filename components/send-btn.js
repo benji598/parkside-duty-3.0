@@ -10,46 +10,15 @@ SendBtnTemplate.innerHTML = /*html*/ `
         font-size: 1rem;
         margin: 0;
     }
-
-    .icon-circle {
-        background-color: var(--background-color);
-        border-radius: 50%;
-        width: 24px;
-        height: 24px;
-        padding: 0.6rem;
-        line-height: 0;
-    }
-
-
-    .send-btns {
-        display: grid;
-        place-items: center;
-        background-color: var(--baby-blue);
-        color: #000;
-        padding: 0.5rem 0;
-        text-align: center;
-        transition: var(--btn-transition);
-        border-radius: var(--btn-radius);
-        cursor: pointer;
-    }
-
-    .send-btns:hover {
-        background-color: var(--bg-blue);
-    }
-
-    .send-btns:active {
-        transform: scale(var(--btn-scale));
-        background-color: var(--baby-blue-active);
-    }
 </style>
 
 
-<a class="send-btns">
-    <div class="icon-circle">
-        <div class="icon"></div>
-        <slot></slot>
-    </div>
-</a>
+
+
+<btn-design>
+    <div class="icon" slot="icon"></div>
+    <span slot="label"></span>
+</btn-design>
 `;
 
 class SendBtn extends HTMLElement {
@@ -121,7 +90,7 @@ class SendBtn extends HTMLElement {
         duty_message,
         cover_message,
         meeting_1,
-        meeting_2
+        meeting_2,
       });
     });
   }

@@ -61,7 +61,9 @@ class NetworkStatus extends HTMLElement {
 
     networkStatus() {
         if (navigator.onLine) {
-            navigator.vibrate(100);
+            if ('vibrate' in navigator) {
+                navigator.vibrate(100);
+            }
             this.shadowRoot.querySelector('.online').classList.add('show');
             this.shadowRoot.querySelector('.offline').classList.remove('show');
 
@@ -70,7 +72,9 @@ class NetworkStatus extends HTMLElement {
             }, 5000);
         } else {
             setTimeout(() => {
-                navigator.vibrate(100);
+                if ('vibrate' in navigator) {
+                    navigator.vibrate(100);
+                }
                 this.shadowRoot.querySelector('.offline').classList.add('show');
                 this.shadowRoot.querySelector('.online').classList.remove('show');
             }, 10);

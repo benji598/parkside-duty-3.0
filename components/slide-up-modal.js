@@ -49,58 +49,58 @@ SlideUpModalTemplate.innerHTML = /*html*/ `
 `;
 
 class SlideUpModal extends HTMLElement {
-  constructor() {
-    super();
-    this.pageTitle;
+    constructor() {
+        super();
+        this.pageTitle;
 
-    this.attachShadow({
-      mode: 'open',
-    });
-    this.shadowRoot.appendChild(SlideUpModalTemplate.content.cloneNode(true));
-  }
+        this.attachShadow({
+            mode: 'open',
+        });
+        this.shadowRoot.appendChild(SlideUpModalTemplate.content.cloneNode(true));
+    }
 
-  connectedCallback() {
-    this.popUp = this.shadowRoot.querySelector('.slide-pop-up');
-    this.overlay = this.shadowRoot.querySelector('.overlay');
+    connectedCallback() {
+        this.popUp = this.shadowRoot.querySelector('.slide-pop-up');
+        this.overlay = this.shadowRoot.querySelector('.overlay');
 
-    this.overlay.addEventListener('click', () => {
-      this.closeSlideUpModal();
-    });
+        this.overlay.addEventListener('click', () => {
+            this.closeSlideUpModal();
+        });
 
-    this.getContent();
+        this.getContent();
 
-    document.addEventListener('open-modal', (el) => {
-      setTimeout(() => {
-        this.openSlideUpModal(el);
-      }, 10);
-    });
+        document.addEventListener('open-modal', (el) => {
+            setTimeout(() => {
+                this.openSlideUpModal(el);
+            }, 10);
+        });
 
-    document.addEventListener('close-modal', () => {
-      this.closeSlideUpModal();
-    });
-  }
+        document.addEventListener('close-modal', () => {
+            this.closeSlideUpModal();
+        });
+    }
 
-  disconnectedCallback() {
-    // Remove event listeners
-    document.removeEventListener('open-modal', this.openSlideUpModal);
-    document.removeEventListener('close-modal', this.closeSlideUpModal);
-  }
+    disconnectedCallback() {
+        // Remove event listeners
+        document.removeEventListener('open-modal', this.openSlideUpModal);
+        document.removeEventListener('close-modal', this.closeSlideUpModal);
+    }
 
-  openSlideUpModal() {
-    this.popUp.classList.add('open');
-    this.overlay.classList.add('dark');
-  }
+    openSlideUpModal() {
+        this.popUp.classList.add('open');
+        this.overlay.classList.add('dark');
+    }
 
-  closeSlideUpModal() {
-    this.popUp.classList.remove('open');
-    this.overlay.classList.remove('dark');
-  }
+    closeSlideUpModal() {
+        this.popUp.classList.remove('open');
+        this.overlay.classList.remove('dark');
+    }
 
-  getContent() {
-    const modalContent = this.getAttribute('content');
+    getContent() {
+        const modalContent = this.getAttribute('content');
 
-    this.shadowRoot.querySelector('.modal-content').innerHTML = modalContent;
-  }
+        this.shadowRoot.querySelector('.modal-content').innerHTML = modalContent;
+    }
 }
 
 customElements.define('slideup-modal', SlideUpModal);

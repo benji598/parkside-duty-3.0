@@ -22,7 +22,7 @@
 
     <grid-layout>
         <?php while($row = $result->fetch_assoc()): ?>
-        <duty-button link="duty.php?id=<?php echo htmlspecialchars($row['id']); ?>"
+        <duty-button action-type="link" link="duty.php?id=<?php echo htmlspecialchars($row['id']); ?>"
             title="<?php echo htmlspecialchars($row['name']); ?>" subtitle="Duty"
             icon="<auditorium-attendant-icon></auditorium-attendant-icon> <?php echo htmlspecialchars($row['icon']); ?>">
         </duty-button>

@@ -4,107 +4,42 @@ dutyBtns.innerHTML = /*html*/ `
     a {
         text-decoration: var(--anchor-decoration);
     }
-
-    h3,
-    p {
-        font-size: 1rem;
-        margin: 0;
-    }
-
-    .icon-circle {
-        background-color: var(--background-color);
-        border-radius: 50%;
-        width: 24px;
-        height: 24px;
-        padding: 0.6rem;
-        line-height: 0;
-        margin-bottom: 7px;
-    }
-
-
-    .duty-btns {
-        display: grid;
-        place-items: center;
-        background-color: var(--baby-blue);
-        color: #000;
-        padding: 1.2rem 0;
-        text-align: center;
-        transition: var(--btn-transition);
-        border-radius: var(--btn-radius);
-    }
-
-    .duty-btns:hover {
-        background-color: var(--bg-blue);
-    }
-
-    .duty-btns:active {
-        transform: scale(var(--btn-scale));
-        background-color: var(--baby-blue-active);
-    }
 </style>
 
-
-<a class="duty-btns">
-    <div class="icon-circle">
-        <slot name="icon-slot"></slot>
-    </div>
-    <header>
-        <h3 id="title"></h3>
-        <p id="subtitle"></p>
-    </header>
+<a>
+    <btn-design>
+        <div class="icon" slot="icon"></div>
+        <span class="title" slot="title"></span>
+        <span class="subtitle" slot="subtitle"></span>
+    </btn-design>
 </a>
 `;
 
 class dutyBtn extends HTMLElement {
-  constructor() {
-    super();
-    const shadowRoot = this.attachShadow({
-      mode: 'open',
-    });
-    shadowRoot.appendChild(dutyBtns.content.cloneNode(true));
-  }
-
-  static get observedAttributes() {
-    return ['title', 'subtitle', 'icon', 'link'];
-  }
-
-  attributeChangedCallback(name, oldValue, newValue) {
-    if (name === 'title') {
-      this.shadowRoot.getElementById('title').textContent = newValue;
-    } else if (name === 'subtitle') {
-      this.shadowRoot.getElementById('subtitle').textContent = newValue;
-    } else if (name === 'icon') {
-      const iconContainer = this.shadowRoot.querySelector('.icon-circle');
-      iconContainer.innerHTML = newValue;
-    } else if (name === 'link') {
-      this.shadowRoot.querySelector('a').setAttribute('href', newValue);
+    constructor() {
+        super();
+        const shadowRoot = this.attachShadow({
+            mode: 'open',
+        });
+        shadowRoot.appendChild(dutyBtns.content.cloneNode(true));
     }
-  }
 
-  connectedCallback() {
-    this.updateAttributes();
-  }
+    connectedCallback() {
+        this.updateAttributes();
+    }
 
-  updateAttributes() {
-    const link = this.getAttribute('link');
-    const title = this.getAttribute('title');
-    const subtitle = this.getAttribute('subtitle');
-    const icon = this.getAttribute('icon');
+    updateAttributes() {
+        const link = this.getAttribute('link');
 
-    if (link) {
-      this.shadowRoot.querySelector('a').setAttribute('href', link);
+        const title = this.getAttribute('title');
+        const subtitle = this.getAttribute('subtitle');
+        const icon = this.getAttribute('icon');
+
+        this.shadowRoot.querySelector('a').setAttribute('href', link);
+        this.shadowRoot.querySelector('.title').textContent = title;
+        this.shadowRoot.querySelector('.subtitle').textContent = subtitle;
+        this.shadowRoot.querySelector('.icon').innerHTML = icon;
     }
-    if (title) {
-      this.shadowRoot.getElementById('title').textContent = title;
-    }
-    if (subtitle) {
-      this.shadowRoot.getElementById('subtitle').textContent = subtitle;
-    }
-    if (icon) {
-      const iconContainer = this.shadowRoot.querySelector('.icon-circle');
-      iconContainer.innerHTML = icon;
-    }
-  }
 }
 
 customElements.define('duty-button', dutyBtn);

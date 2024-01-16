@@ -39,8 +39,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $subject = "Password Reset Request";
         $message = "Please click on the following link to reset your password: ";
         $message .= $passwordResetUrl;
-        $headers = 'From: noreply@parksideappdomainhere.com' . "\r\n" .
-                'Reply-To: noreply@parksideappdomainhere.com' . "\r\n" .
+        $headers = 'From: noreply@staging.parkside.congregation.uk' . "\r\n" .
+                'Reply-To: noreply@staging.parkside.congregation.uk' . "\r\n" .
                 'X-Mailer: PHP/' . phpversion();
 
         mail($to, $subject, $message, $headers);
@@ -59,9 +59,11 @@ $conn->close();
 
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Forgot Password</title>
 </head>
+
 <body>
     <form action="forgot_password.php" method="post">
         Enter your email address: <input type="email" name="email">
@@ -69,7 +71,8 @@ $conn->close();
     </form>
 
     <?php if (!empty($message)): ?>
-        <p><?= $message ?></p>
+    <p><?= $message ?></p>
     <?php endif; ?>
 </body>
+
 </html>

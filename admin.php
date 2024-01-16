@@ -54,77 +54,84 @@ $meeting_2 = isset($meetings['meeting_2']) ? $meetings['meeting_2'] : '';
 </head>
 
 <body>
+
+    <header-info title="Admin" subtitle=""></header-info>
+
+    <!-- admin see only -->
+    <?php if ($isAdmin) { ?>
+    <welcome-message name="<?php echo $fullName; ?>"></welcome-message>
+    <?php } ?>
+
+    <grid-layout>
+        <admin-button title="Add Person" icon="<add-person-icon></add-person-icon>"></admin-button>
+        <admin-button title="Edit Messages" icon="<edit-message-icon></edit-message-icon>"></admin-button>
+        <admin-button title="Manage Duties" icon="<manage-duties-icon></manage-duties-icon>"></admin-button>
+        <admin-button title="Meeting Days" icon="<meeting-days-icon></meeting-days-icon>"></admin-button>
+    </grid-layout>
+
     <main class="container overflow">
-
-        <header-info>
-            <div slot="title-slot">Admin Management</div>
-            <div slot="subtitle-slot"></div>
-        </header-info>
-
-        <!-- admin see only -->
-        <?php if ($isAdmin) { ?>
-        <welcome-message name="<?php echo $fullName; ?>"></welcome-message>
-        <?php } ?>
 
         <div class="account-container">
             <h2>Global Messages</h2>
             <form method="post" action="update_global_messages.php">
                 <label for="duty_message">Duty Message:</label>
-                <textarea id="duty_message" name="duty_message" rows="4" cols="50"><?php echo htmlspecialchars($duty_message); ?></textarea>
+                <textarea id="duty_message" name="duty_message" rows="4"
+                    cols="50"><?php echo htmlspecialchars($duty_message); ?></textarea>
 
                 <label for="cover_message">Cover Message:</label>
-                <textarea id="cover_message" name="cover_message" rows="4" cols="50"><?php echo htmlspecialchars($cover_message); ?></textarea>
+                <textarea id="cover_message" name="cover_message" rows="4"
+                    cols="50"><?php echo htmlspecialchars($cover_message); ?></textarea>
 
                 <button type="submit" name="update_messages">Update Messages</button>
             </form>
         </div>
 
         <div class="account-container">
-    <h2>Manage Weekly Meetings</h2>
-    <form method="post" action="update_weekly_meetings.php">
-        <label for="meeting_1">First Weekly Meeting:</label>
-        <select id="meeting_1" name="meeting_1">
-            <?php
+            <h2>Manage Meetings</h2>
+            <form method="post" action="update_weekly_meetings.php">
+                <label for="meeting_1">Mid-Week Meeting:</label>
+                <select id="meeting_1" name="meeting_1">
+                    <?php
             $days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
             foreach ($days as $day) {
                 echo '<option value="'.$day.'"'.($day == $meeting_1 ? ' selected' : '').'>'.$day.'</option>';
             }
             ?>
-        </select>
+                </select>
 
-        <label for="meeting_2">Second Weekly Meeting:</label>
-        <select id="meeting_2" name="meeting_2">
-            <?php
+                <label for="meeting_2">Weekend Meeting:</label>
+                <select id="meeting_2" name="meeting_2">
+                    <?php
             foreach ($days as $day) {
                 echo '<option value="'.$day.'"'.($day == $meeting_2 ? ' selected' : '').'>'.$day.'</option>';
             }
             ?>
-        </select>
+                </select>
 
-        <button type="submit" name="update_meetings">Update Meetings</button>
-    </form>
-</div>
+                <button type="submit" name="update_meetings">Update Meetings</button>
+            </form>
+        </div>
 
 
         <div class="account-container">
-        <h2>Manage Duty Types</h2>
-        <table>
-            <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Icon</th>
-                <th>Link</th>
-            </tr>
-            <?php while ($row = $result_duty_types->fetch_assoc()): ?>
-            <tr>
-                <td><?php echo isset($row['id']) ? htmlspecialchars($row['id']) : ''; ?></td>
-                <td><?php echo isset($row['name']) ? htmlspecialchars($row['name']) : ''; ?></td>
-                <td><?php echo isset($row['icon']) ? htmlspecialchars($row['icon']) : ''; ?></td>
-                <td><?php echo isset($row['link']) ? htmlspecialchars($row['link']) : ''; ?></td>
-            </tr>
-            <?php endwhile; ?>
-        </table>
-    </div>
+            <h2>Manage Duty Types</h2>
+            <table>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Icon</th>
+                    <th>Link</th>
+                </tr>
+                <?php while ($row = $result_duty_types->fetch_assoc()): ?>
+                <tr>
+                    <td><?php echo isset($row['id']) ? htmlspecialchars($row['id']) : ''; ?></td>
+                    <td><?php echo isset($row['name']) ? htmlspecialchars($row['name']) : ''; ?></td>
+                    <td><?php echo isset($row['icon']) ? htmlspecialchars($row['icon']) : ''; ?></td>
+                    <td><?php echo isset($row['link']) ? htmlspecialchars($row['link']) : ''; ?></td>
+                </tr>
+                <?php endwhile; ?>
+            </table>
+        </div>
 
 
         <!-- Manage Sub Users Section -->

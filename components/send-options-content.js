@@ -93,149 +93,138 @@ SendOptionsTemplate.innerHTML = /*html*/ `
 `;
 
 class SendOptions extends HTMLElement {
-  constructor() {
-    super();
-    this.pageTitle;
+    constructor() {
+        super();
+        this.pageTitle;
 
-    this.attachShadow({
-      mode: 'open',
-    });
-    this.shadowRoot.appendChild(SendOptionsTemplate.content.cloneNode(true));
-  }
-
-  connectedCallback() {
-    this.popUp = this.shadowRoot.querySelector('.slide-pop-up');
-    this.whatsapp = this.shadowRoot.querySelector('.whatsapp-btn');
-    this.whatsappCoverBtn = this.shadowRoot.querySelector('.whatsapp-cover-btn');
-    this.smsBtn = this.shadowRoot.querySelector('.sms-btn');
-    this.smsCoverBtn = this.shadowRoot.querySelector('.sms-cover-btn');
-    this.cancelBtn = this.shadowRoot.querySelector('.cancel-btn');
-    this.overlay = this.shadowRoot.querySelector('.overlay');
-    this.popUpName = this.shadowRoot.querySelector('.pop-up-name');
-
-    document.addEventListener('message-details', (obj) => {
-      this.popUpName.textContent = `${obj.detail.firstName} ${obj.detail.lastName}`;
-      this.btnOption(obj);
-    });
-
-    this.cancelButton();
-  }
-
-  closeModal() {
-    this.dispatchEvent(
-      new CustomEvent('close-modal', {
-        bubbles: true,
-        composed: true,
-      })
-    );
-  }
-
-  btnOption(obj) {
-    this.whatsapp.addEventListener('click', () => {
-      this.whatsApp(obj);
-      this.closeModal();
-    });
-
-    this.whatsappCoverBtn.addEventListener('click', () => {
-      this.whatsappCover(obj);
-      this.closeModal();
-    });
-
-    this.smsBtn.addEventListener('click', () => {
-      this.sms(obj);
-      this.closeModal();
-    });
-
-    this.smsCoverBtn.addEventListener('click', () => {
-      this.smsCover(obj);
-      this.closeModal();
-    });
-
-    this.overlay.addEventListener('click', () => {
-      this.closeModal();
-    });
-  }
-
-  cancelButton() {
-    this.cancelBtn.addEventListener('click', () => {
-      navigator.vibrate([30, 0, 0, 0, 30]);
-      this.closeModal();
-    });
-  }
-
-  whatsApp(obj) {
-    const message_content = this.parseMessage(obj, obj.detail.duty_message);
-
-    window.location.assign(
-      `whatsapp://send?phone=+${obj.detail.number} &text=${message_content}`
-    );
-  }
-
-  whatsappCover(obj) {
-    const message_content = this.parseMessage(obj, obj.detail.cover_message);
-
-    window.location.assign(
-      `whatsapp://send?phone= ${obj.detail.number} &text=*${message_content}`
-    );
-  }
-
-  sms(obj) {
-    console.log(obj);
-    const message_content = this.parseMessage(obj, obj.detail.duty_message);
-
-    window.location.assign(
-      `sms:${obj.detail.number}?&body=${message_content}`
-    );
-  }
-
-  smsCover(obj) {
-    const message_content = this.parseMessage(obj, obj.detail.cover_message);
-
-    window.location.assign(
-      `sms:${obj.detail.number}?&body=${message_content}`
-    );
-  }
-
-  parseMessage(obj, message) {
-    const daysOfWeek = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
-
-    const currentDate = new Date();
-    const currentDayOfWeek = (currentDate.getDay() + 6) % 7;
-
-    const meeting1DayIndex = daysOfWeek.indexOf(obj.detail.meeting_1);
-    const meeting2DayIndex = daysOfWeek.indexOf(obj.detail.meeting_2);
-
-    let selectedMeeting;
-
-    if ((currentDayOfWeek > meeting2DayIndex) || 
-        (currentDayOfWeek === meeting2DayIndex && currentDate.getHours() >= 18)) {
-        // If it's currently after meeting_2, select meeting_1
-        selectedMeeting = obj.detail.meeting_1;
-    } else if (currentDayOfWeek < meeting2DayIndex && 
-               (currentDayOfWeek > meeting1DayIndex || 
-                (currentDayOfWeek === meeting1DayIndex && currentDate.getHours() >= 18))) {
-        // If it's currently before meeting_2 and after or on meeting_1, select meeting_2
-        selectedMeeting = obj.detail.meeting_2;
-    } else {
-        // If it's currently before both meetings, select the earlier one (meeting_1)
-        selectedMeeting = obj.detail.meeting_1;
+        this.attachShadow({
+            mode: 'open',
+        });
+        this.shadowRoot.appendChild(SendOptionsTemplate.content.cloneNode(true));
     }
 
-    let parsedMessage = message
-        .replace("{first_name}", obj.detail.firstName)
-        .replace("{duty_name}", obj.detail.dutyName)
-        .replace("{next_date}", selectedMeeting);
+    connectedCallback() {
+        this.popUp = this.shadowRoot.querySelector('.slide-pop-up');
+        this.whatsapp = this.shadowRoot.querySelector('.whatsapp-btn');
+        this.whatsappCoverBtn = this.shadowRoot.querySelector('.whatsapp-cover-btn');
+        this.smsBtn = this.shadowRoot.querySelector('.sms-btn');
+        this.smsCoverBtn = this.shadowRoot.querySelector('.sms-cover-btn');
+        this.cancelBtn = this.shadowRoot.querySelector('.cancel-btn');
+        this.overlay = this.shadowRoot.querySelector('.overlay');
+        this.popUpName = this.shadowRoot.querySelector('.pop-up-name');
 
-    return parsedMessage;
-}
+        document.addEventListener('message-details', (obj) => {
+            this.popUpName.textContent = `${obj.detail.firstName} ${obj.detail.lastName}`;
+            this.btnOption(obj);
+        });
 
+        this.cancelButton();
+    }
 
+    closeModal() {
+        this.dispatchEvent(
+            new CustomEvent('close-modal', {
+                bubbles: true,
+                composed: true,
+            })
+        );
+    }
 
+    btnOption(obj) {
+        this.whatsapp.addEventListener('click', () => {
+            if ('vibrate' in navigator) {
+                navigator.vibrate(30);
+            }
+            this.whatsApp(obj);
+            this.closeModal();
+        });
 
+        this.whatsappCoverBtn.addEventListener('click', () => {
+            this.whatsappCover(obj);
+            this.closeModal();
+        });
 
+        this.smsBtn.addEventListener('click', () => {
+            this.sms(obj);
+            this.closeModal();
+        });
 
+        this.smsCoverBtn.addEventListener('click', () => {
+            this.smsCover(obj);
+            this.closeModal();
+        });
 
+        this.overlay.addEventListener('click', () => {
+            this.closeModal();
+        });
+    }
 
+    cancelButton() {
+        this.cancelBtn.addEventListener('click', () => {
+            if ('vibrate' in navigator) {
+                navigator.vibrate([30, 0, 0, 0, 30]);
+            }
+
+            this.closeModal();
+        });
+    }
+
+    whatsApp(obj) {
+        const message_content = this.parseMessage(obj, obj.detail.duty_message);
+
+        window.location.assign(`whatsapp://send?phone=+${obj.detail.number} &text=${message_content}`);
+    }
+
+    whatsappCover(obj) {
+        const message_content = this.parseMessage(obj, obj.detail.cover_message);
+
+        window.location.assign(`whatsapp://send?phone= ${obj.detail.number} &text=*${message_content}`);
+    }
+
+    sms(obj) {
+        console.log(obj);
+        const message_content = this.parseMessage(obj, obj.detail.duty_message);
+
+        window.location.assign(`sms:${obj.detail.number}?&body=${message_content}`);
+    }
+
+    smsCover(obj) {
+        const message_content = this.parseMessage(obj, obj.detail.cover_message);
+
+        window.location.assign(`sms:${obj.detail.number}?&body=${message_content}`);
+    }
+
+    parseMessage(obj, message) {
+        const daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+
+        const currentDate = new Date();
+        const currentDayOfWeek = (currentDate.getDay() + 6) % 7;
+
+        const meeting1DayIndex = daysOfWeek.indexOf(obj.detail.meeting_1);
+        const meeting2DayIndex = daysOfWeek.indexOf(obj.detail.meeting_2);
+
+        let selectedMeeting;
+
+        if (currentDayOfWeek > meeting2DayIndex || (currentDayOfWeek === meeting2DayIndex && currentDate.getHours() >= 18)) {
+            // If it's currently after meeting_2, select meeting_1
+            selectedMeeting = obj.detail.meeting_1;
+        } else if (
+            currentDayOfWeek < meeting2DayIndex && (currentDayOfWeek > meeting1DayIndex || (currentDayOfWeek === meeting1DayIndex && currentDate.getHours() >= 18))
+        ) {
+            // If it's currently before meeting_2 and after or on meeting_1, select meeting_2
+            selectedMeeting = obj.detail.meeting_2;
+        } else {
+            // If it's currently before both meetings, select the earlier one (meeting_1)
+            selectedMeeting = obj.detail.meeting_1;
+        }
+
+        let parsedMessage = message
+            .replace('{first_name}', obj.detail.firstName)
+            .replace('{duty_name}', obj.detail.dutyName)
+            .replace('{next_date}', selectedMeeting);
+
+        return parsedMessage;
+    }
 }
 
 customElements.define('send-options', SendOptions);

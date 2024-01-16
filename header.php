@@ -21,6 +21,11 @@
     <link rel="stylesheet" href="/css/tables.css" rel="preload" />
 
 
+
+    <script src="icon/manage-duties-icon.js" defer></script>
+    <script src="icon/meeting-days-icon.js" defer></script>
+    <script src="icon/add-person-icon.js" defer></script>
+    <script src="icon/edit-message-icon.js" defer></script>
     <script src="icon/chairman-icon.js" defer></script>
     <script src="icon/platform-icon.js" defer></script>
     <script src="icon/entrance-attendant-icon.js" defer></script>
@@ -38,8 +43,9 @@
     <script src="icon/whatsapp-icon.js" defer></script>
     <script src="icon/sms-icon.js" defer></script>
 
+    <script src="components/admin-btns.js" defer></script>
+    <script src="components/btn-design.js" defer></script>
     <script src="components/network-status.js" defer></script>
-    <!-- <script src="components/filterbrothers-data.js" defer></script> -->
     <script src="components/header-info.js" defer></script>
     <script src="components/name-send-title.js" defer></script>
     <script src="components/grid-layout.js" defer></script>
@@ -56,6 +62,7 @@
     <script src="components/form-container.js" defer></script>
     <script src="components/register-form.js" defer></script>
 
+    <!-- <script src="components/filterbrothers-data.js" defer></script> -->
 
 
 

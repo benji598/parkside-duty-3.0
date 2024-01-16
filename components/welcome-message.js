@@ -1,9 +1,20 @@
 const WelcomeMessageTemplate = document.createElement('template');
 WelcomeMessageTemplate.innerHTML = `
 
+<style>
 
+  .greeting {
+    font-weight:500;
+  }
+  .name {
+    font-weight: bold;
+    font-size: clamp(1.5rem, 4vw, 2rem);
+
+  }
+</style>
 
 <span class="greeting"></span>
+<br>
 <span class="name"></span>
 
 <slot></slot>
@@ -23,7 +34,6 @@ class WelcomeMessage extends HTMLElement {
   }
 
   getDetails() {
-    const greeting = this.getAttribute('greeting');
     const name = this.getAttribute('name');
 
     this.shadowRoot.querySelector('.name').textContent = name;
