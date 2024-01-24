@@ -15,7 +15,6 @@ FormContainerTemplate.innerHTML = /*html*/ `
 
 
     .form-container {
-        margin: 1rem;
         background-color: white;
         padding: clamp(1rem, 11vw, 2rem);
         border-radius: var(--btn-radius);

@@ -163,92 +163,90 @@ AddPersonFormTemplate.innerHTML = /*html*/ `
     }
 </style>
 
-<div class="form-container">
-    <add-person-icon></add-person-icon>
-    <h1>Add New Person</h1>
-    <form method="post" action="add_sub_user.php">
-        <div class="input-wrapper">
-            <input type="text" id="firstname" name="firstname" required>
-            <label for="firstname">Firstname</label>
-        </div>
 
-        <div class="input-wrapper">
-            <input type="text" id="lastname" name="lastname" required>
-            <label for="lastname">Lastname</label>
-        </div>
+<form method="post" action="add_sub_user.php">
+    <div class="input-wrapper">
+        <input type="text" id="firstname" name="firstname" required>
+        <label for="firstname">Firstname</label>
+    </div>
 
-        <div class="input-wrapper">
-            <input type="tel" id="phone" name="phone" required>
-            <label for="phone">Phone Number</label>
-        </div>
+    <div class="input-wrapper">
+        <input type="text" id="lastname" name="lastname" required>
+        <label for="lastname">Lastname</label>
+    </div>
 
-        <div class="input-wrapper">
-            <select id="duties" name="duty_ids[]" multiple required>
-                <?php foreach ($result_duty_types as $duty): ?>
-                <option value="<?php echo htmlspecialchars($duty['id']); ?>">
-                    <?php echo htmlspecialchars($duty['name']); ?>
-                </option>
-                <?php endforeach; ?>
-            </select>
-            <label for="duties">Assign Duties:</label>
-        </div>
+    <div class="input-wrapper">
+        <input type="tel" id="phone" name="phone" required>
+        <label for="phone">Phone Number</label>
+    </div>
 
-        <button type="submit" name="add_sub_user">Add Sub User</button>
-    </form>
-</div>
+    <div class="input-wrapper">
+        <select id="duties" name="duty_ids[]" multiple required>
+            <?php foreach ($result_duty_types as $duty): ?>
+            <option value="<?php echo htmlspecialchars($duty['id']); ?>">
+                <?php echo htmlspecialchars($duty['name']); ?>
+            </option>
+            <?php endforeach; ?>
+        </select>
+        <label for="duties">Assign Duties:</label>
+    </div>
+
+    <button type="submit" name="add_sub_user">Add Sub User</button>
+</form>
+
 
 `;
 
 class AddPersonForm extends HTMLElement {
-    constructor() {
-        super();
-        this.attachShadow({
-            mode: 'open',
-        });
-        this.shadowRoot.appendChild(AddPersonFormTemplate.content.cloneNode(true));
+  constructor() {
+    super();
+    this.attachShadow({
+      mode: 'open',
+    });
+    this.shadowRoot.appendChild(AddPersonFormTemplate.content.cloneNode(true));
+  }
+
+  connectedCallback() {
+    // this.getDetails();
+    this.initializeLabelPositions();
+  }
+
+  // getDetails() {
+  // const firstName = this.getAttribute('firstName');
+  // const lastName = this.getAttribute('lastName');
+  // const email = this.getAttribute('email');
+  // const phone = this.getAttribute('phone');
+
+  // this.shadowRoot.querySelector('#firstName').value = firstName;
+  // this.shadowRoot.querySelector('#lastName').value = lastName;
+  // this.shadowRoot.querySelector('#email').value = email;
+  // this.shadowRoot.querySelector('#phone').value = phone;
+  // }
+
+  initializeLabelPositions() {
+    const inputs = this.shadowRoot.querySelectorAll('input[type=text], input[type=tel]');
+    inputs.forEach((input) => {
+      this.updateLabelPosition(input);
+      input.addEventListener('input', () => this.updateLabelPosition(input));
+    });
+  }
+
+  updateLabelPosition(input) {
+    const label = input.nextElementSibling;
+
+    if (input.value) {
+      label.classList.add('has-content');
+      if (input.checkValidity()) {
+        input.classList.add('valid');
+        input.classList.remove('invalid');
+      } else {
+        input.classList.add('invalid');
+        input.classList.remove('valid');
+      }
+    } else {
+      label.classList.remove('has-content');
+      input.classList.remove('invalid', 'valid');
     }
-
-    connectedCallback() {
-        // this.getDetails();
-        this.initializeLabelPositions();
-    }
-
-    // getDetails() {
-    // const firstName = this.getAttribute('firstName');
-    // const lastName = this.getAttribute('lastName');
-    // const email = this.getAttribute('email');
-    // const phone = this.getAttribute('phone');
-
-    // this.shadowRoot.querySelector('#firstName').value = firstName;
-    // this.shadowRoot.querySelector('#lastName').value = lastName;
-    // this.shadowRoot.querySelector('#email').value = email;
-    // this.shadowRoot.querySelector('#phone').value = phone;
-    // }
-
-    initializeLabelPositions() {
-        const inputs = this.shadowRoot.querySelectorAll('input[type=text], input[type=tel]');
-        inputs.forEach((input) => {
-            this.updateLabelPosition(input);
-            input.addEventListener('input', () => this.updateLabelPosition(input));
-        });
-    }
-
-    updateLabelPosition(input) {
-        const label = input.nextElementSibling;
-
-        if (input.value) {
-            label.classList.add('has-content');
-            if (input.checkValidity()) {
-                input.classList.add('valid');
-                input.classList.remove('invalid');
-            } else {
-                input.classList.add('invalid');
-                input.classList.remove('valid');
-            }
-        } else {
-            label.classList.remove('has-content');
-            input.classList.remove('invalid', 'valid');
-        }
-    }
+  }
 }
 customElements.define('add-person-form', AddPersonForm);

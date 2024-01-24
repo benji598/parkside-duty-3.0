@@ -171,22 +171,17 @@ DutyMessageFormTemplate.innerHTML = /*html*/ `
     }
 </style>
 
-<div class="form-container">
-    <!-- <account-icon></account-icon> -->
-    <!-- <h1>Account</h1> -->
-    <div class="account-container">
-        <h2>Global Messages</h2>
-        <form method="post" action="update_global_messages.php">
-            <label for="duty_message">Duty Message:</label>
-            <textarea id="duty_message" name="duty_message" rows="4" cols="50"><?php echo htmlspecialchars($duty_message); ?></textarea>
 
-            <label for="cover_message">Cover Message:</label>
-            <textarea id="cover_message" name="cover_message" rows="4" cols="50"><?php echo htmlspecialchars($cover_message); ?></textarea>
+<form method="post" action="update_global_messages.php">
+    <label for="duty_message">Duty Message:</label>
+    <textarea id="duty_message" name="duty_message" rows="4" cols="50"><?php echo htmlspecialchars($duty_message); ?></textarea>
 
-            <button type="submit" name="update_messages">Update Messages</button>
-        </form>
-    </div>
-</div>
+    <label for="cover_message">Cover Message:</label>
+    <textarea id="cover_message" name="cover_message" rows="4" cols="50"><?php echo htmlspecialchars($cover_message); ?></textarea>
+
+    <button type="submit" name="update_messages">Update Messages</button>
+</form>
+
 `;
 
 class DutyMessageForm extends HTMLElement {

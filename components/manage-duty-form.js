@@ -171,81 +171,76 @@ ManageDutyFormTemplate.innerHTML = /*html*/ `
     }
 </style>
 
-<div class="form-container">
-    <!-- <account-icon></account-icon> -->
-    <!-- <h1>Account</h1> -->
 
-    <div class="account-container">
-        <h2>Manage Duty Types</h2>
-        <table>
-            <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Icon</th>
-                <th>Link</th>
-            </tr>
-            <?php while ($row = $result_duty_types->fetch_assoc()): ?>
-            <tr>
-                <td><?php echo isset($row['id']) ? htmlspecialchars($row['id']) : ''; ?></td>
-                <td><?php echo isset($row['name']) ? htmlspecialchars($row['name']) : ''; ?></td>
-                <td><?php echo isset($row['icon']) ? htmlspecialchars($row['icon']) : ''; ?></td>
-                <td><?php echo isset($row['link']) ? htmlspecialchars($row['link']) : ''; ?></td>
-            </tr>
-            <?php endwhile; ?>
-        </table>
-    </div>
-    `;
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Icon</th>
+        <th>Link</th>
+    </tr>
+    <?php while ($row = $result_duty_types->fetch_assoc()): ?>
+    <tr>
+        <td><?php echo isset($row['id']) ? htmlspecialchars($row['id']) : ''; ?></td>
+        <td><?php echo isset($row['name']) ? htmlspecialchars($row['name']) : ''; ?></td>
+        <td><?php echo isset($row['icon']) ? htmlspecialchars($row['icon']) : ''; ?></td>
+        <td><?php echo isset($row['link']) ? htmlspecialchars($row['link']) : ''; ?></td>
+    </tr>
+    <?php endwhile; ?>
+</table>
+
+`;
 
 class ManageDutyForm extends HTMLElement {
-    constructor() {
-        super();
-        this.attachShadow({
-            mode: 'open',
-        });
-        this.shadowRoot.appendChild(ManageDutyFormTemplate.content.cloneNode(true));
-    }
+  constructor() {
+    super();
+    this.attachShadow({
+      mode: 'open',
+    });
+    this.shadowRoot.appendChild(ManageDutyFormTemplate.content.cloneNode(true));
+  }
 
-    connectedCallback() {
-        // this.getDetails();
-        // this.initializeLabelPositions();
-    }
+  connectedCallback() {
+    // this.getDetails();
+    // this.initializeLabelPositions();
+  }
 
-    getDetails() {
-        const firstName = this.getAttribute('firstName');
-        const lastName = this.getAttribute('lastName');
-        const email = this.getAttribute('email');
-        const phone = this.getAttribute('phone');
+  getDetails() {
+    const firstName = this.getAttribute('firstName');
+    const lastName = this.getAttribute('lastName');
+    const email = this.getAttribute('email');
+    const phone = this.getAttribute('phone');
 
-        this.shadowRoot.querySelector('#firstName').value = firstName;
-        this.shadowRoot.querySelector('#lastName').value = lastName;
-        this.shadowRoot.querySelector('#email').value = email;
-        this.shadowRoot.querySelector('#phone').value = phone;
-    }
+    this.shadowRoot.querySelector('#firstName').value = firstName;
+    this.shadowRoot.querySelector('#lastName').value = lastName;
+    this.shadowRoot.querySelector('#email').value = email;
+    this.shadowRoot.querySelector('#phone').value = phone;
+  }
 
-    // initializeLabelPositions() {
-    // const inputs = this.shadowRoot.querySelectorAll('input[type=text], input[type=email], input[type=tel]');
-    // inputs.forEach((input) => {
-    // this.updateLabelPosition(input);
-    // input.addEventListener('input', () => this.updateLabelPosition(input));
-    // });
-    // }
+  // initializeLabelPositions() {
+  // const inputs = this.shadowRoot.querySelectorAll('input[type=text], input[type=email], input[type=tel]');
+  // inputs.forEach((input) => {
+  // this.updateLabelPosition(input);
+  // input.addEventListener('input', () => this.updateLabelPosition(input));
+  // });
+  // }
 
-    // updateLabelPosition(input) {
-    // const label = input.nextElementSibling;
+  // updateLabelPosition(input) {
+  // const label = input.nextElementSibling;
 
-    // if (input.value) {
-    // label.classList.add('has-content');
-    // if (input.checkValidity()) {
-    // input.classList.add('valid');
-    // input.classList.remove('invalid');
-    // } else {
-    // input.classList.add('invalid');
-    // input.classList.remove('valid');
-    // }
-    // } else {
-    // label.classList.remove('has-content');
-    // input.classList.remove('invalid', 'valid');
-    // }
-    // }
+  // if (input.value) {
+  // label.classList.add('has-content');
+  // if (input.checkValidity()) {
+  // input.classList.add('valid');
+  // input.classList.remove('invalid');
+  // } else {
+  // input.classList.add('invalid');
+  // input.classList.remove('valid');
+  // }
+  // } else {
+  // label.classList.remove('has-content');
+  // input.classList.remove('invalid', 'valid');
+  // }
+  // }
 }
 customElements.define('manage-duty-form', ManageDutyForm);

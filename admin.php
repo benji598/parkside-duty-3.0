@@ -64,6 +64,7 @@ $meeting_2 = isset($meetings['meeting_2']) ? $meetings['meeting_2'] : '';
 
     <div>
         <grid-layout>
+
             <!-- <form-container title="Add Person" icon="<add-person-icon></add-person-icon>"
                 form="<add-person-form></add-person-form>"></form-container>
 
@@ -76,17 +77,37 @@ $meeting_2 = isset($meetings['meeting_2']) ? $meetings['meeting_2'] : '';
             <form-container title="Meeting Days" icon="<meeting-days-icon></meeting-days-icon>"
                 form="<meeting-day-form></meeting-day-form>"></form-container> -->
 
-            <admin-button title="Add Person" icon="<add-person-icon></add-person-icon>"
-                modal-content="<add-person-form></add-person-form>"></admin-button>
+            <admin-button title="Add Person" icon="<add-person-icon></add-person-icon>" modal-content="
+                <form-container 
+                    title='Add Person' 
+                    icon='<add-person-icon></add-person-icon>' 
+                    form='<add-person-form></add-person-form>'>
+                </form-container>">
+            </admin-button>
 
-            <admin-button title="Edit Messages" icon="<edit-message-icon></edit-message-icon>"
-                modal-content="<duty-message-form></duty-message-form>"></admin-button>
+            <admin-button title="Edit Messages" icon="<edit-message-icon></edit-message-icon>" modal-content="
+                <form-container 
+                    title='Edit Messages' 
+                    icon='<edit-message-icon></edit-message-icon>' 
+                    form='<duty-message-form></duty-message-form>'>
+                </form-container>">
+            </admin-button>
 
-            <admin-button title="Manage Duties" icon="<manage-duties-icon></manage-duties-icon>"
-                modal-content="<manage-duty-form></manage-duty-form>"></admin-button>
+            <admin-button title="Manage Duties" icon="<manage-duties-icon></manage-duties-icon>" modal-content="
+                <form-container 
+                    title='Manage Duties' 
+                    icon='<manage-duties-icon></manage-duties-icon>' 
+                    form='<manage-duty-form></manage-duty-form>'>
+                </form-container>">
+            </admin-button>
 
-            <admin-button title="Meeting Days" icon="<meeting-days-icon></meeting-days-icon>"
-                modal-content="<meeting-day-form></meeting-day-form>"></admin-button>
+            <admin-button title="Meeting Days" icon="<meeting-days-icon></meeting-days-icon>" modal-content="
+                <form-container 
+                    title='Meeting Days' 
+                    icon='<meeting-days-icon></meeting-days-icon>' 
+                    form='<meeting-day-form></meeting-day-form>'>
+                </form-container>">
+            </admin-button>
         </grid-layout>
     </div>
 
