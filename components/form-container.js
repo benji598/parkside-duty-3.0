@@ -2,9 +2,7 @@ const FormContainerTemplate = document.createElement('template');
 FormContainerTemplate.innerHTML = /*html*/ `
 <style>
     :host {
-        place-content: center;
-        display: grid;
-        height: 80%;
+        height: 100%;
         text-align: center;
         overflow: auto;
     }
@@ -15,8 +13,9 @@ FormContainerTemplate.innerHTML = /*html*/ `
 
 
     .form-container {
+        margin: 1rem;
         background-color: white;
-        padding: clamp(1rem, 11vw, 2rem);
+        padding: clamp(1rem, 8vw, 2rem);
         border-radius: var(--btn-radius);
     }
 
@@ -29,14 +28,22 @@ FormContainerTemplate.innerHTML = /*html*/ `
     .error-message {
         color: var(--color-red);
     }
+
+    .form-position {
+        display: grid;
+        place-content: center;
+        grid-template-columns: 1fr;
+        height: 100%;
+    }
 </style>
 
-
-<div class="form-container">
-    <div class="icon"></div>
-    <h1 class="title"></h1>
-    <div class="error-message"></div>
-    <div class="form"></div>
+<div class="form-position">
+    <div class="form-container">
+        <div class="icon"></div>
+        <h1 class="title"></h1>
+        <div class="error-message"></div>
+        <div class="form"></div>
+    </div>
 </div>
 `;
 

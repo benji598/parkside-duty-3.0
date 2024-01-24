@@ -19,12 +19,8 @@ else
 
 ?>
 
-<body>
-    <form-container icon="<admin-icon></admin-icon>" title="Login" form="<login-form></login-form>"
-        data-error="<?php echo $errMessage; ?>"></form-container>
-    <nav-bar></nav-bar>
 
-</body>
+<form-container icon="<admin-icon></admin-icon>" title="Login" form="<login-form></login-form>"
+    data-error="<?php echo $errMessage; ?>"></form-container>
 
-
-</html>
+<nav-bar></nav-bar>
