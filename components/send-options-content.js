@@ -18,8 +18,7 @@ SendOptionsTemplate.innerHTML = /*html*/ `
     }
 
     .whatsapp-btn,
-    .sms-btn,
-    .cancel-btn {
+    .sms-btn {
         fill: white;
         display: flex;
         justify-content: center;
@@ -52,16 +51,10 @@ SendOptionsTemplate.innerHTML = /*html*/ `
         border-radius: var(--btn-radius);
     }
 
-    .cancel-btn {
-        color: var(--color-white);
-        background-color: var(--color-red);
-        padding: 1rem 0;
-        grid-column: span 2;
-    }
+
 
     .whatsapp-btn:active,
     .sms-btn:active,
-    .cancel-btn:active,
     .sms-cover-btn:active,
     .whatsapp-cover-btn:active {
         transform: scale(var(--btn-scale));
@@ -86,7 +79,6 @@ SendOptionsTemplate.innerHTML = /*html*/ `
 
     <button class="sms-cover-btn btn">Ask to Cover Duty</button>
     <button class="whatsapp-cover-btn btn">Ask to Cover Duty</button>
-    <button class="cancel-btn btn">Cancel</button>
 </div>
 <div class="overlay"></div>
 
@@ -155,16 +147,6 @@ class SendOptions extends HTMLElement {
         });
 
         this.overlay.addEventListener('click', () => {
-            this.closeModal();
-        });
-    }
-
-    cancelButton() {
-        this.cancelBtn.addEventListener('click', () => {
-            if ('vibrate' in navigator) {
-                navigator.vibrate([30, 0, 0, 0, 30]);
-            }
-
             this.closeModal();
         });
     }

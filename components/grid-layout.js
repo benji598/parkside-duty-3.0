@@ -6,7 +6,7 @@ GridLayoutTemplate.innerHTML = `
         display:grid;
         gap: 0.7rem;
         grid-template-columns: repeat(auto-fit, minmax(165px, 1fr));
-        /* overflow:auto; */
+        overflow:auto;
         padding-left: 1rem;
         padding-right: 1rem;
         padding-bottom: 1rem;

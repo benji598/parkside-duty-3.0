@@ -61,6 +61,10 @@
     <script src="components/account-form.js" defer></script>
     <script src="components/form-container.js" defer></script>
     <script src="components/register-form.js" defer></script>
+    <script src="components/add-person-form.js" defer></script>
+    <script src="components/duty-message-form.js" defer></script>
+    <script src="components/meeting-day-form.js" defer></script>
+    <script src="components/manage-duty-form.js" defer></script>
 
     <!-- <script src="components/filterbrothers-data.js" defer></script> -->
 

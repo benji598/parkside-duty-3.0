@@ -10,7 +10,7 @@ LoginFormTemplate.innerHTML = /*html*/ `
     input[type=email],
     input[type=password] {
         width: 100%;
-        width: clamp(240px, 69vw, 380px);
+        width: clamp(240px, 77vw, 400px);
         padding: 15px;
         border: 2px solid var(--color-light-grey);
         border-radius: 2rem;
@@ -157,7 +157,7 @@ LoginFormTemplate.innerHTML = /*html*/ `
     <!-- <button class="secondary-btn" onclick="location.href='register.php'">Register</button> -->
     <button class="secondary-btn">Register</button>
     <div>
-    <a href="forgot_password.php">Forgot Password?</a>
+        <a href="forgot_password.php">Forgot Password?</a>
     </div>
 </form>
 

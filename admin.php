@@ -62,76 +62,37 @@ $meeting_2 = isset($meetings['meeting_2']) ? $meetings['meeting_2'] : '';
     <welcome-message name="<?php echo $fullName; ?>"></welcome-message>
     <?php } ?>
 
-    <grid-layout>
-        <admin-button title="Add Person" icon="<add-person-icon></add-person-icon>"></admin-button>
-        <admin-button title="Edit Messages" icon="<edit-message-icon></edit-message-icon>"></admin-button>
-        <admin-button title="Manage Duties" icon="<manage-duties-icon></manage-duties-icon>"></admin-button>
-        <admin-button title="Meeting Days" icon="<meeting-days-icon></meeting-days-icon>"></admin-button>
-    </grid-layout>
+    <div>
+        <grid-layout>
+            <!-- <form-container title="Add Person" icon="<add-person-icon></add-person-icon>"
+                form="<add-person-form></add-person-form>"></form-container>
+
+            <form-container title="Edit Messages" icon="<edit-message-icon></edit-message-icon>"
+                form="<duty-message-form></duty-message-form>"></form-container>
+
+            <form-container title="Manage Duties" icon="<manage-duties-icon></manage-duties-icon>"
+                form="<manage-duty-form></manage-duty-form>"></form-container>
+
+            <form-container title="Meeting Days" icon="<meeting-days-icon></meeting-days-icon>"
+                form="<meeting-day-form></meeting-day-form>"></form-container> -->
+
+            <admin-button title="Add Person" icon="<add-person-icon></add-person-icon>"
+                modal-content="<add-person-form></add-person-form>"></admin-button>
+
+            <admin-button title="Edit Messages" icon="<edit-message-icon></edit-message-icon>"
+                modal-content="<duty-message-form></duty-message-form>"></admin-button>
+
+            <admin-button title="Manage Duties" icon="<manage-duties-icon></manage-duties-icon>"
+                modal-content="<manage-duty-form></manage-duty-form>"></admin-button>
+
+            <admin-button title="Meeting Days" icon="<meeting-days-icon></meeting-days-icon>"
+                modal-content="<meeting-day-form></meeting-day-form>"></admin-button>
+        </grid-layout>
+    </div>
 
     <main class="container overflow">
 
-        <div class="account-container">
-            <h2>Global Messages</h2>
-            <form method="post" action="update_global_messages.php">
-                <label for="duty_message">Duty Message:</label>
-                <textarea id="duty_message" name="duty_message" rows="4"
-                    cols="50"><?php echo htmlspecialchars($duty_message); ?></textarea>
 
-                <label for="cover_message">Cover Message:</label>
-                <textarea id="cover_message" name="cover_message" rows="4"
-                    cols="50"><?php echo htmlspecialchars($cover_message); ?></textarea>
-
-                <button type="submit" name="update_messages">Update Messages</button>
-            </form>
-        </div>
-
-        <div class="account-container">
-            <h2>Manage Meetings</h2>
-            <form method="post" action="update_weekly_meetings.php">
-                <label for="meeting_1">Mid-Week Meeting:</label>
-                <select id="meeting_1" name="meeting_1">
-                    <?php
-            $days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
-            foreach ($days as $day) {
-                echo '<option value="'.$day.'"'.($day == $meeting_1 ? ' selected' : '').'>'.$day.'</option>';
-            }
-            ?>
-                </select>
-
-                <label for="meeting_2">Weekend Meeting:</label>
-                <select id="meeting_2" name="meeting_2">
-                    <?php
-            foreach ($days as $day) {
-                echo '<option value="'.$day.'"'.($day == $meeting_2 ? ' selected' : '').'>'.$day.'</option>';
-            }
-            ?>
-                </select>
-
-                <button type="submit" name="update_meetings">Update Meetings</button>
-            </form>
-        </div>
-
-
-        <div class="account-container">
-            <h2>Manage Duty Types</h2>
-            <table>
-                <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Icon</th>
-                    <th>Link</th>
-                </tr>
-                <?php while ($row = $result_duty_types->fetch_assoc()): ?>
-                <tr>
-                    <td><?php echo isset($row['id']) ? htmlspecialchars($row['id']) : ''; ?></td>
-                    <td><?php echo isset($row['name']) ? htmlspecialchars($row['name']) : ''; ?></td>
-                    <td><?php echo isset($row['icon']) ? htmlspecialchars($row['icon']) : ''; ?></td>
-                    <td><?php echo isset($row['link']) ? htmlspecialchars($row['link']) : ''; ?></td>
-                </tr>
-                <?php endwhile; ?>
-            </table>
-        </div>
 
 
         <!-- Manage Sub Users Section -->
@@ -268,30 +229,7 @@ $meeting_2 = isset($meetings['meeting_2']) ? $meetings['meeting_2'] : '';
 
 
 
-        <div class="account-container">
-            <h2>Add New Sub User</h2>
-            <form method="post" action="add_sub_user.php">
-                <label for="firstname">First Name:</label>
-                <input type="text" id="firstname" name="firstname" required>
 
-                <label for="lastname">Last Name:</label>
-                <input type="text" id="lastname" name="lastname" required>
-
-                <label for="phone">Phone Number:</label>
-                <input type="tel" id="phone" name="phone" required>
-
-                <label for="duties">Assign Duties:</label>
-                <select id="duties" name="duty_ids[]" multiple required>
-                    <?php foreach ($result_duty_types as $duty): ?>
-                    <option value="<?php echo htmlspecialchars($duty['id']); ?>">
-                        <?php echo htmlspecialchars($duty['name']); ?>
-                    </option>
-                    <?php endforeach; ?>
-                </select>
-
-                <button type="submit" name="add_sub_user">Add Sub User</button>
-            </form>
-        </div>
     </main>
     <nav-bar></nav-bar>
 </body>

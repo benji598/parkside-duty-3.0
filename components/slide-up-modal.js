@@ -29,6 +29,28 @@ SlideUpModalTemplate.innerHTML = /*html*/ `
         -webkit-backdrop-filter: blur(4px);
     }
 
+    .btn-container {
+        padding: 1rem;
+        padding-top: 0;
+    }
+
+    .cancel-btn {
+        width: 100%;
+        padding: 1rem;
+        border: 2px solid white;
+        color: var(--color-white);
+        font-weight: 600;
+        cursor: pointer;
+        background-color: var(--color-red);
+        border-radius: var(--btn-radius);
+    }
+
+    .cancel-btn:active {
+        transform: scale(var(--btn-scale));
+        transition: var(--btn-transition);
+    }
+
+
     .slide-pop-up,
     .overlay {
         width: 100%;
@@ -44,63 +66,91 @@ SlideUpModalTemplate.innerHTML = /*html*/ `
 <div class="overlay"></div>
 <div class="slide-pop-up">
     <div class="modal-content"></div>
+    <div class="btn-container">
+        <button class="cancel-btn btn">Cancel</button>
+    </div>
 </div>
 
 `;
 
 class SlideUpModal extends HTMLElement {
-    constructor() {
-        super();
-        this.pageTitle;
+  constructor() {
+    super();
+    this.pageTitle;
 
-        this.attachShadow({
-            mode: 'open',
-        });
-        this.shadowRoot.appendChild(SlideUpModalTemplate.content.cloneNode(true));
+    this.attachShadow({
+      mode: 'open',
+    });
+    this.shadowRoot.appendChild(SlideUpModalTemplate.content.cloneNode(true));
+  }
+
+  connectedCallback() {
+    this.popUp = this.shadowRoot.querySelector('.slide-pop-up');
+    this.overlay = this.shadowRoot.querySelector('.overlay');
+    this.shadowRoot.querySelector('.cancel-btn').addEventListener('click', this.cancelButton.bind(this));
+
+    this.overlay.addEventListener('click', () => {
+      this.closeSlideUpModal();
+    });
+
+    this.getContent();
+
+    document.addEventListener('open-modal', (el) => {
+      setTimeout(() => {
+        this.openSlideUpModal(el);
+      }, 10);
+    });
+
+    document.addEventListener('close-modal', () => {
+      this.closeSlideUpModal();
+    });
+  }
+
+  disconnectedCallback() {
+    // Remove event listeners
+    document.removeEventListener('open-modal', this.openSlideUpModal);
+    document.removeEventListener('close-modal', this.closeSlideUpModal);
+  }
+
+  static get observedAttributes() {
+    return ['content'];
+  }
+
+  attributeChangedCallback(name, oldValue, newValue) {
+    if (name === 'content') {
+      this.updateContent(newValue); // Call a method to update the modal's content
+    }
+  }
+
+  updateContent(newContent) {
+    // Update the modal's content
+    const contentContainer = this.shadowRoot.querySelector('.modal-content');
+    contentContainer.innerHTML = newContent;
+  }
+
+  openSlideUpModal() {
+    this.popUp.classList.add('open');
+    this.overlay.classList.add('dark');
+  }
+
+  closeSlideUpModal() {
+    this.popUp.classList.remove('open');
+    this.overlay.classList.remove('dark');
+  }
+
+  cancelButton() {
+    if ('vibrate' in navigator) {
+      navigator.vibrate([30, 0, 0, 0, 30]);
     }
 
-    connectedCallback() {
-        this.popUp = this.shadowRoot.querySelector('.slide-pop-up');
-        this.overlay = this.shadowRoot.querySelector('.overlay');
+    this.closeSlideUpModal();
+  }
 
-        this.overlay.addEventListener('click', () => {
-            this.closeSlideUpModal();
-        });
+  getContent() {
+    const modalContent = this.getAttribute('content');
 
-        this.getContent();
-
-        document.addEventListener('open-modal', (el) => {
-            setTimeout(() => {
-                this.openSlideUpModal(el);
-            }, 10);
-        });
-
-        document.addEventListener('close-modal', () => {
-            this.closeSlideUpModal();
-        });
-    }
-
-    disconnectedCallback() {
-        // Remove event listeners
-        document.removeEventListener('open-modal', this.openSlideUpModal);
-        document.removeEventListener('close-modal', this.closeSlideUpModal);
-    }
-
-    openSlideUpModal() {
-        this.popUp.classList.add('open');
-        this.overlay.classList.add('dark');
-    }
-
-    closeSlideUpModal() {
-        this.popUp.classList.remove('open');
-        this.overlay.classList.remove('dark');
-    }
-
-    getContent() {
-        const modalContent = this.getAttribute('content');
-
-        this.shadowRoot.querySelector('.modal-content').innerHTML = modalContent;
-    }
+    this.shadowRoot.querySelector('.modal-content').innerHTML = modalContent;
+  }
 }
 
 customElements.define('slideup-modal', SlideUpModal);
