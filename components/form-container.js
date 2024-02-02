@@ -17,6 +17,7 @@ FormContainerTemplate.innerHTML = /*html*/ `
         background-color: white;
         padding: clamp(1rem, 8vw, 2rem);
         border-radius: var(--btn-radius);
+
     }
 
 
@@ -34,6 +35,9 @@ FormContainerTemplate.innerHTML = /*html*/ `
         place-content: center;
         grid-template-columns: 1fr;
         height: 100%;
+        max-width: fit-content;
+        margin-left: auto;
+        margin-right: auto;
     }
 </style>
 
