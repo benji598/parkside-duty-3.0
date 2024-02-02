@@ -20,11 +20,9 @@ FormContainerTemplate.innerHTML = /*html*/ `
 
     }
 
-
     h1 {
         margin-top: 0;
     }
-
 
     .error-message {
         color: var(--color-red);
@@ -35,9 +33,9 @@ FormContainerTemplate.innerHTML = /*html*/ `
         place-content: center;
         grid-template-columns: 1fr;
         height: 100%;
-        max-width: fit-content;
+        /* max-width: fit-content;
         margin-left: auto;
-        margin-right: auto;
+        margin-right: auto; */
     }
 </style>
 
@@ -52,27 +50,27 @@ FormContainerTemplate.innerHTML = /*html*/ `
 `;
 
 class FormContainer extends HTMLElement {
-  constructor() {
-    super();
-    this.attachShadow({
-      mode: 'open',
-    });
-    this.shadowRoot.appendChild(FormContainerTemplate.content.cloneNode(true));
-  }
-  connectedCallback() {
-    this.getDetails();
-  }
+    constructor() {
+        super();
+        this.attachShadow({
+            mode: 'open',
+        });
+        this.shadowRoot.appendChild(FormContainerTemplate.content.cloneNode(true));
+    }
+    connectedCallback() {
+        this.getDetails();
+    }
 
-  getDetails() {
-    const icon = this.getAttribute('icon');
-    const title = this.getAttribute('title');
-    const errorMessage = this.getAttribute('data-error');
-    const form = this.getAttribute('form');
+    getDetails() {
+        const icon = this.getAttribute('icon');
+        const title = this.getAttribute('title');
+        const errorMessage = this.getAttribute('data-error');
+        const form = this.getAttribute('form');
 
-    this.shadowRoot.querySelector('.icon').innerHTML = icon;
-    this.shadowRoot.querySelector('.title').textContent = title;
-    this.shadowRoot.querySelector('.form').innerHTML = form;
-    this.shadowRoot.querySelector('.error-message').innerHTML = errorMessage;
-  }
+        this.shadowRoot.querySelector('.icon').innerHTML = icon;
+        this.shadowRoot.querySelector('.title').textContent = title;
+        this.shadowRoot.querySelector('.form').innerHTML = form;
+        this.shadowRoot.querySelector('.error-message').innerHTML = errorMessage;
+    }
 }
 customElements.define('form-container', FormContainer);
