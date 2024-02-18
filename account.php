@@ -19,7 +19,7 @@ $phone = $_SESSION['phone'];
         email="<?php echo $email; ?>" phone="<?php echo $phone; ?>">
     </account-form>
 
-    <nav-bar></nav-bar>
+    <nav-bar isAdmin="<?php echo $isAdmin; ?>"></nav-bar>
 </body>
 
 </html>

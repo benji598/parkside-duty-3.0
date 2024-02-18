@@ -7,6 +7,14 @@ navTemplate.innerHTML = /*html*/ `
         margin-top: auto;
     }
 
+    .admin svg {
+        fill: black;
+    }
+
+    .hide {
+        display: none;
+    }
+
     a {
         text-decoration: var(--anchor-decoration);
     }
@@ -26,19 +34,23 @@ navTemplate.innerHTML = /*html*/ `
     .icon-bar a {
         display: flex;
         flex-direction: column;
-        gap: 0.3rem;
         color: #000;
         text-decoration: var(--anchor-decoration);
     }
 </style>
 
 
-
 <div class="icon-bar">
-    <a class="active" href="/">
+    <a href="/" class="active">
         <duties-icon></duties-icon>
         <small>Duties</small>
     </a>
+
+    <a href="admin.php?admin" class="login-admin button">
+        <div class="icon-container"></div>
+        <small>Login</small>
+    </a>
+
 
     <!-- <a href="#">
         <rota-icon></rota-icon>
@@ -52,54 +64,76 @@ navTemplate.innerHTML = /*html*/ `
     <!-- Redirect to splash.php if the user isn't logged in -->
 
 
-    <div class="user-details">
+    <!-- <div class="user-details"> -->
 
-        <!-- Dashboard Button -->
-        <!-- <form style="display: inline;" action="index.php" method="get">
+    <!-- Dashboard Button -->
+    <!-- <form style="display: inline;" action="index.php" method="get">
             <button type="submit" name="dashboard" class="button" <?php echo ($current_page == 'index.php') ? 'disabled' : ''; ?>>Dashboard</button>
         </form> -->
 
-        <?php if ($isAdmin) { ?>
-        <!-- Admin Button -->
-        <form style="display: inline;" action="admin.php" method="get">
+
+    <!-- Admin Button -->
+    <!-- <form style="display: inline;" action="admin.php" method="get">
             <button type="submit" name="admin" class="button" <?php echo ($current_page == 'admin.php') ? 'disabled' : ''; ?>Admin</button>
-        </form>
+        </form> -->
 
-        <!-- Account Button -->
-        <form style="display: inline;" action="account.php" method="get">
-            <button type="submit" name="account" class="button" <?php echo ($current_page == 'account.php') ? 'disabled' : ''; ?>Account</button>
-        </form>
+    <!-- <form action="admin.php" method="get">
+            <button type="submit" name="admin" class="button"> Login</button>
+        </form> -->
 
-        <!-- Logout Button -->
-        <form style="display: inline;" action="logout.php" method="post">
+
+
+    <!-- Account Button -->
+    <!-- <form action="account.php" method="get">
+            <button type="submit" name="account" class="button">Account</button>
+        </form> -->
+
+    <!-- Logout Button -->
+    <!-- <form action="logout.php" method="post">
             <button type="submit" name="logout" class="button">Logout</button>
-        </form>
+        </form> -->
 
-        <?php } ?>
-
-        <?php if (!$isAdmin) { ?>
-        <!-- Logout Button -->
-        <form style="display: inline;" action="splash.php" method="post">
-            <button type="submit" name="logout" class="button">Admin Login</button>
-        </form>
-
-        <?php } ?>
-
-
-    </div>
-
-
+    <!-- Logout Button -->
+    <!-- <form 
+         action="splash.php" method="post">
+            <button type="submit" name="logout" class="button"></button>
+        </form> -->
+    <!-- </div> -->
     `;
 
 class Nav extends HTMLElement {
-    constructor() {
-        super();
+  constructor() {
+    super();
 
-        this.attachShadow({
-            mode: 'open',
-        });
-        this.shadowRoot.appendChild(navTemplate.content.cloneNode(true));
+    this.attachShadow({
+      mode: 'open',
+    });
+    this.shadowRoot.appendChild(navTemplate.content.cloneNode(true));
+  }
+
+  connectedCallback() {
+    this.adminChecker();
+  }
+
+  adminChecker() {
+    const isAdmin = this.getAttribute('isAdmin');
+
+    const iconContainer = this.shadowRoot.querySelector('.icon-container');
+    const textLabel = this.shadowRoot.querySelector('.login-admin small');
+
+    if (isAdmin !== null && isAdmin !== '') {
+      const adminIcon = document.createElement('admin-icon');
+
+      iconContainer.appendChild(adminIcon);
+      iconContainer.style.fill = '#000';
+      textLabel.textContent = 'Admin';
+    } else {
+      const loginIcon = document.createElement('login-icon');
+
+      iconContainer.appendChild(loginIcon);
+      textLabel.textContent = 'Login';
     }
+  }
 }
 
 customElements.define('nav-bar', Nav);

@@ -62,6 +62,15 @@ $meeting_2 = isset($meetings['meeting_2']) ? $meetings['meeting_2'] : '';
     <welcome-message name="<?php echo $fullName; ?>"></welcome-message>
     <?php } ?>
 
+
+    <a href="account.php?account" class="account button">
+        <span>Account</span>
+    </a>
+
+    <a href="logout.php?logout" class="logout button">
+        <span>Logout</span>
+    </a>
+
     <div>
         <grid-layout>
 
@@ -252,7 +261,7 @@ $meeting_2 = isset($meetings['meeting_2']) ? $meetings['meeting_2'] : '';
 
 
     </main>
-    <nav-bar></nav-bar>
+    <nav-bar isAdmin="<?php echo $isAdmin; ?>"></nav-bar>
 </body>
 
 <script>

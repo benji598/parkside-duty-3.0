@@ -1,6 +1,6 @@
 <?php if (!isset($_SESSION)) { session_start(); } ?>
-<!-- <!DOCTYPE html>
-<html lang="en"> -->
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
     <!-- <meta name="view-transition" content="same-origin" /> -->
@@ -19,8 +19,6 @@
     <link rel="stylesheet" href="/css/global.css" rel="preload" />
     <link rel="stylesheet" href="/css/hp.css" rel="preload" />
     <link rel="stylesheet" href="/css/tables.css" rel="preload" />
-
-
 
     <script src="icon/manage-duties-icon.js" defer></script>
     <script src="icon/meeting-days-icon.js" defer></script>
@@ -43,10 +41,10 @@
     <script src="icon/whatsapp-icon.js" defer></script>
     <script src="icon/sms-icon.js" defer></script>
 
+    <script src="components/header-info.js" defer></script>
     <script src="components/admin-btns.js" defer></script>
     <script src="components/btn-design.js" defer></script>
     <script src="components/network-status.js" defer></script>
-    <script src="components/header-info.js" defer></script>
     <script src="components/name-send-title.js" defer></script>
     <script src="components/grid-layout.js" defer></script>
     <script src="components/name-list-layout.js" defer></script>
@@ -67,8 +65,6 @@
     <script src="components/manage-duty-form.js" defer></script>
 
     <!-- <script src="components/filterbrothers-data.js" defer></script> -->
-
-
 
     <script src="icon/duties-icon.js" defer></script>
     <!-- <script src="icon/rota-icon.js" defer></script> -->
@@ -116,40 +112,3 @@ if ($isAdmin) {
 // Get the current page's filename
 $current_page = basename($_SERVER['PHP_SELF']);
 ?>
-
-<div class="user-details">
-
-    <!-- Dashboard Button -->
-    <form style="display: inline;" action="index.php" method="get">
-        <button type="submit" name="dashboard" class="button"
-            <?php echo ($current_page == 'index.php') ? 'disabled' : ''; ?>>Dashboard</button>
-    </form>
-
-    <?php if ($isAdmin) { ?>
-    <!-- Admin Button -->
-    <form style="display: inline;" action="admin.php" method="get">
-        <button type="submit" name="admin" class="button"
-            <?php echo ($current_page == 'admin.php') ? 'disabled' : ''; ?>>Admin</button>
-    </form>
-
-    <!-- Account Button -->
-    <form style="display: inline;" action="account.php" method="get">
-        <button type="submit" name="account" class="button"
-            <?php echo ($current_page == 'account.php') ? 'disabled' : ''; ?>>Account</button>
-    </form>
-
-    <!-- Logout Button -->
-    <form style="display: inline;" action="logout.php" method="post">
-        <button type="submit" name="logout" class="button">Logout</button>
-    </form>
-
-    <?php } ?>
-
-    <?php if (!$isAdmin) { ?>
-    <!-- Logout Button -->
-    <form style="display: inline;" action="splash.php" method="post">
-        <button type="submit" name="logout" class="button">Admin Login</button>
-    </form>
-
-    <?php } ?>
-</div>

@@ -1,4 +1,6 @@
 :root {
+  --container-space: 1rem;
+
   --background-color: #f3f8ff;
   --baby-blue: #d3e3fd;
   --bg-blue: #4187f7;
@@ -32,7 +34,7 @@ body {
   display: flex;
   flex-direction: column;
   margin: 0;
-  font-size: 1rem;
+  /* font-size: 1rem; */
   overflow-y: hidden;
 }
 

@@ -12,9 +12,6 @@ SendBtnTemplate.innerHTML = /*html*/ `
     }
 </style>
 
-
-
-
 <btn-design>
     <div class="icon" slot="icon"></div>
     <span slot="label"></span>
@@ -22,78 +19,82 @@ SendBtnTemplate.innerHTML = /*html*/ `
 `;
 
 class SendBtn extends HTMLElement {
-  constructor() {
-    super();
-    const shadowRoot = this.attachShadow({
-      mode: 'open',
-    });
-    shadowRoot.appendChild(SendBtnTemplate.content.cloneNode(true));
-  }
-
-  connectedCallback() {
-    this.getInfo();
-  }
-
-  createAndAppendModal() {
-    const modal = document.createElement('slideup-modal');
-    modal.setAttribute('content', '<send-options></send-options>');
-    document.body.appendChild(modal);
-  }
-
-  openSlideUpModal() {
-    // Check if the modal already exists in the DOM
-    if (!document.querySelector('slideup-modal')) {
-      this.createAndAppendModal(); // Function to create and append the modal
+    constructor() {
+        super();
+        const shadowRoot = this.attachShadow({
+            mode: 'open',
+        });
+        shadowRoot.appendChild(SendBtnTemplate.content.cloneNode(true));
     }
 
-    this.dispatchEvent(
-      new CustomEvent('open-modal', {
-        bubbles: true,
-        composed: true,
-      })
-    );
-  }
+    connectedCallback() {
+        this.getInfo();
+    }
 
-  messageDetails(obj) {
-    this.dispatchEvent(
-      new CustomEvent('message-details', {
-        bubbles: true,
-        composed: true,
-        detail: obj,
-      })
-    );
-  }
+    createAndAppendModal() {
+        const modal = document.createElement('slideup-modal');
+        modal.setAttribute(
+            'content',
+            ` <form-container title='' icon='' form='<send-options></send-options>'>
+    < /form-container>">`
+        );
+        document.body.appendChild(modal);
+    }
 
-  getInfo() {
-    const firstName = this.getAttribute('firstName');
-    const lastName = this.getAttribute('lastName');
-    const dutyName = this.getAttribute('dutyName');
-    const number = this.getAttribute('number');
-    const icon = this.getAttribute('icon');
-    const duty_message = this.getAttribute('duty_message');
-    const cover_message = this.getAttribute('cover_message');
-    const meeting_1 = this.getAttribute('meeting_1');
-    const meeting_2 = this.getAttribute('meeting_2');
+    openSlideUpModal() {
+        // Check if the modal already exists in the DOM
+        if (!document.querySelector('slideup-modal')) {
+            this.createAndAppendModal(); // Function to create and append the modal
+        }
 
-    this.shadowRoot.querySelector('.icon').innerHTML = icon;
+        this.dispatchEvent(
+            new CustomEvent('open-modal', {
+                bubbles: true,
+                composed: true,
+            })
+        );
+    }
 
-    this.addEventListener('click', function () {
-      if ('vibrate' in navigator) {
-        navigator.vibrate(10);
-      }
-      this.openSlideUpModal();
-      this.messageDetails({
-        firstName,
-        lastName,
-        dutyName,
-        number,
-        duty_message,
-        cover_message,
-        meeting_1,
-        meeting_2,
-      });
-    });
-  }
+    messageDetails(obj) {
+        this.dispatchEvent(
+            new CustomEvent('message-details', {
+                bubbles: true,
+                composed: true,
+                detail: obj,
+            })
+        );
+    }
+
+    getInfo() {
+        const firstName = this.getAttribute('firstName');
+        const lastName = this.getAttribute('lastName');
+        const dutyName = this.getAttribute('dutyName');
+        const number = this.getAttribute('number');
+        const icon = this.getAttribute('icon');
+        const duty_message = this.getAttribute('duty_message');
+        const cover_message = this.getAttribute('cover_message');
+        const meeting_1 = this.getAttribute('meeting_1');
+        const meeting_2 = this.getAttribute('meeting_2');
+
+        this.shadowRoot.querySelector('.icon').innerHTML = icon;
+
+        this.addEventListener('click', function() {
+            if ('vibrate' in navigator) {
+                navigator.vibrate(10);
+            }
+            this.openSlideUpModal();
+            this.messageDetails({
+                firstName,
+                lastName,
+                dutyName,
+                number,
+                duty_message,
+                cover_message,
+                meeting_1,
+                meeting_2,
+            });
+        });
+    }
 }
 
 customElements.define('send-button', SendBtn);

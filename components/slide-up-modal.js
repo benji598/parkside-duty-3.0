@@ -54,7 +54,7 @@ SlideUpModalTemplate.innerHTML = /*html*/ `
     .overlay,
     .returning {
         width: 100%;
-        transition: all 0.4s ease;
+        transition: all 0.25s ease;
     }
 
     .overlay.dark {
@@ -118,7 +118,7 @@ class SlideUpModal extends HTMLElement {
         document.addEventListener('open-modal', (el) => {
             setTimeout(() => {
                 this.openSlideUpModal(el);
-            }, 10);
+            }, 30);
         });
 
         document.addEventListener('close-modal', () => {
@@ -199,8 +199,6 @@ class SlideUpModal extends HTMLElement {
         let diffY = currentY - this.initialY;
 
         this.popUp.classList.remove('dragging');
-
-        console.log(this.popUp.clientHeight);
 
         if (diffY > this.popUp.clientHeight * 0.35) {
             this.closeSlideUpModal();

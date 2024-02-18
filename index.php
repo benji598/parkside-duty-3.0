@@ -29,7 +29,7 @@
         <?php endwhile; ?>
     </grid-layout>
 
-    <nav-bar></nav-bar>
+    <nav-bar isAdmin="<?php echo $isAdmin; ?>"></nav-bar>
 </body>
 
 </html>

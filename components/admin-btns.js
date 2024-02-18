@@ -28,20 +28,19 @@ class AdminBtns extends HTMLElement {
     }
 
     onButtonClick() {
-        // When the button is clicked, create and append the modal with its content
+        if ('vibrate' in navigator) {
+            navigator.vibrate(10);
+        }
         const newModalContent = this.getAttribute('modal-content');
         this.createAndAppendModal(newModalContent);
     }
 
     createAndAppendModal(newModalContent) {
-        // Check if the modal already exists in the DOM
         let modal = document.querySelector('slideup-modal');
 
         if (modal) {
             modal.setAttribute('content', newModalContent);
-            // Update the content of the existing modal
         } else {
-            // Create a new modal
             modal = document.createElement('slideup-modal');
             modal.setAttribute('content', newModalContent);
             document.body.appendChild(modal);

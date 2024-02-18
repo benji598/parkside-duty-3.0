@@ -17,7 +17,6 @@ FormContainerTemplate.innerHTML = /*html*/ `
         background-color: white;
         padding: clamp(1rem, 8vw, 2rem);
         border-radius: var(--btn-radius);
-
     }
 
     h1 {
@@ -66,6 +65,13 @@ class FormContainer extends HTMLElement {
         const title = this.getAttribute('title');
         const errorMessage = this.getAttribute('data-error');
         const form = this.getAttribute('form');
+
+        if (title === '' || icon === '') {
+            this.shadowRoot.querySelector('.title').style.display = 'none';
+        } else {
+            this.shadowRoot.querySelector('.title').textContent = title;
+            this.shadowRoot.querySelector('.icon').innerHTML = icon;
+        }
 
         this.shadowRoot.querySelector('.icon').innerHTML = icon;
         this.shadowRoot.querySelector('.title').textContent = title;

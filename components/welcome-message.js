@@ -3,6 +3,10 @@ WelcomeMessageTemplate.innerHTML = `
 
 <style>
 
+  :host {
+    padding:1rem;
+  }
+
   .greeting {
     font-weight:500;
   }

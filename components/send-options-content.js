@@ -7,14 +7,13 @@ SendOptionsTemplate.innerHTML = /*html*/ `
         font-weight: 600;
         font-size: 1.3rem;
         line-height: 1.8;
-        padding-top: 0.7rem;
     }
 
     .btn-container {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
         gap: 1rem;
-        padding: 1rem;
+        padding-top: 1rem;
     }
 
     .whatsapp-btn,
@@ -153,26 +152,21 @@ class SendOptions extends HTMLElement {
 
     whatsApp(obj) {
         const message_content = this.parseMessage(obj, obj.detail.duty_message);
-
         window.location.assign(`whatsapp://send?phone=+${obj.detail.number} &text=${message_content}`);
     }
 
     whatsappCover(obj) {
         const message_content = this.parseMessage(obj, obj.detail.cover_message);
-
         window.location.assign(`whatsapp://send?phone= ${obj.detail.number} &text=*${message_content}`);
     }
 
     sms(obj) {
-        console.log(obj);
         const message_content = this.parseMessage(obj, obj.detail.duty_message);
-
         window.location.assign(`sms:${obj.detail.number}?&body=${message_content}`);
     }
 
     smsCover(obj) {
         const message_content = this.parseMessage(obj, obj.detail.cover_message);
-
         window.location.assign(`sms:${obj.detail.number}?&body=${message_content}`);
     }
 
