@@ -56,7 +56,7 @@ BtnDesignTemplate.innerHTML = /*html*/ `
     }
 </style>
 
-<button class="btn-design">
+<button class="btn-design" aria-label="Send/Duty">
     <div class="icon-circle">
         <slot name="icon"></slot>
     </div>
@@ -71,30 +71,30 @@ BtnDesignTemplate.innerHTML = /*html*/ `
 `;
 
 class BtnDesign extends HTMLElement {
-    constructor() {
-        super();
+  constructor() {
+    super();
 
-        this.attachShadow({
-            mode: 'open',
-        });
-        this.shadowRoot.appendChild(BtnDesignTemplate.content.cloneNode(true));
+    this.attachShadow({
+      mode: 'open',
+    });
+    this.shadowRoot.appendChild(BtnDesignTemplate.content.cloneNode(true));
+  }
+
+  connectedCallback() {
+    this.textChecker();
+  }
+
+  textChecker() {
+    const titleSlot = this.shadowRoot.querySelector('slot[name="title"]');
+    const slottedNodes = titleSlot.assignedNodes();
+
+    if (slottedNodes.length === 0) {
+      const h3Container = this.shadowRoot.querySelector('h3');
+      if (h3Container) {
+        h3Container.classList.add('d-none');
+      }
     }
-
-    connectedCallback() {
-        this.textChecker();
-    }
-
-    textChecker() {
-        const titleSlot = this.shadowRoot.querySelector('slot[name="title"]');
-        const slottedNodes = titleSlot.assignedNodes();
-
-        if (slottedNodes.length === 0) {
-            const h3Container = this.shadowRoot.querySelector('h3');
-            if (h3Container) {
-                h3Container.classList.add('d-none');
-            }
-        }
-    }
+  }
 }
 
 customElements.define('btn-design', BtnDesign);

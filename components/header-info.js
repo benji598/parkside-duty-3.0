@@ -11,8 +11,8 @@ HeaderTemplate.innerHTML = /*html*/ `
 </style>
 
 <header>
-    <h1 id="title">App Name</h1>
-    <h2 id="subtitle">Choose a Option</h2>
+    <h1 class="title">App Name</h1>
+    <h2 class="subtitle">Choose a Option</h2>
 </header>
 `;
 
@@ -25,34 +25,19 @@ class HeaderInfo extends HTMLElement {
     this.shadowRoot.appendChild(HeaderTemplate.content.cloneNode(true));
   }
 
-  static get observedAttributes() {
-    return ['title', 'subtitle'];
-  }
-
-  attributeChangedCallback(name, oldValue, newValue) {
-    switch (name) {
-      case 'title':
-        this.shadowRoot.getElementById('title').textContent = newValue;
-        break;
-      case 'subtitle':
-        this.shadowRoot.getElementById('subtitle').textContent = newValue;
-        break;
-    }
-  }
-
   connectedCallback() {
     this.getTitle();
-    if (this.hasAttribute('title')) {
-      this.shadowRoot.getElementById('title').textContent = this.getAttribute('title');
-    }
-    if (this.hasAttribute('subtitle')) {
-      this.shadowRoot.getElementById('subtitle').textContent = this.getAttribute('subtitle');
-    }
   }
 
   getTitle() {
-    const slot = this.shadowRoot.querySelector('#title');
-    this.sendTitle(slot);
+    const getTitle = this.getAttribute('title');
+    const getsubTitle = this.getAttribute('subtitle');
+
+    this.shadowRoot.querySelector('.title').textContent = getTitle;
+    this.shadowRoot.querySelector('.subtitle').textContent = getsubTitle;
+
+    const dutyTitle = this.shadowRoot.querySelector('.title');
+    this.sendTitle(dutyTitle);
   }
 
   sendTitle(element) {

@@ -7,14 +7,6 @@ navTemplate.innerHTML = /*html*/ `
         margin-top: auto;
     }
 
-    .admin svg {
-        fill: black;
-    }
-
-    .hide {
-        display: none;
-    }
-
     a {
         text-decoration: var(--anchor-decoration);
     }
@@ -37,103 +29,160 @@ navTemplate.innerHTML = /*html*/ `
         color: #000;
         text-decoration: var(--anchor-decoration);
     }
+
+    duties-icon,
+    .icon-container {
+        padding-left: 5px;
+        padding-right: 5px;
+        transition: padding 0.5s ease, background-color 0.5s ease, border-radius 0.5s ease;
+    }
+
+    .active {
+        border-radius: 2rem;
+        padding-left: 20px;
+        padding-right: 20px;
+        background-color: var(--baby-blue);
+    }
 </style>
 
 
 <div class="icon-bar">
-    <a href="/" class="active">
+    <a href="/">
         <duties-icon></duties-icon>
         <small>Duties</small>
     </a>
 
-    <a href="admin.php?admin" class="login-admin button">
+    <a href="admin.php?admin" class="login-admin">
         <div class="icon-container"></div>
         <small>Login</small>
     </a>
-
-
-    <!-- <a href="#">
-        <rota-icon></rota-icon>
-        <small>Rota</small>
-    </a> -->
-
-    <!-- <a href="#">
-        <counter-icon></counter-icon>
-        <small>Counter</small>
-    </a> -->
-    <!-- Redirect to splash.php if the user isn't logged in -->
-
-
-    <!-- <div class="user-details"> -->
-
-    <!-- Dashboard Button -->
-    <!-- <form style="display: inline;" action="index.php" method="get">
-            <button type="submit" name="dashboard" class="button" <?php echo ($current_page == 'index.php') ? 'disabled' : ''; ?>>Dashboard</button>
-        </form> -->
-
-
-    <!-- Admin Button -->
-    <!-- <form style="display: inline;" action="admin.php" method="get">
-            <button type="submit" name="admin" class="button" <?php echo ($current_page == 'admin.php') ? 'disabled' : ''; ?>Admin</button>
-        </form> -->
-
-    <!-- <form action="admin.php" method="get">
-            <button type="submit" name="admin" class="button"> Login</button>
-        </form> -->
-
-
-
-    <!-- Account Button -->
-    <!-- <form action="account.php" method="get">
-            <button type="submit" name="account" class="button">Account</button>
-        </form> -->
-
-    <!-- Logout Button -->
-    <!-- <form action="logout.php" method="post">
-            <button type="submit" name="logout" class="button">Logout</button>
-        </form> -->
-
-    <!-- Logout Button -->
-    <!-- <form 
-         action="splash.php" method="post">
-            <button type="submit" name="logout" class="button"></button>
-        </form> -->
-    <!-- </div> -->
     `;
 
 class Nav extends HTMLElement {
-  constructor() {
-    super();
+    constructor() {
+        super();
 
-    this.attachShadow({
-      mode: 'open',
-    });
-    this.shadowRoot.appendChild(navTemplate.content.cloneNode(true));
-  }
-
-  connectedCallback() {
-    this.adminChecker();
-  }
-
-  adminChecker() {
-    const isAdmin = this.getAttribute('isAdmin');
-
-    const iconContainer = this.shadowRoot.querySelector('.icon-container');
-    const textLabel = this.shadowRoot.querySelector('.login-admin small');
-
-    if (isAdmin !== null && isAdmin !== '') {
-      const adminIcon = document.createElement('admin-icon');
-
-      iconContainer.appendChild(adminIcon);
-      iconContainer.style.fill = '#000';
-      textLabel.textContent = 'Admin';
-    } else {
-      const loginIcon = document.createElement('login-icon');
-
-      iconContainer.appendChild(loginIcon);
-      textLabel.textContent = 'Login';
+        this.attachShadow({
+            mode: 'open',
+        });
+        this.shadowRoot.appendChild(navTemplate.content.cloneNode(true));
+        this.url = window.location.href;
+        this.dutiesIcon = this.shadowRoot.querySelector('duties-icon');
+        this.loginAdmin = this.shadowRoot.querySelector('.icon-container');
     }
-  }
+
+    connectedCallback() {
+        this.init();
+        // this.urlChecker();
+        this.adminChecker();
+    }
+
+    adminChecker() {
+        const isAdmin = this.getAttribute('isAdmin');
+
+        const iconContainer = this.shadowRoot.querySelector('.icon-container');
+        const textLabel = this.shadowRoot.querySelector('.login-admin small');
+
+        if (isAdmin !== null && isAdmin !== '') {
+            const adminIcon = document.createElement('admin-icon');
+
+            iconContainer.appendChild(adminIcon);
+            iconContainer.style.fill = '#000';
+            textLabel.textContent = 'Admin';
+        } else {
+            const loginIcon = document.createElement('login-icon');
+
+            iconContainer.appendChild(loginIcon);
+            textLabel.textContent = 'Login';
+        }
+    }
+
+    // urlChecker() {
+
+    // console.log(this.dutiesIcon);
+
+    // this.dutiesIcon.addEventListener('click', function(e) {
+    // e.preventDefault();
+
+    // if (this.url.includes('duty.php') || this.url.includes('8888')) {
+    // setTimeout(() => {
+    // this.dutiesIcon.classList.add('active');
+    // this.loginAdmin.classList.remove('active');
+    // }, 100);
+    // }
+    // });
+
+    // this.loginAdmin.addEventListener('click', function(e) {
+    // e.preventDefault();
+    // if (this.url.includes('admin.php') || this.url.includes('splash.php')) {
+    // setTimeout(() => {
+    // this.dutiesIcon.classList.remove('active');
+    // this.loginAdmin.classList.add('active');
+    // }, 100);
+    // }
+    // });
+    // }
+
+    init() {
+        if (this.url.includes('duty.php') || this.url.includes('8888')) {
+            setTimeout(() => {
+                this.dutiesIcon.classList.add('active');
+                this.loginAdmin.classList.remove('active');
+            }, 100);
+        }
+
+        if (this.url.includes('admin.php') || this.url.includes('splash.php')) {
+            setTimeout(() => {
+                this.dutiesIcon.classList.remove('active');
+                this.loginAdmin.classList.add('active');
+            }, 100);
+        }
+    }
 }
 
 customElements.define('nav-bar', Nav);
+
+// old menu
+// <!-- <a href="#">
+// <rota-icon></rota-icon>
+// <small>Rota</small>
+// </a> -->
+
+// <!-- <a href="#">
+// <counter-icon></counter-icon>
+// <small>Counter</small>
+// </a> -->
+// <!-- Redirect to splash.php if the user isn't logged in -->
+
+// <!-- <div class="user-details"> -->
+
+// <!-- Dashboard Button -->
+// <!-- <form style="display: inline;" action="index.php" method="get">
+//     <button type="submit" name="dashboard" class="button" <?php echo ($current_page == 'index.php') ? 'disabled' : ''; ?>>Dashboard</button>
+// </form> -->
+
+// <!-- Admin Button -->
+// <!-- <form style="display: inline;" action="admin.php" method="get">
+//     <button type="submit" name="admin" class="button" <?php echo ($current_page == 'admin.php') ? 'disabled' : ''; ?>Admin</button>
+// </form> -->
+
+// <!-- <form action="admin.php" method="get">
+//     <button type="submit" name="admin" class="button"> Login</button>
+// </form> -->
+
+// <!-- Account Button -->
+// <!-- <form action="account.php" method="get">
+//     <button type="submit" name="account" class="button">Account</button>
+// </form> -->
+
+// <!-- Logout Button -->
+// <!-- <form action="logout.php" method="post">
+//     <button type="submit" name="logout" class="button">Logout</button>
+// </form> -->
+
+// <!-- Logout Button -->
+// <!-- <form
+//  action="splash.php" method="post">
+//     <button type="submit" name="logout" class="button"></button>
+// </form> -->
+// <!-- </div> -->

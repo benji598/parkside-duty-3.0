@@ -12,13 +12,20 @@
 
     <!-- Preload the stylesheets -->
     <link rel="preload" href="/css/global.css" as="style" />
-    <link rel="preload" href="/css/hp.css" as="style" />
+    <!-- <link rel="preload" href="/css/hp.css" as="style" /> -->
     <link rel="preload" href="/css/tables.css" as="style" />
 
     <!-- Apply the stylesheets -->
     <link rel="stylesheet" href="/css/global.css" rel="preload" />
-    <link rel="stylesheet" href="/css/hp.css" rel="preload" />
+    <!-- <link rel="stylesheet" href="/css/hp.css" rel="preload" /> -->
     <link rel="stylesheet" href="/css/tables.css" rel="preload" />
+
+    <script src="components/header-info.js" defer></script>
+
+    <script src="icon/duties-icon.js" defer></script>
+    <!-- <script src="icon/rota-icon.js" defer></script> -->
+    <!-- <script src="icon/counter-icon.js" defer></script> -->
+    <script src="icon/login-icon.js" defer></script>
 
     <script src="icon/manage-duties-icon.js" defer></script>
     <script src="icon/meeting-days-icon.js" defer></script>
@@ -41,7 +48,7 @@
     <script src="icon/whatsapp-icon.js" defer></script>
     <script src="icon/sms-icon.js" defer></script>
 
-    <script src="components/header-info.js" defer></script>
+
     <script src="components/admin-btns.js" defer></script>
     <script src="components/btn-design.js" defer></script>
     <script src="components/network-status.js" defer></script>
@@ -66,10 +73,7 @@
 
     <!-- <script src="components/filterbrothers-data.js" defer></script> -->
 
-    <script src="icon/duties-icon.js" defer></script>
-    <!-- <script src="icon/rota-icon.js" defer></script> -->
-    <!-- <script src="icon/counter-icon.js" defer></script> -->
-    <script src="icon/login-icon.js" defer></script>
+
 
     <style>
     body {
