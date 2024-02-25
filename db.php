@@ -1,6 +1,3 @@
-<!-- -->
-
-
 <?php
 // Check the current URL
 $currentDomain = $_SERVER['HTTP_HOST'];
