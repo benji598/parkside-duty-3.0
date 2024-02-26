@@ -1,6 +1,6 @@
 <?php
 require 'db.php';
-session_start();
+if (!isset($_SESSION)) { session_start(); } 
 
 // Initialize an error array
 $error_messages = [];
