@@ -59,85 +59,87 @@ navTemplate.innerHTML = /*html*/ `
     `;
 
 class Nav extends HTMLElement {
-    constructor() {
-        super();
+  constructor() {
+    super();
 
-        this.attachShadow({
-            mode: 'open',
-        });
-        this.shadowRoot.appendChild(navTemplate.content.cloneNode(true));
-        this.url = window.location.href;
-        this.dutiesIcon = this.shadowRoot.querySelector('duties-icon');
-        this.loginAdmin = this.shadowRoot.querySelector('.icon-container');
+    this.attachShadow({
+      mode: 'open',
+    });
+    this.shadowRoot.appendChild(navTemplate.content.cloneNode(true));
+    this.url = window.location.href;
+    this.dutiesIcon = this.shadowRoot.querySelector('duties-icon');
+    this.loginAdmin = this.shadowRoot.querySelector('.icon-container');
+  }
+
+  connectedCallback() {
+    this.init();
+    // this.urlChecker();
+    this.adminChecker();
+  }
+
+  adminChecker() {
+    const isAdmin = this.getAttribute('isAdmin');
+
+    console.log('is admin', isAdmin);
+
+    const iconContainer = this.shadowRoot.querySelector('.icon-container');
+    const textLabel = this.shadowRoot.querySelector('.login-admin small');
+
+    if (isAdmin !== null && isAdmin !== '') {
+      const adminIcon = document.createElement('admin-icon');
+
+      iconContainer.appendChild(adminIcon);
+      iconContainer.style.fill = '#000';
+      textLabel.textContent = 'Admin';
+    } else {
+      const loginIcon = document.createElement('login-icon');
+
+      iconContainer.appendChild(loginIcon);
+      textLabel.textContent = 'Login';
+    }
+  }
+
+  // urlChecker() {
+
+  // console.log(this.dutiesIcon);
+
+  // this.dutiesIcon.addEventListener('click', function(e) {
+  // e.preventDefault();
+
+  // if (this.url.includes('duty.php') || this.url.includes('8888')) {
+  // setTimeout(() => {
+  // this.dutiesIcon.classList.add('active');
+  // this.loginAdmin.classList.remove('active');
+  // }, 100);
+  // }
+  // });
+
+  // this.loginAdmin.addEventListener('click', function(e) {
+  // e.preventDefault();
+  // if (this.url.includes('admin.php') || this.url.includes('splash.php')) {
+  // setTimeout(() => {
+  // this.dutiesIcon.classList.remove('active');
+  // this.loginAdmin.classList.add('active');
+  // }, 100);
+  // }
+  // });
+  // }
+
+  init() {
+    if (this.url.includes('duty.php') || this.url.includes('8888')) {
+      setTimeout(() => {
+        this.dutiesIcon.classList.add('active');
+        this.loginAdmin.classList.remove('active');
+      }, 100);
     }
 
-    connectedCallback() {
-        this.init();
-        // this.urlChecker();
-        this.adminChecker();
+    if (this.url.includes('admin.php') || this.url.includes('splash.php')) {
+      setTimeout(() => {
+        this.dutiesIcon.classList.remove('active');
+        this.loginAdmin.classList.add('active');
+      }, 100);
     }
-
-    adminChecker() {
-        const isAdmin = this.getAttribute('isAdmin');
-
-        const iconContainer = this.shadowRoot.querySelector('.icon-container');
-        const textLabel = this.shadowRoot.querySelector('.login-admin small');
-
-        if (isAdmin !== null && isAdmin !== '') {
-            const adminIcon = document.createElement('admin-icon');
-
-            iconContainer.appendChild(adminIcon);
-            iconContainer.style.fill = '#000';
-            textLabel.textContent = 'Admin';
-        } else {
-            const loginIcon = document.createElement('login-icon');
-
-            iconContainer.appendChild(loginIcon);
-            textLabel.textContent = 'Login';
-        }
-    }
-
-    // urlChecker() {
-
-    // console.log(this.dutiesIcon);
-
-    // this.dutiesIcon.addEventListener('click', function(e) {
-    // e.preventDefault();
-
-    // if (this.url.includes('duty.php') || this.url.includes('8888')) {
-    // setTimeout(() => {
-    // this.dutiesIcon.classList.add('active');
-    // this.loginAdmin.classList.remove('active');
-    // }, 100);
-    // }
-    // });
-
-    // this.loginAdmin.addEventListener('click', function(e) {
-    // e.preventDefault();
-    // if (this.url.includes('admin.php') || this.url.includes('splash.php')) {
-    // setTimeout(() => {
-    // this.dutiesIcon.classList.remove('active');
-    // this.loginAdmin.classList.add('active');
-    // }, 100);
-    // }
-    // });
-    // }
-
-    init() {
-        if (this.url.includes('duty.php') || this.url.includes('8888')) {
-            setTimeout(() => {
-                this.dutiesIcon.classList.add('active');
-                this.loginAdmin.classList.remove('active');
-            }, 100);
-        }
-
-        if (this.url.includes('admin.php') || this.url.includes('splash.php')) {
-            setTimeout(() => {
-                this.dutiesIcon.classList.remove('active');
-                this.loginAdmin.classList.add('active');
-            }, 100);
-        }
-    }
+  }
 }
 
 customElements.define('nav-bar', Nav);

@@ -22,4 +22,4 @@ else
 
 <form-container icon="<login-icon></login-icon>" title="Login" form="<login-form></login-form>"
     data-error="<?php echo $errMessage; ?>"></form-container>
-<nav-bar></nav-bar>
+<nav-bar isAdmin="<?php echo $isAdmin; ?>"></nav-bar>
