@@ -108,8 +108,6 @@ class SendOptions extends HTMLElement {
             this.popUpName.textContent = `${obj.detail.firstName} ${obj.detail.lastName}`;
             this.btnOption(obj);
         });
-
-        this.cancelButton();
     }
 
     closeModal() {

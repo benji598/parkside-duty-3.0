@@ -20,6 +20,7 @@ $phone = $_SESSION['phone'];
     </account-form>
 
     <nav-bar isAdmin="<?php echo $isAdmin; ?>"></nav-bar>
+
 </body>
 
 </html>

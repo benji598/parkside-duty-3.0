@@ -174,10 +174,10 @@ DutyMessageFormTemplate.innerHTML = /*html*/ `
 
 <form method="post" action="update_global_messages.php">
     <label for="duty_message">Duty Message:</label>
-    <textarea id="duty_message" name="duty_message" rows="4" cols="50"><?php echo htmlspecialchars($duty_message); ?></textarea>
+    <textarea id="duty_message" name="duty_message" rows="4" cols="50"></textarea>
 
     <label for="cover_message">Cover Message:</label>
-    <textarea id="cover_message" name="cover_message" rows="4" cols="50"><?php echo htmlspecialchars($cover_message); ?></textarea>
+    <textarea id="cover_message" name="cover_message" rows="4" cols="50"></textarea>
 
     <button type="submit" name="update_messages">Update Messages</button>
 </form>
@@ -194,20 +194,29 @@ class DutyMessageForm extends HTMLElement {
   }
 
   connectedCallback() {
-    // this.getDetails();
+    this.getDetails();
     // this.initializeLabelPositions();
   }
 
   getDetails() {
+    console.log('this was called');
     const firstName = this.getAttribute('firstName');
     const lastName = this.getAttribute('lastName');
     const email = this.getAttribute('email');
     const phone = this.getAttribute('phone');
 
-    this.shadowRoot.querySelector('#firstName').value = firstName;
-    this.shadowRoot.querySelector('#lastName').value = lastName;
-    this.shadowRoot.querySelector('#email').value = email;
-    this.shadowRoot.querySelector('#phone').value = phone;
+    const dutyMessage = this.getAttribute('dutymessage');
+    const coverMessage = this.getAttribute('covermessage');
+
+    console.log(dutyMessage);
+    console.log(coverMessage);
+
+    // this.shadowRoot.querySelector('#firstName').value = firstName;
+    // this.shadowRoot.querySelector('#lastName').value = lastName;
+    // this.shadowRoot.querySelector('#email').value = email;
+    // this.shadowRoot.querySelector('#phone').value = phone;
+    this.shadowRoot.querySelector('#duty_message').textContent = `${dutyMessage}`;
+    this.shadowRoot.querySelector('#cover_message').textContent = `${coverMessage}`;
   }
 
   // initializeLabelPositions() {

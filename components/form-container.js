@@ -56,6 +56,8 @@ class FormContainer extends HTMLElement {
         });
         this.shadowRoot.appendChild(FormContainerTemplate.content.cloneNode(true));
     }
+
+
     connectedCallback() {
         this.getDetails();
     }

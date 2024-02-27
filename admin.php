@@ -23,27 +23,29 @@ $result_sub_users = $conn->query("
 ");
 
 // Fetch duty message and cover message from core_config_data
-$query_messages = "SELECT name, setting_1 FROM core_config_data WHERE name IN ('duty_message', 'cover_message')";
-$result_messages = $conn->query($query_messages);
-$messages = [];
-while ($row = $result_messages->fetch_assoc()) {
-    $messages[$row['name']] = $row['setting_1'];
-}
+    $query_messages = "SELECT name, setting_1 FROM core_config_data WHERE name IN ('duty_message', 'cover_message')";
+    $result_messages = $conn->query($query_messages);
+    $messages = [];
+    while ($row = $result_messages->fetch_assoc()) {
+        $messages[$row['name']] = $row['setting_1'];
+    }
 
-$duty_message = isset($messages['duty_message']) ? $messages['duty_message'] : '';
-$cover_message = isset($messages['cover_message']) ? $messages['cover_message'] : '';
+    $duty_message = isset($messages['duty_message']) ? $messages['duty_message'] : '';
+    $cover_message = isset($messages['cover_message']) ? $messages['cover_message'] : '';
 
-$query_meetings = "SELECT name, setting_1 FROM core_config_data WHERE name IN ('meeting_1', 'meeting_2')";
-$result_meetings = $conn->query($query_meetings);
-$meetings = [];
-while ($row = $result_meetings->fetch_assoc()) {
-    $meetings[$row['name']] = $row['setting_1'];
-}
 
-$meeting_1 = isset($meetings['meeting_1']) ? $meetings['meeting_1'] : '';
-$meeting_2 = isset($meetings['meeting_2']) ? $meetings['meeting_2'] : '';
 
-?>
+    $query_meetings = "SELECT name, setting_1 FROM core_config_data WHERE name IN ('meeting_1', 'meeting_2')";
+    $result_meetings = $conn->query($query_meetings);
+    $meetings = [];
+    while ($row = $result_meetings->fetch_assoc()) {
+        $meetings[$row['name']] = $row['setting_1'];
+    }
+
+    $meeting_1 = isset($meetings['meeting_1']) ? $meetings['meeting_1'] : '';
+    $meeting_2 = isset($meetings['meeting_2']) ? $meetings['meeting_2'] : '';
+
+    ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -98,9 +100,13 @@ $meeting_2 = isset($meetings['meeting_2']) ? $meetings['meeting_2'] : '';
                 <form-container 
                     title='Edit Messages' 
                     icon='<edit-message-icon></edit-message-icon>' 
-                    form='<duty-message-form></duty-message-form>'>
+                    form='<duty-message-form 
+                        dutymessage=&quot;<?php echo $duty_message; ?>&quot; 
+                        covermessage=&quot;<?php echo $cover_message; ?>&quot;>
+                    </duty-message-form>'>
                 </form-container>">
             </admin-button>
+
 
             <admin-button title="Manage Duties" icon="<manage-duties-icon></manage-duties-icon>" modal-content="
                 <form-container 
