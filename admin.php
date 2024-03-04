@@ -45,6 +45,22 @@ $result_sub_users = $conn->query("
     $meeting_1 = isset($meetings['meeting_1']) ? $meetings['meeting_1'] : '';
     $meeting_2 = isset($meetings['meeting_2']) ? $meetings['meeting_2'] : '';
 
+
+    // Assuming $result_duty_types is your query result
+        $duty_types = [];
+        while ($row = $result_duty_types->fetch_assoc()) {
+            $duty_types[] = [
+                'id' => $row['id'],
+                'name' => $row['name']
+            ];
+        }
+
+        // Encode the duty types into a JSON string
+        $duty_types_json = trim(json_encode($duty_types));
+
+    //    var_dump($duty_types_json)
+        
+
     ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -89,14 +105,19 @@ $result_sub_users = $conn->query("
                 form="<meeting-day-form></meeting-day-form>"></form-container> -->
 
             <admin-button title="Add Person" icon="<add-person-icon></add-person-icon>" modal-content="
-                <form-container 
-                    title='Add Person' 
-                    icon='<add-person-icon></add-person-icon>' 
-                    form='<add-person-form></add-person-form>'>
+                <form-container
+                title='Add Person' 
+                icon='<add-person-icon></add-person-icon>' 
+                form='<add-person-form></add-person-form>'
                 </form-container>">
+                ">
             </admin-button>
 
-            <admin-button title="Edit Messages" icon="<edit-message-icon></edit-message-icon>" modal-content="
+            <!-- <add-person-form jsonData='<?php echo htmlspecialchars($duty_types_json, ENT_QUOTES, 'UTF-8'); ?>'>
+            </add-person-form> -->
+
+
+            <admin-button title=" Edit Messages" icon="<edit-message-icon></edit-message-icon>" modal-content="
                 <form-container 
                     title='Edit Messages' 
                     icon='<edit-message-icon></edit-message-icon>' 
@@ -125,6 +146,9 @@ $result_sub_users = $conn->query("
             </admin-button>
         </grid-layout>
     </div>
+
+
+
 
     <main class="container overflow">
 

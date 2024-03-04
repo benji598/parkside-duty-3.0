@@ -207,6 +207,7 @@ class AddPersonForm extends HTMLElement {
     }
 
     connectedCallback() {
+        this.test();
         // this.getDetails();
         this.initializeLabelPositions();
     }
@@ -221,6 +222,25 @@ class AddPersonForm extends HTMLElement {
     // this.shadowRoot.querySelector('#lastName').value = lastName;
     // this.shadowRoot.querySelector('#email').value = email;
     // this.shadowRoot.querySelector('#phone').value = phone;
+    // }
+
+    async test() {
+        const response = await fetch('../test-fetch.php');
+        const broData = await response.json();
+
+        console.log('DATA', broData);
+    }
+
+    // getDetails() {
+    // const json = this.getAttribute('jsonData');
+    // try {
+    // const data = JSON.parse(json);
+    // data.forEach((el) => {
+    // console.log(el.name);
+    // }); // Now 'data' is an object
+    // } catch (error) {
+    // console.error("Error parsing JSON from 'jsonData' attribute:", error);
+    // }
     // }
 
     initializeLabelPositions() {
