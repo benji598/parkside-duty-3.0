@@ -225,11 +225,24 @@ class AddPersonForm extends HTMLElement {
     // }
 
     async test() {
-        const response = await fetch('../test-fetch.php');
+        const functionName = 'getDutyTypes'; 
+        const response = await fetch(`../API.php?functionName=${functionName}`);
         const broData = await response.json();
-
+    
         console.log('DATA', broData);
     }
+
+    async test2() {
+        const functionName = 'getDutyTypeByID'; 
+        const id = 1; // Specify the ID of the duty type you want to fetch
+        const response = await fetch(`../API.php?functionName=${functionName}&id=${id}`); //here we are just passing it, we can can pass anything 
+        const broData = await response.json();
+    
+        console.log('DATA', broData);
+    }
+    
+ 
+    
 
     // getDetails() {
     // const json = this.getAttribute('jsonData');
