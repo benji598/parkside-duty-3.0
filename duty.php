@@ -84,6 +84,35 @@ $stmt = $conn->prepare("
     <?php if ($isAdmin) { ?>
     <?php } ?>
 
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        fetch('/api/sub-users/<?php echo $duty_id; ?>')
+            .then(response => response.json())
+            .then(subUsers => {
+                const nameListLayout = document.querySelector('name-list-layout');
+                subUsers.forEach(subUser => {
+                    const nameHolder = document.createElement('name-holder');
+                    nameHolder.setAttribute('name', `${subUser.firstname} ${subUser.lastname}`);
+                    nameListLayout.appendChild(nameHolder);
+
+                    const sendButton = document.createElement('send-button');
+                    sendButton.setAttribute('firstName', subUser.firstname);
+                    sendButton.setAttribute('lastName', subUser.lastname);
+                    sendButton.setAttribute('duty_message', subUser.duty_message);
+                    sendButton.setAttribute('cover_message', subUser.cover_message);
+                    sendButton.setAttribute('meeting_1', subUser.meeting_1);
+                    sendButton.setAttribute('meeting_2', subUser.meeting_2);
+                    sendButton.setAttribute('dutyName', '<?php echo htmlspecialchars($duty_name); ?>');
+                    sendButton.setAttribute('number', subUser.phone);
+                    sendButton.setAttribute('icon', '<send-icon></send-icon>');
+                    nameListLayout.appendChild(sendButton);
+                });
+            })
+            .catch(error => console.error('Error:', error));
+    });
+</script>
+
+
 
     <filtered-data></filtered-data>
     <nav-bar isAdmin="<?php echo $isAdmin; ?>"></nav-bar>
