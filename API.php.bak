@@ -46,7 +46,6 @@ if (isset($_GET['functionName'])) {
             $id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
             $data = getDutyTypeByID($conn, $id);
             break;
-        // Add more cases for other functions here
         default:
             $data = ['error' => 'Unknown function'];
     }

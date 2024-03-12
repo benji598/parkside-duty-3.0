@@ -20,37 +20,37 @@ if ($isAdmin) {
 }
 ?>
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parkside Duties</title>
+</head>
 <body>
-    <?php
-    $result = $conn->query("SELECT * FROM duty_type");
-    ?>
-
     <header-info title="Parkside Duties" subtitle="Choose a Duty"></header-info>
 
-    <button id="fetchData">Fetch Data</button>
-    <div id="data"></div>
-
     <script>
-        document.getElementById('fetchData').addEventListener('click', function() {
-            fetch('/api/data')
-                .then(response => response.json())
-                .then(data => {
-                    document.getElementById('data').innerText = JSON.stringify(data, null, 2);
-                })
-                .catch(error => console.error('Error:', error));
-        });
+        // Fetch duty types and dynamically populate the grid-layout
+        fetch('/api/duty-types')
+            .then(response => response.json())
+            .then(dutyTypes => {
+                const gridLayout = document.querySelector('grid-layout');
+                dutyTypes.forEach(duty => {
+                    const dutyButton = document.createElement('duty-button');
+                    dutyButton.setAttribute('action-type', 'link');
+                    dutyButton.setAttribute('link', `duty.php?id=${duty.id}`);
+                    dutyButton.setAttribute('title', duty.name);
+                    dutyButton.setAttribute('subtitle', 'Duty');
+                    dutyButton.innerHTML = `<auditorium-attendant-icon></auditorium-attendant-icon> ${duty.icon}`;
+                    gridLayout.appendChild(dutyButton);
+                });
+            })
+            .catch(error => console.error('Error:', error));
     </script>
 
-    <grid-layout>
-        <?php while($row = $result->fetch_assoc()): ?>
-        <duty-button action-type="link" link="duty.php?id=<?php echo htmlspecialchars($row['id']); ?>"
-            title="<?php echo htmlspecialchars($row['name']); ?>" subtitle="Duty"
-            icon="<auditorium-attendant-icon></auditorium-attendant-icon> <?php echo htmlspecialchars($row['icon']); ?>">
-        </duty-button>
-        <?php endwhile; ?>
-    </grid-layout>
+    <grid-layout></grid-layout>
 
     <nav-bar isAdmin="<?php echo $isAdmin; ?>"></nav-bar>
 </body>
-
 </html>

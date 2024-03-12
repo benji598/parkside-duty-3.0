@@ -57,5 +57,34 @@ $app->get('/api/sub-users/{dutyId}', function (Request $request, Response $respo
     return $response->withHeader('Content-Type', 'application/json');
 });
 
+// Get Duty Types
+$app->get('/api/duty-types', function (Request $request, Response $response, array $args) {
+    global $conn;
+    $result = $conn->query("SELECT * FROM duty_type");
+    $dutyTypes = $result->fetch_all(MYSQLI_ASSOC);
+
+    $response->getBody()->write(json_encode($dutyTypes));
+    return $response->withHeader('Content-Type', 'application/json');
+});
+
+// Get Duty Details (when you click a duty)
+$app->get('/api/duty/{dutyId}', function (Request $request, Response $response, array $args) {
+    global $conn;
+    $dutyId = $args['dutyId'];
+    $stmt = $conn->prepare("SELECT * FROM duty_type WHERE id = ?");
+    $stmt->bind_param("i", $dutyId);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $duty = $result->fetch_assoc();
+
+    if (!$duty) {
+        return $response->withStatus(404)->withHeader('Content-Type', 'application/json')->write(json_encode(['error' => 'Duty not found']));
+    }
+
+    $response->getBody()->write(json_encode($duty));
+    return $response->withHeader('Content-Type', 'application/json');
+});
+
+
 
 $app->run();

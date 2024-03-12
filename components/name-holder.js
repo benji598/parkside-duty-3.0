@@ -22,12 +22,11 @@ NameHolderTemplate.innerHTML = /*html*/ `
 class NameHolder extends HTMLElement {
   constructor() {
     super();
-
-    this.attachShadow({
-      mode: 'open',
-    });
+    this.attachShadow({ mode: 'open' });
     this.shadowRoot.appendChild(NameHolderTemplate.content.cloneNode(true));
+  }
 
+  connectedCallback() {
     this.getName();
   }
 
@@ -36,5 +35,6 @@ class NameHolder extends HTMLElement {
     this.shadowRoot.querySelector('.name-holder').innerHTML = name;
   }
 }
+
 
 customElements.define('name-holder', NameHolder);

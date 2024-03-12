@@ -1,121 +1,65 @@
-<?php
+<?php require 'db.php'; require 'functions.php'; include 'header.php'; ?>
 
-require 'db.php';
-require 'functions.php';
-include 'header.php'; 
-
-// Get the duty ID from the URL parameter
-$duty_id = isset($_GET['id']) ? intval($_GET['id']) : 0;
-
-// Handle delete request
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete'])) {
-    $sub_user_id = $_POST['sub_user_id'] ?? null;
-    if ($sub_user_id && deleteSubUserFromDuty($conn, $sub_user_id, $duty_id)) {
-        // Deletion was successful
-    }
-}
-
-// Fetch duty details from the database using the ID
-$stmt = $conn->prepare("SELECT * FROM duty_type WHERE id = ?");
-$stmt->bind_param("i", $duty_id);
-$stmt->execute();
-$result_duty = $stmt->get_result();
-$duty = $result_duty->fetch_assoc();
-
-// If no duty found, redirect to index or show an error
-if (!$duty) {
-    header('Location: index.php');
-    exit;
-}
-
-// Fetch sub-users assigned to this duty
-$stmt = $conn->prepare("
-    SELECT su.id as sub_user_id, 
-           su.firstname, 
-           su.lastname, 
-           su.phone,
-           ccd_duty.setting_1 as duty_message,
-           ccd_cover.setting_1 as cover_message,
-           ccd_meeting1.setting_1 as meeting_1,
-           ccd_meeting2.setting_1 as meeting_2
-    FROM sub_user_duty_assignment as suda
-    JOIN sub_users as su ON suda.sub_user_id = su.id
-    CROSS JOIN (SELECT setting_1 FROM core_config_data WHERE name = 'duty_message') as ccd_duty
-    CROSS JOIN (SELECT setting_1 FROM core_config_data WHERE name = 'cover_message') as ccd_cover
-    CROSS JOIN (SELECT setting_1 FROM core_config_data WHERE name = 'meeting_1') as ccd_meeting1
-    CROSS JOIN (SELECT setting_1 FROM core_config_data WHERE name = 'meeting_2') as ccd_meeting2
-    WHERE suda.duty_id = ?
-");
-
-    $stmt->bind_param("i", $duty_id);
-    $stmt->execute();
-    $result_sub_users = $stmt->get_result();
-
-    // Duty name for the title
-    $duty_name = $duty['name'];
-    $stmt->close();
-?>
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Duty Details</title>
+</head>
 <body>
-
-    <header-info title="<?php echo htmlspecialchars($duty_name); ?>" subtitle="Choose a Duty"></header-info>
-    <name-send></name-send>
-    <name-list-layout>
-        <?php while ($sub_user = $result_sub_users->fetch_assoc()): ?>
-        <name-holder name="
-                <?php echo htmlspecialchars($sub_user['firstname']); ?> 
-                <?php echo htmlspecialchars($sub_user['lastname']); ?>">
-        </name-holder>
-        <send-button firstName="<?php echo htmlspecialchars($sub_user['firstname']); ?>"
-            lastName="<?php echo htmlspecialchars($sub_user['lastname']); ?>"
-            duty_message="<?php echo htmlspecialchars($sub_user['duty_message']); ?>"
-            cover_message="<?php echo htmlspecialchars($sub_user['cover_message']); ?>"
-            meeting_1="<?php echo htmlspecialchars($sub_user['meeting_1']); ?>"
-            meeting_2="<?php echo htmlspecialchars($sub_user['meeting_2']); ?>"
-            dutyName="<?php echo htmlspecialchars($duty_name); ?>"
-            number="<?php echo htmlspecialchars($sub_user['phone']); ?>" icon="<send-icon></send-icon>">
-        </send-button>
-
-        <?php endwhile; ?>
-    </name-list-layout>
-
-
-    <!-- admin see only -->
-    <?php if ($isAdmin) { ?>
-    <?php } ?>
+    <header-info id="dutyHeader" title="" subtitle="Duty Details"></header-info>
+    <name-list-layout id="nameListLayout"></name-list-layout>
 
     <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        fetch('/api/sub-users/<?php echo $duty_id; ?>')
-            .then(response => response.json())
-            .then(subUsers => {
-                const nameListLayout = document.querySelector('name-list-layout');
+    const dutyId = new URLSearchParams(window.location.search).get('id');
+
+    fetch(`/api/duty/${dutyId}`)
+        .then(response => response.json())
+        .then(duty => {
+
+            fetchedDutyDetails = duty; 
+            const dutyHeader = document.getElementById('dutyHeader');
+            dutyHeader.setAttribute('title', duty.name);
+
+            // Fetch sub-users after duty details are fetched and stored
+            return fetch(`/api/sub-users/${dutyId}`);
+        })
+        .then(response => response.json())
+        .then(subUsers => {
+
+            const nameListLayout = document.getElementById('nameListLayout');
+            if (Array.isArray(subUsers)) {
                 subUsers.forEach(subUser => {
+                    // Create and append name-holder
                     const nameHolder = document.createElement('name-holder');
                     nameHolder.setAttribute('name', `${subUser.firstname} ${subUser.lastname}`);
                     nameListLayout.appendChild(nameHolder);
 
+                    // Create and append send-button
                     const sendButton = document.createElement('send-button');
                     sendButton.setAttribute('firstName', subUser.firstname);
                     sendButton.setAttribute('lastName', subUser.lastname);
+                    sendButton.setAttribute('dutyName', fetchedDutyDetails.name);
+                    sendButton.setAttribute('number', subUser.phone);
+                    sendButton.setAttribute('icon', '<send-icon></send-icon>'); // Ensure this matches how your component expects to receive and process the icon.
                     sendButton.setAttribute('duty_message', subUser.duty_message);
                     sendButton.setAttribute('cover_message', subUser.cover_message);
                     sendButton.setAttribute('meeting_1', subUser.meeting_1);
                     sendButton.setAttribute('meeting_2', subUser.meeting_2);
-                    sendButton.setAttribute('dutyName', '<?php echo htmlspecialchars($duty_name); ?>');
-                    sendButton.setAttribute('number', subUser.phone);
-                    sendButton.setAttribute('icon', '<send-icon></send-icon>');
                     nameListLayout.appendChild(sendButton);
                 });
-            })
-            .catch(error => console.error('Error:', error));
-    });
+            } else {
+                console.error('Expected sub-users to be an array.');
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching data:', error); // Debugging: Log any errors caught during the fetch process
+        });
 </script>
 
+    <?php if ($isAdmin): ?> <?php endif; ?>
 
-
-    <filtered-data></filtered-data>
     <nav-bar isAdmin="<?php echo $isAdmin; ?>"></nav-bar>
 </body>
-
 </html>
