@@ -86,5 +86,112 @@ $app->get('/api/duty/{dutyId}', function (Request $request, Response $response, 
 });
 
 
+// Fetch All Sub Users
+$app->get('/api/sub-users', function (Request $request, Response $response, array $args) {
+    global $conn;
+    $query = "
+        SELECT su.id, su.firstname, su.lastname, su.phone, GROUP_CONCAT(dt.name ORDER BY dt.name ASC SEPARATOR ', ') AS duties,
+        GROUP_CONCAT(dt.id ORDER BY dt.name ASC SEPARATOR ',') AS duty_ids
+        FROM sub_users su
+        LEFT JOIN sub_user_duty_assignment suda ON su.id = suda.sub_user_id
+        LEFT JOIN duty_type dt ON suda.duty_id = dt.id
+        GROUP BY su.id
+    ";
+    $result = $conn->query($query);
+    $subUsers = $result->fetch_all(MYSQLI_ASSOC);
+
+    $response->getBody()->write(json_encode($subUsers));
+    return $response->withHeader('Content-Type', 'application/json');
+});
+
+// Fetch Messages and Meetings
+$app->get('/api/messages-meetings', function (Request $request, Response $response, array $args) {
+    global $conn;
+    $messagesAndMeetings = [];
+    // Messages
+    $queryMessages = "SELECT name, setting_1 FROM core_config_data WHERE name IN ('duty_message', 'cover_message')";
+    $resultMessages = $conn->query($queryMessages);
+    while ($row = $resultMessages->fetch_assoc()) {
+        $messagesAndMeetings[$row['name']] = $row['setting_1'];
+    }
+    // Meetings
+    $queryMeetings = "SELECT name, setting_1 FROM core_config_data WHERE name IN ('meeting_1', 'meeting_2')";
+    $resultMeetings = $conn->query($queryMeetings);
+    while ($row = $resultMeetings->fetch_assoc()) {
+        $messagesAndMeetings[$row['name']] = $row['setting_1'];
+    }
+
+    $response->getBody()->write(json_encode($messagesAndMeetings));
+    return $response->withHeader('Content-Type', 'application/json');
+});
+
+//admin update sub user
+$app->post('/api/update-sub-user', function (Request $request, Response $response, array $args) {
+    global $conn;
+
+    // Parsing JSON body from the request
+    $data = json_decode($request->getBody()->getContents(), true);
+
+    $id = $data['id'] ?? null;
+    $firstname = $data['firstname'] ?? null;
+    $lastname = $data['lastname'] ?? null;
+    $phone = $data['phone'] ?? null;
+    $duties = $data['duties'] ?? [];
+
+    if (!$id || !$firstname || !$lastname || !$phone) {
+        return $response->withStatus(400)->withHeader('Content-Type', 'application/json')->write(json_encode(['error' => 'Missing information']));
+    }
+
+    // Update the sub-user information
+    $stmt = $conn->prepare("UPDATE sub_users SET firstname = ?, lastname = ?, phone = ? WHERE id = ?");
+    $stmt->bind_param("sssi", $firstname, $lastname, $phone, $id);
+    $stmt->execute();
+
+    // Update duties if provided
+    if (!empty ($duties)) {
+        // First, clear existing duties
+        $conn->query("DELETE FROM sub_user_duty_assignment WHERE sub_user_id = $id");
+
+        // insert new duties
+        foreach ($duties as $dutyId) {
+            $stmt = $conn->prepare("INSERT INTO sub_user_duty_assignment (sub_user_id, duty_id) VALUES (?, ?)");
+            $stmt->bind_param("ii", $id, $dutyId);
+            $stmt->execute();
+        }
+    }
+
+    $response->getBody()->write(json_encode(['success' => true]));
+    return $response->withHeader('Content-Type', 'application/json');
+});
+
+// Delete sub user
+$app->post('/api/delete-sub-user', function (Request $request, Response $response, array $args) {
+    global $conn;
+
+    // Parsing JSON body from the request
+    $data = json_decode($request->getBody()->getContents(), true);
+
+    $id = $data['id'] ?? null;
+
+    if (!$id) {
+        return $response->withStatus(400)->withHeader('Content-Type', 'application/json')->write(json_encode(['error' => 'Missing sub-user ID']));
+    }
+
+    // Delete the sub-user
+    $stmt = $conn->prepare("DELETE FROM sub_users WHERE id = ?");
+    $stmt->bind_param("i", $id);
+    $stmt->execute();
+
+    // Optionally, also delete any related duty assignments
+    $stmt = $conn->prepare("DELETE FROM sub_user_duty_assignment WHERE sub_user_id = ?");
+    $stmt->bind_param("i", $id);
+    $stmt->execute();
+
+    $response->getBody()->write(json_encode(['success' => true]));
+    return $response->withHeader('Content-Type', 'application/json');
+});
+
+
+
 
 $app->run();
