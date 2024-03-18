@@ -32,9 +32,6 @@ FormContainerTemplate.innerHTML = /*html*/ `
         place-content: center;
         grid-template-columns: 1fr;
         height: 100%;
-        /* max-width: fit-content;
-        margin-left: auto;
-        margin-right: auto; */
     }
 </style>
 
@@ -56,7 +53,6 @@ class FormContainer extends HTMLElement {
         });
         this.shadowRoot.appendChild(FormContainerTemplate.content.cloneNode(true));
     }
-
 
     connectedCallback() {
         this.getDetails();
@@ -81,4 +77,5 @@ class FormContainer extends HTMLElement {
         this.shadowRoot.querySelector('.error-message').innerHTML = errorMessage;
     }
 }
+
 customElements.define('form-container', FormContainer);

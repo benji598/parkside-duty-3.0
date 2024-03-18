@@ -12,17 +12,62 @@ NameListLayoutTemplate.innerHTML = /*html*/ `
     }
 </style>
 <slot></slot>
+
 `;
 
 class NameListLayout extends HTMLElement {
-  constructor() {
-    super();
+    constructor() {
+        super();
 
-    this.attachShadow({
-      mode: 'open',
-    });
-    this.shadowRoot.appendChild(NameListLayoutTemplate.content.cloneNode(true));
-  }
+        this.attachShadow({
+            mode: 'open',
+        });
+        this.shadowRoot.appendChild(NameListLayoutTemplate.content.cloneNode(true));
+        this.dutyId = new URLSearchParams(window.location.search).get('id');
+    }
+
+    connectedCallback() {
+        this.dutyID();
+    }
+
+    async dutyID() {
+        const response = await fetch(`/api/duty/${this.dutyId}`);
+        const duty = await response.json();
+
+        const dutyName = duty.name;
+
+        if (!this.hasFetchedData) {
+            this.getUsers(dutyName);
+            this.hasFetchedData = true;
+        }
+    }
+
+    async getUsers(dutyName) {
+        console.log(dutyName);
+        const response = await fetch(`/api/sub-users/${this.dutyId}`);
+        const users = await response.json();
+
+        users.forEach((user) => {
+            const nameDiv = document.createElement('name-holder');
+            nameDiv.textContent = `${user.firstname} ${user.lastname}`;
+
+            console.log(user);
+
+            const sendBtn = document.createElement('send-button');
+            sendBtn.setAttribute('firstName', user.firstname);
+            sendBtn.setAttribute('lastName', user.lastname);
+            sendBtn.setAttribute('number', user.phone);
+            sendBtn.setAttribute('dutyName', dutyName);
+            sendBtn.setAttribute('duty_message', user.duty_message);
+            sendBtn.setAttribute('cover_message', user.cover_message);
+            sendBtn.setAttribute('meeting_1', user.meeting_1);
+            sendBtn.setAttribute('meeting_2', user.meeting_2);
+            sendBtn.setAttribute('icon', '<send-icon></send-icon>');
+
+            this.appendChild(nameDiv);
+            this.appendChild(sendBtn);
+        });
+    }
 }
 
 customElements.define('name-list-layout', NameListLayout);

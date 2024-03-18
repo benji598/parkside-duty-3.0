@@ -36,15 +36,14 @@ class SendBtn extends HTMLElement {
         modal.setAttribute(
             'content',
             ` <form-container title='' icon='' form='<send-options></send-options>'>
-    < /form-container>">`
+</form-container>`
         );
         document.body.appendChild(modal);
     }
 
     openSlideUpModal() {
-        // Check if the modal already exists in the DOM
         if (!document.querySelector('slideup-modal')) {
-            this.createAndAppendModal(); // Function to create and append the modal
+            this.createAndAppendModal();
         }
 
         this.dispatchEvent(
@@ -83,6 +82,7 @@ class SendBtn extends HTMLElement {
                 navigator.vibrate(10);
             }
             this.openSlideUpModal();
+
             this.messageDetails({
                 firstName,
                 lastName,

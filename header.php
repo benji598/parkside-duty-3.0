@@ -48,13 +48,13 @@
     <script src="icon/whatsapp-icon.js" defer></script>
     <script src="icon/sms-icon.js" defer></script>
 
+    <script src="components/name-list-layout.js" defer></script>
 
     <script src="components/admin-btns.js" defer></script>
     <script src="components/btn-design.js" defer></script>
     <script src="components/network-status.js" defer></script>
     <script src="components/name-send-title.js" defer></script>
     <script src="components/grid-layout.js" defer></script>
-    <script src="components/name-list-layout.js" defer></script>
     <script src="components/nav.js" defer></script>
     <script src="components/slide-up-modal.js" defer></script>
     <script src="components/send-options-content.js" defer></script>

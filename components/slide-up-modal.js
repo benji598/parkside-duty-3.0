@@ -86,7 +86,6 @@ SlideUpModalTemplate.innerHTML = /*html*/ `
         <button class="cancel-btn btn">Cancel</button>
     </div>
 </div>
-
 `;
 
 class SlideUpModal extends HTMLElement {
