@@ -48,6 +48,7 @@
     <script src="icon/whatsapp-icon.js" defer></script>
     <script src="icon/sms-icon.js" defer></script>
 
+    <script src="components/get-duty-name.js" defer></script>
     <script src="components/name-list-layout.js" defer></script>
 
     <script src="components/admin-btns.js" defer></script>
@@ -72,9 +73,6 @@
     <script src="components/manage-duty-form.js" defer></script>
 
     <!-- <script src="components/filterbrothers-data.js" defer></script> -->
-
-
-
     <style>
     body {
         font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans',

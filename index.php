@@ -20,14 +20,6 @@ if ($isAdmin) {
 }
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Parkside Duties</title>
-</head>
 
 <body>
     <header-info title="Parkside Duties" subtitle="Choose a Duty"></header-info>

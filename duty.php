@@ -2,7 +2,8 @@
 
 
 <body>
-    <header-info id="dutyHeader" title="" subtitle="Duty Details"></header-info>
+    <duty-name></duty-name>
+    <header-info subtitle="Send a Reminder"></header-info>
     <name-send></name-send>
     <name-list-layout id="nameListLayout"></name-list-layout>
 

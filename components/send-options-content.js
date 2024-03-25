@@ -149,8 +149,9 @@ class SendOptions extends HTMLElement {
     }
 
     whatsApp(obj) {
-        const message_content = this.parseMessage(obj, obj.detail.duty_message);
-        window.location.assign(`whatsapp://send?phone=+${obj.detail.number} &text=${message_content}`);
+        let message_content = this.parseMessage(obj, obj.detail.duty_message);
+        message_content = message_content.replace(/\n/g, '%0a');
+        window.location.assign(`whatsapp://send?phone=+${obj.detail.number}&text=${message_content}`);
     }
 
     whatsappCover(obj) {
