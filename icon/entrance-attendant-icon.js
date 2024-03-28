@@ -10,14 +10,14 @@ EntranceAttendantIconTemplate.innerHTML = /*html*/ `
 `;
 
 class EntranceAttendantIcon extends HTMLElement {
-    constructor() {
-        super();
+  constructor() {
+    super();
 
-        this.attachShadow({
-            mode: 'open',
-        });
-        this.shadowRoot.appendChild(EntranceAttendantIconTemplate.content.cloneNode(true));
-    }
+    this.attachShadow({
+      mode: 'open',
+    });
+    this.shadowRoot.appendChild(EntranceAttendantIconTemplate.content.cloneNode(true));
+  }
 }
 
 customElements.define('entrance-attendant-icon', EntranceAttendantIcon);

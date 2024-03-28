@@ -24,6 +24,9 @@ if ($isAdmin) {
 <body>
     <header-info title="Parkside Duties" subtitle="Choose a Duty"></header-info>
 
+    <duty-btn-grid></duty-btn-grid>
+
+    <!-- 
     <script>
     // Fetch duty types and dynamically populate the grid-layout
     fetch('/api/duty-types')
@@ -44,9 +47,8 @@ if ($isAdmin) {
             });
         })
         .catch(error => console.error('Error:', error));
-    </script>
+    </script> -->
 
-    <grid-layout></grid-layout>
 
     <nav-bar isAdmin="<?php echo $isAdmin; ?>"></nav-bar>
 </body>
