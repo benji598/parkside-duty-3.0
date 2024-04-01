@@ -13,11 +13,7 @@ AccountFormTemplate.innerHTML = /*html*/ `
         min-height: 40px;
     }
 
-    .form-container {
-        background-color: white;
-        padding: clamp(1rem, 6vw, 2rem);
-        border-radius: var(--btn-radius);
-    }
+
 
     h1 {
         margin-top: 0;
@@ -171,36 +167,35 @@ AccountFormTemplate.innerHTML = /*html*/ `
     }
 </style>
 
-<div class="form-container">
-    <account-icon></account-icon>
-    <h1>Account</h1>
-    <form action="handle_account_update.php" method="post">
 
-        <div class="input-wrapper">
-            <input id="firstName" type="text" name="first_name" value="" placeholder="" required>
-            <label for="first_name">Firstname</label>
-        </div>
 
-        <div class="input-wrapper">
-            <input id="lastName" type="text" name="last_name" value="" placeholder="" required>
-            <label for="last_name">Lastname</label>
-        </div>
+<form action="handle_account_update.php" method="post">
 
-        <div class="input-wrapper">
-            <input id="email" type="email" name="email" value="" placeholder="" pattern=".*@.*\.(com|co\.uk|org|net|edu|gov|mil|info|uk)$" required>
-            <label for="email">Email</label>
-        </div>
+    <div class="input-wrapper">
+        <input id="firstName" type="text" name="first_name" value="" placeholder="" required>
+        <label for="first_name">Firstname</label>
+    </div>
 
-        <div class="input-wrapper">
-            <input id="phone" type="tel" name="phone" value="" minlength="11" placeholder="" required>
-            <label for="phone">Phone</label>
-        </div>
+    <div class="input-wrapper">
+        <input id="lastName" type="text" name="last_name" value="" placeholder="" required>
+        <label for="last_name">Lastname</label>
+    </div>
 
-        <!-- Include additional fields as necessary -->
-        <button class="primary-btn" type="submit" name="save">Save</button>
-        <a class="secondary-btn" href="index.php">Back to Dashboard</a>
-    </form>
-</div>
+    <div class="input-wrapper">
+        <input id="email" type="email" name="email" value="" placeholder="" pattern=".*@.*\.(com|co\.uk|org|net|edu|gov|mil|info|uk)$" required>
+        <label for="email">Email</label>
+    </div>
+
+    <div class="input-wrapper">
+        <input id="phone" type="tel" name="phone" value="" minlength="11" placeholder="" required>
+        <label for="phone">Phone</label>
+    </div>
+
+    <!-- Include additional fields as necessary -->
+    <button class="primary-btn" type="submit" name="save">Save</button>
+    <!-- <a class="secondary-btn" href="index.php">Back to Dashboard</a> -->
+</form>
+
 `;
 
 class AccountForm extends HTMLElement {

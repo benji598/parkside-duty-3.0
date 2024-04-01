@@ -60,7 +60,11 @@ $result_sub_users = $conn->query("
 
     //    var_dump($duty_types_json)
         
-
+        // Retrieve user details from the session
+        $first_name = $_SESSION['first_name'];
+        $last_name = $_SESSION['last_name'];
+        $email = $_SESSION['email'];
+        $phone = $_SESSION['phone']; 
     ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -116,9 +120,9 @@ $result_sub_users = $conn->query("
             <form-container title="Meeting Days" icon="<meeting-days-icon></meeting-days-icon>"
                 form="<meeting-day-form></meeting-day-form>"></form-container> -->
 
-            <admin-button title="Add Person" icon="<add-person-icon></add-person-icon>" modal-content="
+            <admin-button title="Add Duty Person" icon="<add-person-icon></add-person-icon>" modal-content="
                 <form-container
-                title='Add Person' 
+                title='Add Duty Person' 
                 icon='<add-person-icon></add-person-icon>' 
                 form='<add-person-form></add-person-form>'
                 </form-container>">
@@ -157,8 +161,26 @@ $result_sub_users = $conn->query("
                 </form-container>">
             </admin-button>
 
-            <duty-button icon="<account-icon></account-icon>" title="Account" subtitle="" link="account.php?account">
-            </duty-button>
+            <admin-button title="Add App User" icon="<add-person-icon></add-person-icon>" modal-content="
+                <form-container 
+                    title='Add App User' 
+                    icon='<add-person-icon></add-person-icon>' 
+                    form='<register-form></register-form>'>
+                </form-container>">
+            </admin-button>
+
+            <admin-button title="Admin Account" icon="<account-icon></account-icon>" modal-content="
+                <form-container 
+                    title='Admin Account' 
+                    icon='<account-icon></account-icon>' 
+                    form='<account-form firstName=&quot;<?php echo $first_name; ?>&quot;lastName=&quot;<?php echo $last_name; ?>&quot;
+                email=&quot;<?php echo $email; ?>&quot; phone=&quot;<?php echo $phone; ?>&quot;>
+                </account-form>'>
+                </form-container>">
+            </admin-button>
+
+            <!-- <duty-button icon="<account-icon></account-icon>" title="Account" subtitle="" link="account.php?account">
+            </duty-button> -->
         </grid-layout>
     </div>
 

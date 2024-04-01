@@ -6,7 +6,7 @@ SlideInTrayTemplate.innerHTML = /*html*/ `
         position: fixed;
         display: grid;
         top: 0;
-        width: 80%;
+        width: 90%;
         right: -100%;
         height: 100%;
         z-index: 1;

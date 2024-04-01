@@ -211,7 +211,7 @@ RegisterFormTemplate.innerHTML = /*html*/ `
 
         <button class="primary-btn" id="register-btn" type="submit" name="register">Register</button>
         <!-- <button class="secondary-btn" onclick="location.href='splash.php'">Back to Login</button> -->
-        <button class="secondary-btn">Back to Login</button>
+        <!-- <button class="secondary-btn">Back to Login</button> -->
     </form>
 </div>
 `;
