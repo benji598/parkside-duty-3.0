@@ -89,123 +89,127 @@ SlideUpModalTemplate.innerHTML = /*html*/ `
 `;
 
 class SlideUpModal extends HTMLElement {
-    constructor() {
-        super();
-        this.pageTitle;
+  constructor() {
+    super();
+    this.pageTitle;
 
-        this.attachShadow({
-            mode: 'open',
-        });
-        this.shadowRoot.appendChild(SlideUpModalTemplate.content.cloneNode(true));
+    this.attachShadow({
+      mode: 'open',
+    });
+    this.shadowRoot.appendChild(SlideUpModalTemplate.content.cloneNode(true));
+  }
+
+  connectedCallback() {
+    this.popUp = this.shadowRoot.querySelector('.slide-pop-up');
+    this.overlay = this.shadowRoot.querySelector('.overlay');
+    this.shadowRoot.querySelector('.cancel-btn').addEventListener('click', this.cancelButton.bind(this));
+
+    this.popUp.addEventListener('touchstart', this.handleTouchStart.bind(this), false);
+    this.popUp.addEventListener('touchmove', this.handleTouchMove.bind(this), false);
+    this.popUp.addEventListener('touchend', this.handleTouchEnd.bind(this), false);
+
+    this.overlay.addEventListener('click', () => {
+      this.closeSlideUpModal();
+    });
+
+    this.getContent();
+
+    document.addEventListener('open-modal', (el) => {
+      setTimeout(() => {
+        this.openSlideUpModal(el);
+      }, 30);
+    });
+
+    document.addEventListener('close-modal', () => {
+      this.closeSlideUpModal();
+    });
+  }
+
+  disconnectedCallback() {
+    document.removeEventListener('open-modal', this.openSlideUpModal);
+    document.removeEventListener('close-modal', this.closeSlideUpModal);
+
+    this.popUp.removeEventListener('touchstart', this.handleTouchStart);
+    this.popUp.removeEventListener('touchmove', this.handleTouchMove);
+    this.popUp.removeEventListener('touchend', this.handleTouchEnd);
+  }
+
+  static get observedAttributes() {
+    return ['content'];
+  }
+
+  attributeChangedCallback(name, oldValue, newValue) {
+    if (name === 'content') {
+      this.updateContent(newValue);
+    }
+  }
+
+  updateContent(newContent) {
+    const contentContainer = this.shadowRoot.querySelector('.modal-content');
+    contentContainer.innerHTML = newContent;
+  }
+
+  openSlideUpModal() {
+    this.popUp.classList.add('open');
+    this.overlay.classList.add('dark');
+  }
+
+  closeSlideUpModal() {
+    this.popUp.style.transform = '';
+    this.popUp.classList.remove('open');
+    this.overlay.classList.remove('dark');
+
+    setTimeout(() => {
+      this.remove('slideup-modal');
+    }, 350);
+  }
+
+  cancelButton() {
+    if ('vibrate' in navigator) {
+      navigator.vibrate([30, 0, 0, 0, 30]);
     }
 
-    connectedCallback() {
-        this.popUp = this.shadowRoot.querySelector('.slide-pop-up');
-        this.overlay = this.shadowRoot.querySelector('.overlay');
-        this.shadowRoot.querySelector('.cancel-btn').addEventListener('click', this.cancelButton.bind(this));
+    this.closeSlideUpModal();
+  }
 
-        this.popUp.addEventListener('touchstart', this.handleTouchStart.bind(this), false);
-        this.popUp.addEventListener('touchmove', this.handleTouchMove.bind(this), false);
-        this.popUp.addEventListener('touchend', this.handleTouchEnd.bind(this), false);
+  getContent() {
+    const modalContent = this.getAttribute('content');
+    this.shadowRoot.querySelector('.modal-content').innerHTML = modalContent;
+  }
 
-        this.overlay.addEventListener('click', () => {
-            this.closeSlideUpModal();
-        });
+  handleTouchStart(e) {
+    this.initialY = e.touches[0].clientY;
+  }
 
-        this.getContent();
-
-        document.addEventListener('open-modal', (el) => {
-            setTimeout(() => {
-                this.openSlideUpModal(el);
-            }, 30);
-        });
-
-        document.addEventListener('close-modal', () => {
-            this.closeSlideUpModal();
-        });
+  handleTouchMove(e) {
+    if (this.initialY === null) {
+      return;
     }
 
-    disconnectedCallback() {
-        document.removeEventListener('open-modal', this.openSlideUpModal);
-        document.removeEventListener('close-modal', this.closeSlideUpModal);
+    e.preventDefault();
 
-        this.popUp.removeEventListener('touchstart', this.handleTouchStart);
-        this.popUp.removeEventListener('touchmove', this.handleTouchMove);
-        this.popUp.removeEventListener('touchend', this.handleTouchEnd);
+    let currentY = e.touches[0].clientY;
+    let diffY = currentY - this.initialY;
+
+    if (diffY > 0) {
+      this.popUp.classList.add('dragging');
+      this.popUp.style.transform = `translateY(${diffY}px)`;
     }
+  }
 
-    static get observedAttributes() {
-        return ['content'];
+  handleTouchEnd(e) {
+    let currentY = e.changedTouches[0].clientY;
+    let diffY = currentY - this.initialY;
+
+    this.popUp.classList.remove('dragging');
+
+    if (diffY > this.popUp.clientHeight * 0.35) {
+      this.closeSlideUpModal();
+    } else {
+      this.popUp.classList.add('returning');
+      this.popUp.style.transform = 'translateY(0)';
     }
-
-    attributeChangedCallback(name, oldValue, newValue) {
-        if (name === 'content') {
-            this.updateContent(newValue);
-        }
-    }
-
-    updateContent(newContent) {
-        const contentContainer = this.shadowRoot.querySelector('.modal-content');
-        contentContainer.innerHTML = newContent;
-    }
-
-    openSlideUpModal() {
-        this.popUp.classList.add('open');
-        this.overlay.classList.add('dark');
-    }
-
-    closeSlideUpModal() {
-        this.popUp.style.transform = '';
-        this.popUp.classList.remove('open');
-        this.overlay.classList.remove('dark');
-    }
-
-    cancelButton() {
-        if ('vibrate' in navigator) {
-            navigator.vibrate([30, 0, 0, 0, 30]);
-        }
-
-        this.closeSlideUpModal();
-    }
-
-    getContent() {
-        const modalContent = this.getAttribute('content');
-        this.shadowRoot.querySelector('.modal-content').innerHTML = modalContent;
-    }
-
-    handleTouchStart(e) {
-        this.initialY = e.touches[0].clientY;
-    }
-
-    handleTouchMove(e) {
-        if (this.initialY === null) {
-            return;
-        }
-
-        e.preventDefault();
-
-        let currentY = e.touches[0].clientY;
-        let diffY = currentY - this.initialY;
-
-        if (diffY > 0) {
-            this.popUp.classList.add('dragging');
-            this.popUp.style.transform = `translateY(${diffY}px)`;
-        }
-    }
-
-    handleTouchEnd(e) {
-        let currentY = e.changedTouches[0].clientY;
-        let diffY = currentY - this.initialY;
-
-        this.popUp.classList.remove('dragging');
-
-        if (diffY > this.popUp.clientHeight * 0.35) {
-            this.closeSlideUpModal();
-        } else {
-            this.popUp.classList.add('returning');
-            this.popUp.style.transform = 'translateY(0)';
-        }
-    }
+  }
 }
 
 customElements.define('slideup-modal', SlideUpModal);

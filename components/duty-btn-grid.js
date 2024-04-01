@@ -39,6 +39,8 @@ class DutyBtnGridLayout extends HTMLElement {
     data.forEach((duty) => {
       const dutyBtn = document.createElement('duty-button');
 
+      console.log(data);
+
       dutyBtn.setAttribute('title', duty.name);
       dutyBtn.setAttribute('link', `duty.php?id=${duty.id}`);
       dutyBtn.setAttribute('subtitle', 'Duty');

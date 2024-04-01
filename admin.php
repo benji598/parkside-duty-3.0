@@ -72,22 +72,34 @@ $result_sub_users = $conn->query("
 </head>
 
 <body>
+    <hamburger-btn></hamburger-btn>
 
-    <header-info title="Admin" subtitle=""></header-info>
 
+    <header-info title="Admin" subtitle="">
+    </header-info>
     <!-- admin see only -->
     <?php if ($isAdmin) { ?>
     <welcome-message name="<?php echo $fullName; ?>"></welcome-message>
     <?php } ?>
 
+    <div>
 
+
+
+        <!-- <duty-button icon="" title="Logout" subtitle="" link="logout.php?logout"></duty-button> -->
+
+    </div>
+    <!-- 
     <a href="account.php?account" class="account button">
         <span>Account</span>
-    </a>
+    </a> -->
 
-    <a href="logout.php?logout" class="logout button">
+    <!-- <a href="logout.php?logout" class="logout button">
         <span>Logout</span>
-    </a>
+    </a> -->
+
+
+
 
     <div>
         <grid-layout>
@@ -144,6 +156,9 @@ $result_sub_users = $conn->query("
                     form='<meeting-day-form></meeting-day-form>'>
                 </form-container>">
             </admin-button>
+
+            <duty-button icon="<account-icon></account-icon>" title="Account" subtitle="" link="account.php?account">
+            </duty-button>
         </grid-layout>
     </div>
 
@@ -242,7 +257,8 @@ $result_sub_users = $conn->query("
 
 
             var phone = document.querySelector('#user-row-' + userId + ' input[type="tel"]').value;
-            var selectedDuties = Array.from(document.querySelector('#user-row-' + userId + ' select').selectedOptions)
+            var selectedDuties = Array.from(document.querySelector('#user-row-' + userId + ' select')
+                    .selectedOptions)
                 .map(option => option.value);
 
 
@@ -252,7 +268,8 @@ $result_sub_users = $conn->query("
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded',
                     },
-                    body: 'id=' + userId + '&firstname=' + firstname + '&lastname=' + lastname + '&phone=' + phone +
+                    body: 'id=' + userId + '&firstname=' + firstname + '&lastname=' + lastname + '&phone=' +
+                        phone +
                         '&duties=' + JSON.stringify(selectedDuties)
                 })
                 .then(function(response) {

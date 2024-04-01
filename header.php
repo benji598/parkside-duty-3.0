@@ -47,11 +47,20 @@
     <script src="icon/send-icon.js" defer></script>
     <script src="icon/whatsapp-icon.js" defer></script>
     <script src="icon/sms-icon.js" defer></script>
+    <script src="icon/logout-icon.js" defer></script>
+    <script src="icon/hamburger-icon.js" defer></script>
+
+
 
     <script src="components/get-duty-name.js" defer></script>
     <script src="components/name-list-layout.js" defer></script>
+    <script src="components/grid-layout.js" defer></script>
+    <script src="components/slide-in-tray.js" defer></script>
+    <script src="components/hamburger-btn.js" defer></script>
+
 
     <script src="components/admin-btns.js" defer></script>
+    <script src="components/logout-btn.js" defer></script>
     <script src="components/btn-design.js" defer></script>
     <script src="components/network-status.js" defer></script>
     <script src="components/name-send-title.js" defer></script>
