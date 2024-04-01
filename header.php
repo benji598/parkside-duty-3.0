@@ -49,6 +49,7 @@
     <script src="icon/sms-icon.js" defer></script>
     <script src="icon/logout-icon.js" defer></script>
     <script src="icon/hamburger-icon.js" defer></script>
+    <script src="icon/close-icon.js" defer></script>
 
 
 
@@ -57,6 +58,7 @@
     <script src="components/grid-layout.js" defer></script>
     <script src="components/slide-in-tray.js" defer></script>
     <script src="components/hamburger-btn.js" defer></script>
+    <script src="components/close-btn.js" defer></script>
 
 
     <script src="components/admin-btns.js" defer></script>

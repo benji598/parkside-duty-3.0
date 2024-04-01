@@ -3,26 +3,15 @@ HamburgerBtnTemplate.innerHTML = `
 
 <style>
 
-  a {
-    display:grid;
-    text-decoration: none;
-    color: inherit;
-  }
-
   :host {
     position: absolute;
     right: 1.5rem;
     top: 0.9rem;
   }
-
 </style>
 
 <hamburger-icon class="open"></hamburger-icon>
-
-
-
 <slot></slot> 
-
 `;
 
 class HamburgerBtn extends HTMLElement {

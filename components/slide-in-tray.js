@@ -36,8 +36,8 @@ SlideInTrayTemplate.innerHTML = /*html*/ `
 
 
 <div class="tray">
+    <close-btn></close-btn>
     <logout-btn></logout-btn>
-    <button class="close">close</button>
 </div>
 <div class="overlay"></div>
 <slot></slot>
@@ -45,39 +45,39 @@ SlideInTrayTemplate.innerHTML = /*html*/ `
 `;
 
 class SlideInTray extends HTMLElement {
-  constructor() {
-    super();
+    constructor() {
+        super();
 
-    this.attachShadow({
-      mode: 'open',
-    });
-    this.shadowRoot.appendChild(SlideInTrayTemplate.content.cloneNode(true));
-  }
+        this.attachShadow({
+            mode: 'open',
+        });
+        this.shadowRoot.appendChild(SlideInTrayTemplate.content.cloneNode(true));
+    }
 
-  connectedCallback() {
-    document.addEventListener('slide-in', (el) => {
-      console.log(el);
-      setTimeout(() => {
-        this.slideIn();
-      }, 10);
-    });
-    this.close();
-  }
+    connectedCallback() {
+        document.addEventListener('slide-in', (el) => {
+            console.log(el);
+            setTimeout(() => {
+                this.slideIn();
+            }, 10);
+        });
+        this.close();
+    }
 
-  slideIn() {
-    this.shadowRoot.querySelector('.tray').classList.add('slide-in');
-    this.shadowRoot.querySelector('.overlay').classList.add('dark');
-  }
+    slideIn() {
+        this.shadowRoot.querySelector('.tray').classList.add('slide-in');
+        this.shadowRoot.querySelector('.overlay').classList.add('dark');
+    }
 
-  close() {
-    this.shadowRoot.querySelector('.close').addEventListener('click', () => {
-      this.shadowRoot.querySelector('.tray').classList.remove('slide-in');
-      this.shadowRoot.querySelector('.overlay').classList.remove('dark');
-      setTimeout(() => {
-        this.remove('slide-in-tray');
-      }, 350);
-    });
-  }
+    close() {
+        this.shadowRoot.querySelector('close-btn').addEventListener('click', () => {
+            this.shadowRoot.querySelector('.tray').classList.remove('slide-in');
+            this.shadowRoot.querySelector('.overlay').classList.remove('dark');
+            setTimeout(() => {
+                this.remove('slide-in-tray');
+            }, 350);
+        });
+    }
 }
 
 customElements.define('slide-in-tray', SlideInTray);

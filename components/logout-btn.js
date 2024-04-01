@@ -9,6 +9,22 @@ LogoutBtnTemplate.innerHTML = `
     color: inherit;
   }
 
+  .cancel-btn {
+        width: 100%;
+        padding: 1rem;
+        border: 2px solid white;
+        color: var(--color-white);
+        font-weight: 600;
+        cursor: pointer;
+        background-color: var(--color-red);
+        border-radius: var(--btn-radius);
+    }
+
+    .cancel-btn:active {
+        transform: scale(var(--btn-scale));
+        transition: var(--btn-transition);
+    }
+
 </style>
 
 <a href="logout.php?logout">
