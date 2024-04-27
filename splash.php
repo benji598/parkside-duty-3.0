@@ -19,6 +19,10 @@ else
 
 ?>
 
+<head>
+    <script src="components/login-form.js" defer></script>
+    <script src="components/form-container.js" defer></script>
+</head>
 
 <form-container icon="<login-icon></login-icon>" title="Login" form="<login-form></login-form>"
     data-error="<?php echo $errMessage; ?>"></form-container>

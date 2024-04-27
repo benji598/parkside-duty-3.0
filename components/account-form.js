@@ -199,55 +199,55 @@ AccountFormTemplate.innerHTML = /*html*/ `
 `;
 
 class AccountForm extends HTMLElement {
-    constructor() {
-        super();
-        this.attachShadow({
-            mode: 'open',
-        });
-        this.shadowRoot.appendChild(AccountFormTemplate.content.cloneNode(true));
+  constructor() {
+    super();
+    this.attachShadow({
+      mode: 'open',
+    });
+    this.shadowRoot.appendChild(AccountFormTemplate.content.cloneNode(true));
+  }
+
+  connectedCallback() {
+    this.getDetails();
+    this.initializeLabelPositions();
+  }
+
+  getDetails() {
+    const firstName = this.getAttribute('firstName');
+    const lastName = this.getAttribute('lastName');
+    const email = this.getAttribute('email');
+    const phone = this.getAttribute('phone');
+
+    this.shadowRoot.querySelector('#firstName').value = firstName;
+    this.shadowRoot.querySelector('#lastName').value = lastName;
+    this.shadowRoot.querySelector('#email').value = email;
+    this.shadowRoot.querySelector('#phone').value = phone;
+  }
+
+  initializeLabelPositions() {
+    const inputs = this.shadowRoot.querySelectorAll('input[type=text], input[type=email], input[type=tel]');
+    inputs.forEach((input) => {
+      this.updateLabelPosition(input);
+      input.addEventListener('input', () => this.updateLabelPosition(input));
+    });
+  }
+
+  updateLabelPosition(input) {
+    const label = input.nextElementSibling;
+
+    if (input.value) {
+      label.classList.add('has-content');
+      if (input.checkValidity()) {
+        input.classList.add('valid');
+        input.classList.remove('invalid');
+      } else {
+        input.classList.add('invalid');
+        input.classList.remove('valid');
+      }
+    } else {
+      label.classList.remove('has-content');
+      input.classList.remove('invalid', 'valid');
     }
-
-    connectedCallback() {
-        this.getDetails();
-        this.initializeLabelPositions();
-    }
-
-    getDetails() {
-        const firstName = this.getAttribute('firstName');
-        const lastName = this.getAttribute('lastName');
-        const email = this.getAttribute('email');
-        const phone = this.getAttribute('phone');
-
-        this.shadowRoot.querySelector('#firstName').value = firstName;
-        this.shadowRoot.querySelector('#lastName').value = lastName;
-        this.shadowRoot.querySelector('#email').value = email;
-        this.shadowRoot.querySelector('#phone').value = phone;
-    }
-
-    initializeLabelPositions() {
-        const inputs = this.shadowRoot.querySelectorAll('input[type=text], input[type=email], input[type=tel]');
-        inputs.forEach((input) => {
-            this.updateLabelPosition(input);
-            input.addEventListener('input', () => this.updateLabelPosition(input));
-        });
-    }
-
-    updateLabelPosition(input) {
-        const label = input.nextElementSibling;
-
-        if (input.value) {
-            label.classList.add('has-content');
-            if (input.checkValidity()) {
-                input.classList.add('valid');
-                input.classList.remove('invalid');
-            } else {
-                input.classList.add('invalid');
-                input.classList.remove('valid');
-            }
-        } else {
-            label.classList.remove('has-content');
-            input.classList.remove('invalid', 'valid');
-        }
-    }
+  }
 }
 customElements.define('account-form', AccountForm);

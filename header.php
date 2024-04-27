@@ -3,7 +3,10 @@
 <html lang="en">
 
 <head>
-    <!-- <meta name="view-transition" content="same-origin" /> -->
+    <meta name="view-transition" content="same-origin" />
+
+
+
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -22,66 +25,21 @@
 
     <script src="components/header-info.js" defer></script>
 
+    <!-- Nav Icons -->
     <script src="icon/duties-icon.js" defer></script>
-    <!-- <script src="icon/rota-icon.js" defer></script> -->
-    <!-- <script src="icon/counter-icon.js" defer></script> -->
     <script src="icon/login-icon.js" defer></script>
-
-    <script src="icon/manage-duties-icon.js" defer></script>
-    <script src="icon/meeting-days-icon.js" defer></script>
-    <script src="icon/add-person-icon.js" defer></script>
-    <script src="icon/edit-message-icon.js" defer></script>
-    <script src="icon/chairman-icon.js" defer></script>
-    <script src="icon/platform-icon.js" defer></script>
-    <script src="icon/entrance-attendant-icon.js" defer></script>
-    <script src="icon/auditorium-attendant-icon.js" defer></script>
-    <script src="icon/zoom-attendant-icon.js" defer></script>
-    <script src="icon/sound-box-icon.js" defer></script>
-    <script src="icon/bs-reader-icon.js" defer></script>
-    <script src="icon/wt-reader-icon.js" defer></script>
-    <script src="icon/roving-mic-icon.js" defer></script>
-    <script src="icon/hall-cleaning-icon.js" defer></script>
     <script src="icon/admin-icon.js" defer></script>
-    <script src="icon/register-icon.js" defer></script>
-    <script src="icon/account-icon.js" defer></script>
-    <script src="icon/send-icon.js" defer></script>
-    <script src="icon/whatsapp-icon.js" defer></script>
-    <script src="icon/sms-icon.js" defer></script>
-    <script src="icon/logout-icon.js" defer></script>
-    <script src="icon/hamburger-icon.js" defer></script>
-    <script src="icon/close-icon.js" defer></script>
 
 
-
+    <!-- Global components -->
+    <script src="components/view-transitions.js" defer></script>
     <script src="components/get-duty-name.js" defer></script>
-    <script src="components/name-list-layout.js" defer></script>
-    <script src="components/grid-layout.js" defer></script>
-    <script src="components/slide-in-tray.js" defer></script>
-    <script src="components/hamburger-btn.js" defer></script>
-    <script src="components/close-btn.js" defer></script>
-
-
-    <script src="components/admin-btns.js" defer></script>
-    <script src="components/logout-btn.js" defer></script>
+    <script src="components/duty-btn.js" defer></script>
     <script src="components/btn-design.js" defer></script>
     <script src="components/network-status.js" defer></script>
-    <script src="components/name-send-title.js" defer></script>
     <script src="components/duty-btn-grid.js" defer></script>
     <script src="components/nav.js" defer></script>
-    <script src="components/slide-up-modal.js" defer></script>
-    <script src="components/send-options-content.js" defer></script>
-    <script src="components/duty-btn.js" defer></script>
-    <script src="components/name-holder.js" defer></script>
-    <script src="components/send-btn.js" defer></script>
-    <script src="components/login-form.js" defer></script>
-    <script src="components/welcome-message.js" defer></script>
-    <script src="components/account-form.js" defer></script>
-    <script src="components/form-container.js" defer></script>
-    <script src="components/register-form.js" defer></script>
-    <script src="components/add-person-form.js" defer></script>
-    <script src="components/duty-message-form.js" defer></script>
-    <script src="components/meeting-day-form.js" defer></script>
-    <script src="components/manage-duty-form.js" defer></script>
+
 
     <!-- <script src="components/filterbrothers-data.js" defer></script> -->
     <style>

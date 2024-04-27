@@ -10,6 +10,7 @@ SlideInTrayTemplate.innerHTML = /*html*/ `
         right: -100%;
         height: 100%;
         z-index: 1;
+        border-radius: var(--btn-radius) 0 0 var(--btn-radius);
         transform: translateX: -100% 0;
         transition: all 0.3s ease-in-out;
         background-color: var(--baby-blue);
@@ -20,12 +21,12 @@ SlideInTrayTemplate.innerHTML = /*html*/ `
         transform: translateX: 0;
     }
 
-
     .inner-wrapper {
-        background-color: var(--color-white);
+        display: grid;
         width: 100%;
         margin: 1rem;
-        border-radius: 1rem;
+        border-radius: var(--btn-radius);
+        background-color: var(--color-white);
     }
 
     .gesture-bar {
@@ -58,10 +59,6 @@ SlideInTrayTemplate.innerHTML = /*html*/ `
     .dragging {
         transition: none;
     }
-
-    logout-btn {
-        margin-top: auto;
-    }
 </style>
 
 
@@ -70,6 +67,7 @@ SlideInTrayTemplate.innerHTML = /*html*/ `
     <div class="flex-box">
         <div class="gesture-bar"></div>
         <div class="inner-wrapper">
+            <div class="content"><img src="https://picsum.photos/500/500"></div>
             <logout-btn></logout-btn>
         </div>
     </div>
@@ -86,9 +84,6 @@ class SlideInTray extends HTMLElement {
       mode: 'open',
     });
     this.shadowRoot.appendChild(SlideInTrayTemplate.content.cloneNode(true));
-
-    // Initial touch position
-    // this.initialX = null;
   }
 
   connectedCallback() {
@@ -154,8 +149,8 @@ class SlideInTray extends HTMLElement {
     if (diffX > this.SlideIn.clientWidth * 0.35) {
       this.closeSlideInTray();
     } else {
-      this.SlideIn.classList.add('slide-in'); // Reapply the class that keeps the tray visible
-      this.SlideIn.style.transform = 'translateX(0)'; // Correctly position the tray on-screen
+      this.SlideIn.classList.add('slide-in');
+      this.SlideIn.style.transform = 'translateX(0)';
     }
   }
 }

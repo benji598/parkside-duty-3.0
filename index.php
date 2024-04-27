@@ -20,9 +20,23 @@ if ($isAdmin) {
 }
 ?>
 
+<head>
+    <script src="icon/chairman-icon.js" defer></script>
+    <script src="icon/platform-icon.js" defer></script>
+    <script src="icon/entrance-attendant-icon.js" defer></script>
+    <script src="icon/auditorium-attendant-icon.js" defer></script>
+    <script src="icon/zoom-attendant-icon.js" defer></script>
+    <script src="icon/sound-box-icon.js" defer></script>
+    <script src="icon/bs-reader-icon.js" defer></script>
+    <script src="icon/wt-reader-icon.js" defer></script>
+    <script src="icon/roving-mic-icon.js" defer></script>
+    <script src="icon/hall-cleaning-icon.js" defer></script>
+</head>
+
 
 <body>
-    <header-info title="Parkside Duties" subtitle="Choose a Duty"></header-info>
+    <header-info title="Parkside Duties" subtitle="Choose a Duty">
+    </header-info>
     <duty-btn-grid></duty-btn-grid>
     <nav-bar isAdmin="<?php echo $isAdmin; ?>"></nav-bar>
 </body>

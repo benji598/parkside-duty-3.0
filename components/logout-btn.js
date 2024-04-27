@@ -1,15 +1,22 @@
 const LogoutBtnTemplate = document.createElement('template');
-LogoutBtnTemplate.innerHTML = `
+LogoutBtnTemplate.innerHTML = /*html*/ `
 
 <style>
+    :host {
+        margin-top: auto;
+    }
 
-  a {
-    display:grid;
-    text-decoration: none;
-    color: inherit;
-  }
+    a {
+        display: flex;
+        gap: 0.5rem;
+        align-items: center;
+        line-height: 1;
+        padding: 1rem;
+        text-decoration: none;
+        color: inherit;
+    }
 
-  .cancel-btn {
+    .cancel-btn {
         width: 100%;
         padding: 1rem;
         border: 2px solid white;
@@ -24,15 +31,14 @@ LogoutBtnTemplate.innerHTML = `
         transform: scale(var(--btn-scale));
         transition: var(--btn-transition);
     }
-
 </style>
 
 <a href="logout.php?logout">
-  <logout-icon></logout-icon>
-  Logout
+    <logout-icon></logout-icon>
+    Logout
 </a>
 
-<slot></slot> 
+<slot></slot>
 
 `;
 
@@ -40,7 +46,9 @@ class LogoutBtn extends HTMLElement {
   constructor() {
     super();
 
-    this.attachShadow({ mode: 'open' });
+    this.attachShadow({
+      mode: 'open',
+    });
     this.shadowRoot.appendChild(LogoutBtnTemplate.content.cloneNode(true));
   }
 }

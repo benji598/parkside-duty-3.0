@@ -37,7 +37,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $_SESSION['login_error'] = "";
             }
             
-            header("location: index.php");
+            header("location: admin.php");
             exit;
         } else {
             // Password is not valid

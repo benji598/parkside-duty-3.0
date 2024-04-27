@@ -4,9 +4,11 @@ CloseBtnTemplate.innerHTML = `
 <style>
     :host {
         position: absolute;
-        padding: 0.5rem;
+        padding: 0.2rem;
+        padding-bottom: 0.1rem;
         background-color: var(--bg-blue);
         cursor: pointer;
+        border-radius: var(--btn-radius) 0 0 0;
     }
 </style>
 

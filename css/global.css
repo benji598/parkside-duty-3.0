@@ -34,7 +34,6 @@ body {
   display: flex;
   flex-direction: column;
   margin: 0;
-  /* font-size: 1rem; */
   overflow-y: hidden;
 }
 
@@ -52,4 +51,23 @@ body {
 
 .overflow {
   overflow: auto;
+}
+
+view-transitons {
+  view-transition-name: view-transitions;
+  contain: layout;
+}
+
+@keyframes slideToLeft {
+  from {
+    transform: translateX(-100vw);
+  }
+
+  to {
+    transform: translateX(0);
+  }
+}
+
+::view-transition-new(view-transitions) {
+  animation: slideToLeft 0.3s;
 }

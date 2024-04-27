@@ -73,6 +73,36 @@ $result_sub_users = $conn->query("
     <!-- ... [Other head elements] ... -->
     <link rel="stylesheet" href="/css/admin.css" rel="prefetch" />
     <!-- ... -->
+
+    <!-- icons -->
+    <script src="icon/manage-duties-icon.js" defer></script>
+    <script src="icon/meeting-days-icon.js" defer></script>
+    <script src="icon/add-person-icon.js" defer></script>
+    <script src="icon/edit-message-icon.js" defer></script>
+    <script src="icon/close-icon.js" defer></script>
+    <script src="icon/hamburger-icon.js" defer></script>
+    <script src="icon/logout-icon.js" defer></script>
+    <script src="icon/register-icon.js" defer></script>
+    <script src="icon/account-icon.js" defer></script>
+
+    <!-- components -->
+    <script src="components/grid-layout.js" defer></script>
+    <script src="components/slide-in-tray.js" defer></script>
+    <script src="components/close-btn.js" defer></script>
+    <script src="components/hamburger-btn.js" defer></script>
+    <script src="components/welcome-message.js" defer></script>
+    <script src="components/admin-btns.js" defer></script>
+    <script src="components/logout-btn.js" defer></script>
+    <script src="components/add-person-form.js" defer></script>
+    <script src="components/register-form.js" defer></script>
+    <script src="components/meeting-day-form.js" defer></script>
+    <script src="components/manage-duty-form.js" defer></script>
+    <script src="components/duty-message-form.js" defer></script>
+    <script src="components/account-form.js" defer></script>
+    <script src="components/slide-up-modal.js" defer></script>
+    <script src="components/send-options-content.js" defer></script>
+    <script src="components/form-container.js" defer></script>
+
 </head>
 
 <body>
@@ -126,7 +156,6 @@ $result_sub_users = $conn->query("
                 icon='<add-person-icon></add-person-icon>' 
                 form='<add-person-form></add-person-form>'
                 </form-container>">
-                ">
             </admin-button>
 
             <!-- <add-person-form jsonData='<?php echo htmlspecialchars($duty_types_json, ENT_QUOTES, 'UTF-8'); ?>'>

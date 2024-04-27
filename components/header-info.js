@@ -2,12 +2,12 @@ const HeaderTemplate = document.createElement('template');
 HeaderTemplate.innerHTML = /*html*/ `
 <style>
     h1 {
-        font-size: 1.5rem;
+        font-size: 1.8rem;
         margin-bottom: 0;
     }
 
     h2 {
-        font-size: 1rem;
+        font-size: 1.2rem;
         margin-top: 0;
         font-weight: normal;
     }
