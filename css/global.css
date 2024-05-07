@@ -53,21 +53,117 @@ body {
   overflow: auto;
 }
 
-view-transitons {
-  view-transition-name: view-transitions;
+:root {
+  --animation-duration: 300ms;
+  --animation-timing-function: cubic-bezier(0.465, 0.183, 0.153, 0.946);
+}
+
+main {
+  contain: layout;
+  overflow: auto;
+}
+
+nav-bar {
+  view-transition-name: navbar;
   contain: layout;
 }
 
-@keyframes slideToLeft {
+@keyframes fade-in {
   from {
-    transform: translateX(-100vw);
+    opacity: 0;
   }
+  to {
+    opacity: 1;
+  }
+}
 
+@keyframes fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes slide-out {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-30%);
+  }
+}
+
+@keyframes slide-out-reverse {
+  from {
+    transform: translateX(-30%);
+  }
   to {
     transform: translateX(0);
   }
 }
 
-::view-transition-new(view-transitions) {
-  animation: slideToLeft 0.3s;
+@keyframes slide-in {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes slide-in-reverse {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(100%);
+  }
+}
+
+::view-transition-new(root),
+::view-transition-old(root) {
+  animation-duration: var(--animation-duration);
+  animation-timing-function: var(--animation-timing-function);
+  animation-direction: normal;
+}
+
+.next::view-transition-old(root) {
+  animation-name: slide-out;
+}
+
+.next::view-transition-new(root) {
+  animation-name: slide-in;
+  mix-blend-mode: normal;
+}
+
+.home::view-transition-new(root) {
+  animation-name: slide-out-reverse;
+}
+
+.home::view-transition-old(root) {
+  animation-name: slide-in-reverse;
+  mix-blend-mode: normal;
+  z-index: 1;
+}
+
+@media screen and (min-width: 1024px) {
+  .home::view-transition-old(root) {
+    animation-name: fade-out;
+  }
+
+  .home::view-transition-new(root) {
+    animation-name: fade-in;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .next::view-transition-old(root) {
+    animation-name: fade-out;
+  }
+
+  .next::view-transition-new(root) {
+    animation-name: fade-in;
+  }
 }

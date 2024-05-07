@@ -11,6 +11,7 @@ DutyBtnGridLayoutTemplate.innerHTML = `
         padding-right: 1rem;
         padding-bottom: 1rem;
     }
+    
 </style>
 <slot></slot> 
 

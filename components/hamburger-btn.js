@@ -20,15 +20,19 @@ class HamburgerBtn extends HTMLElement {
 
     this.attachShadow({ mode: 'open' });
     this.shadowRoot.appendChild(HamburgerBtnTemplate.content.cloneNode(true));
+
+    this.fullName;
   }
 
   connectedCallback() {
     this.shadowRoot.querySelector('.open').addEventListener('click', this.createTray.bind(this));
+
+    this.getInfo();
   }
 
   createAndAppendTray() {
-    console.log('clicked');
     const tray = document.createElement('slide-in-tray');
+    tray.setAttribute('fullName', this.fullName);
     document.body.appendChild(tray);
   }
 
@@ -43,6 +47,10 @@ class HamburgerBtn extends HTMLElement {
         composed: true,
       })
     );
+  }
+
+  getInfo() {
+    this.fullName = this.getAttribute('fullName');
   }
 }
 

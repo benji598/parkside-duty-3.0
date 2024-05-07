@@ -67,7 +67,9 @@ SlideInTrayTemplate.innerHTML = /*html*/ `
     <div class="flex-box">
         <div class="gesture-bar"></div>
         <div class="inner-wrapper">
-            <div class="content"><img src="https://picsum.photos/500/500"></div>
+            <div class="content">
+                <div class="fullName"></div>
+            </div>
             <logout-btn></logout-btn>
         </div>
     </div>
@@ -89,6 +91,7 @@ class SlideInTray extends HTMLElement {
   connectedCallback() {
     document.addEventListener('slide-in', () => {
       setTimeout(() => this.slideIn(), 10);
+      this.getInfo();
     });
 
     this.SlideIn = this.shadowRoot.querySelector('.tray');
@@ -152,6 +155,12 @@ class SlideInTray extends HTMLElement {
       this.SlideIn.classList.add('slide-in');
       this.SlideIn.style.transform = 'translateX(0)';
     }
+  }
+
+  getInfo() {
+    const getName = this.getAttribute('fullName');
+    console.log(getName);
+    this.shadowRoot.querySelector('.fullName').textContent = getName;
   }
 }
 

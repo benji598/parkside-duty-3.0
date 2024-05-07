@@ -15,6 +15,7 @@
 
     <!-- Preload the stylesheets -->
     <link rel="preload" href="/css/global.css" as="style" />
+    <link rel="preload" href="/css/view-transitions.css" as="style" />
     <!-- <link rel="preload" href="/css/hp.css" as="style" /> -->
     <link rel="preload" href="/css/tables.css" as="style" />
 

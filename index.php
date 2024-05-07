@@ -20,6 +20,8 @@ if ($isAdmin) {
 }
 ?>
 
+<html class="home">
+
 <head>
     <script src="icon/chairman-icon.js" defer></script>
     <script src="icon/platform-icon.js" defer></script>
@@ -37,7 +39,9 @@ if ($isAdmin) {
 <body>
     <header-info title="Parkside Duties" subtitle="Choose a Duty">
     </header-info>
-    <duty-btn-grid></duty-btn-grid>
+    <main>
+        <duty-btn-grid></duty-btn-grid>
+    </main>
     <nav-bar isAdmin="<?php echo $isAdmin; ?>"></nav-bar>
 </body>
 

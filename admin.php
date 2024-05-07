@@ -106,7 +106,7 @@ $result_sub_users = $conn->query("
 </head>
 
 <body>
-    <hamburger-btn></hamburger-btn>
+    <hamburger-btn fullName="<?php echo $fullName; ?>"></hamburger-btn>
 
 
     <header-info title="Admin" subtitle="">

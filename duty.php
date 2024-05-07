@@ -1,4 +1,5 @@
 <?php require 'db.php'; require 'functions.php'; include 'header.php'; ?>
+<html class="next">
 
 <head>
     <!-- icon -->
@@ -17,12 +18,12 @@
 </head>
 
 <body>
-
-    <duty-name></duty-name>
     <header-info subtitle="Send a Reminder"></header-info>
     <name-send></name-send>
-    <name-list-layout id="nameListLayout"></name-list-layout>
-
+    <main>
+        <duty-name></duty-name>
+        <name-list-layout id="nameListLayout"></name-list-layout>
+    </main>
 
     <?php if ($isAdmin): ?> <?php endif; ?>
 
