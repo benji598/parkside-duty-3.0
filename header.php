@@ -1,52 +1,58 @@
 <?php if (!isset($_SESSION)) { session_start(); } ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta name="view-transition" content="same-origin" />
-
-
-
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Park Side</title>
     <meta name="description" content="New Parkside duty app" />
 
-    <!-- Preload the stylesheets -->
-    <link rel="preload" href="/css/global.css" as="style" />
-    <link rel="preload" href="/css/view-transitions.css" as="style" />
-    <!-- <link rel="preload" href="/css/hp.css" as="style" /> -->
-    <link rel="preload" href="/css/tables.css" as="style" />
+    <?php
+    // Stylesheets
+    $styles = $styles ?? [
+        '/css/global.css',
+        '/css/admin.css',
+        '/css/tables.css'
+    ];
+    foreach ($styles as $style) {
+        echo "<link rel='stylesheet' href='{$style}' />";
+        echo "<link rel='preload' href='{$style}' as='style' />";
+    }
 
-    <!-- Apply the stylesheets -->
-    <link rel="stylesheet" href="/css/global.css" rel="preload" />
-    <!-- <link rel="stylesheet" href="/css/hp.css" rel="preload" /> -->
-    <link rel="stylesheet" href="/css/tables.css" rel="preload" />
+    // Global scripts that are needed on every page
+    $globalScripts = [
+        "components/header-info.js",
+        "icon/duties-icon.js",
+        "icon/login-icon.js",
+        "icon/admin-icon.js",
+        "components/main.js",
+        "components/get-duty-name.js",
+        "components/duty-btn.js",
+        "components/btn-design.js",
+        "components/duty-btn-grid.js",
+        "components/network-status.js",
+        "components/nav-bar.js"
+    ];
 
-    <script src="components/header-info.js" defer></script>
+    foreach ($globalScripts as $script) {
+        echo "<script src='{$script}' defer></script>";
+    }
 
-    <!-- Nav Icons -->
-    <script src="icon/duties-icon.js" defer></script>
-    <script src="icon/login-icon.js" defer></script>
-    <script src="icon/admin-icon.js" defer></script>
+    // Include page-specific scripts
+    if (!empty($pageSpecificScripts)) {
+        foreach ($pageSpecificScripts as $script) {
+            echo "<script src='{$script}' defer></script>";
+        }
+    }
+    ?>
 
-
-    <!-- Global components -->
-    <script src="components/view-transitions.js" defer></script>
-    <script src="components/get-duty-name.js" defer></script>
-    <script src="components/duty-btn.js" defer></script>
-    <script src="components/btn-design.js" defer></script>
-    <script src="components/network-status.js" defer></script>
-    <script src="components/duty-btn-grid.js" defer></script>
-    <script src="components/nav.js" defer></script>
-
-
-    <!-- <script src="components/filterbrothers-data.js" defer></script> -->
     <style>
     body {
-        font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans',
-            'Helvetica Neue', sans-serif;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     }
     </style>
 </head>

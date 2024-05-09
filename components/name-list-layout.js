@@ -28,41 +28,49 @@ class NameListLayout extends HTMLElement {
 
     connectedCallback() {
         document.addEventListener('duty-name-received', (dutyName) => {
-            if (!this.hasFetchedData) {
-                this.getUsers(dutyName.detail);
-                this.hasFetchedData = true;
-            }
+            // if (!this.hasFetchedData) {
+            this.getUsers(dutyName.detail);
+            // this.hasFetchedData = true;
+            // }
         });
     }
 
     async getUsers(dutyName) {
-        const response = await fetch(`/api/sub-users/${this.dutyId}`);
-        const users = await response.json();
+        try {
+            const response = await fetch(`/api/sub-users/${this.dutyId}`);
+            if (!response.ok) {
+                // Check if the response was successful (status in the range 200-299)
+                throw new Error(`HTTP error! status: ${response.status}`); // Throw an error with a message including the status
+            }
+            const users = await response.json();
 
-        // Assuming sorting is needed; adjust the attribute names as necessary.
-        users.sort((a, b) => `${a.firstname} ${a.lastname}`.localeCompare(`${b.firstname} ${b.lastname}`));
+            // Assuming sorting is needed; adjust the attribute names as necessary.
+            users.sort((a, b) => `${a.firstname} ${a.lastname}`.localeCompare(`${b.firstname} ${b.lastname}`));
 
-        users.forEach((user) => {
-            const nameDiv = document.createElement('name-holder');
-            nameDiv.textContent = `${user.firstname} ${user.lastname}`;
+            users.forEach((user) => {
+                const nameDiv = document.createElement('name-holder');
+                nameDiv.textContent = `${user.firstname} ${user.lastname}`;
 
-            const sendBtn = document.createElement('send-button');
-            sendBtn.setAttribute('firstName', user.firstname);
-            sendBtn.setAttribute('lastName', user.lastname);
-            sendBtn.setAttribute('number', user.phone);
-            sendBtn.setAttribute('dutyName', dutyName);
-            sendBtn.setAttribute('duty_message', user.duty_message);
-            sendBtn.setAttribute('cover_message', user.cover_message);
-            sendBtn.setAttribute('meeting_1', user.meeting_1);
-            sendBtn.setAttribute('meeting_2', user.meeting_2);
-            sendBtn.setAttribute('icon', '<send-icon></send-icon>');
+                const sendBtn = document.createElement('send-button');
+                sendBtn.setAttribute('firstName', user.firstname);
+                sendBtn.setAttribute('lastName', user.lastname);
+                sendBtn.setAttribute('number', user.phone);
+                sendBtn.setAttribute('dutyName', dutyName);
+                sendBtn.setAttribute('duty_message', user.duty_message);
+                sendBtn.setAttribute('cover_message', user.cover_message);
+                sendBtn.setAttribute('meeting_1', user.meeting_1);
+                sendBtn.setAttribute('meeting_2', user.meeting_2);
+                sendBtn.setAttribute('icon', '<send-icon></send-icon>');
 
-            this.appendChild(nameDiv);
-            this.appendChild(sendBtn);
+                this.appendChild(nameDiv);
+                this.appendChild(sendBtn);
 
-            console.log(nameDiv)
-
-        });
+                console.log(nameDiv);
+            });
+        } catch (error) {
+            console.error('Failed to fetch users:', error.message);
+            // Here you could handle errors, e.g., by displaying an error message to the user
+        }
     }
 }
 

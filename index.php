@@ -6,43 +6,46 @@ if (preg_match('/^\/api\//', $_SERVER['REQUEST_URI'])) {
     exit; // Stop further processing
 }
 
-include 'header.php'; 
+// Include database connection
 require 'db.php';
 
-if ($isAdmin) {
-    $first_name = $_SESSION['first_name'];
-    $last_name = $_SESSION['last_name'];
-    $fullName = $first_name . ' ' . $last_name;
-} else {
-    $first_name = "Guest";
-    $last_name = "Account";
-    $fullName = "";
-}
+// Start session
+session_start();
+
+// Check admin status
+$isAdmin = isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true;
+
+// Define Page-specific JavaScript files before including header.php
+$pageSpecificScripts = [
+    "icon/chairman-icon.js", 
+    "icon/platform-icon.js", 
+    "icon/entrance-attendant-icon.js",
+    "icon/auditorium-attendant-icon.js",
+    "icon/zoom-attendant-icon.js",
+    "icon/sound-box-icon.js",
+    "icon/bs-reader-icon.js",
+    "icon/wt-reader-icon.js",
+    "icon/roving-mic-icon.js",
+    "icon/hall-cleaning-icon.js",
+];
+
+// Include the header file
+include 'header.php'; 
 ?>
+
 
 <html class="home">
 
-<head>
-    <script src="icon/chairman-icon.js" defer></script>
-    <script src="icon/platform-icon.js" defer></script>
-    <script src="icon/entrance-attendant-icon.js" defer></script>
-    <script src="icon/auditorium-attendant-icon.js" defer></script>
-    <script src="icon/zoom-attendant-icon.js" defer></script>
-    <script src="icon/sound-box-icon.js" defer></script>
-    <script src="icon/bs-reader-icon.js" defer></script>
-    <script src="icon/wt-reader-icon.js" defer></script>
-    <script src="icon/roving-mic-icon.js" defer></script>
-    <script src="icon/hall-cleaning-icon.js" defer></script>
-</head>
-
-
 <body>
+
     <header-info title="Parkside Duties" subtitle="Choose a Duty">
     </header-info>
-    <main>
+    <main-wrapper>
         <duty-btn-grid></duty-btn-grid>
-    </main>
+    </main-wrapper>
     <nav-bar isAdmin="<?php echo $isAdmin; ?>"></nav-bar>
+
+
 </body>
 
 </html>

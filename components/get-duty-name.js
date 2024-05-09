@@ -8,34 +8,35 @@ GetDutyNameTemplate.innerHTML = /*html*/ `
 `;
 
 class GetDutyName extends HTMLElement {
-    constructor() {
-        super();
-        this.attachShadow({
-            mode: 'open',
-        });
-        this.shadowRoot.appendChild(GetDutyNameTemplate.content.cloneNode(true));
-        this.dutyId = new URLSearchParams(window.location.search).get('id');
-    }
+  constructor() {
+    super();
+    this.attachShadow({
+      mode: 'open',
+    });
+    this.shadowRoot.appendChild(GetDutyNameTemplate.content.cloneNode(true));
+    this.dutyId = new URLSearchParams(window.location.search).get('id');
+  }
 
-    connectedCallback() {
-        this.dutyID();
-    }
+  connectedCallback() {
+    this.dutyID();
+  }
 
-    async dutyID() {
-        const response = await fetch(`/api/duty/${this.dutyId}`);
-        const duty = await response.json();
-        const dutyName = duty.name;
-        this.displayDutyName(dutyName);
-    }
+  async dutyID() {
+    const response = await fetch(`/api/duty/${this.dutyId}`);
+    const duty = await response.json();
+    const dutyName = duty.name;
 
-    displayDutyName(dutyName) {
-        this.dispatchEvent(
-            new CustomEvent('duty-name-received', {
-                bubbles: true,
-                composed: true,
-                detail: dutyName,
-            })
-        );
-    }
+    this.displayDutyName(dutyName);
+  }
+
+  displayDutyName(dutyName) {
+    this.dispatchEvent(
+      new CustomEvent('duty-name-received', {
+        bubbles: true,
+        composed: true,
+        detail: dutyName,
+      })
+    );
+  }
 }
 customElements.define('duty-name', GetDutyName);

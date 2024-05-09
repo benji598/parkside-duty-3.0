@@ -1,7 +1,6 @@
 <?php
 require 'db.php';
 require 'functions.php';
-include 'header.php';
 
 if (!isset($_GET['e'])) {
     $_SESSION['login_error'] = "";
@@ -19,11 +18,19 @@ else
 
 ?>
 
-<head>
-    <script src="components/login-form.js" defer></script>
-    <script src="components/form-container.js" defer></script>
-</head>
+<?php
+$pageSpecificScripts = [
+   "components/login-form.js",
+   "components/form-container.js"
+];
 
-<form-container icon="<login-icon></login-icon>" title="Login" form="<login-form></login-form>"
-    data-error="<?php echo $errMessage; ?>"></form-container>
-<nav-bar isAdmin="<?php echo $isAdmin; ?>"></nav-bar>
+// Include the header file
+include 'header.php'; 
+?>
+
+
+<container-box>
+    <form-container icon="<login-icon></login-icon>" title="Login" form="<login-form></login-form>"
+        data-error="<?php echo $errMessage; ?>"></form-container>
+    <nav-bar isAdmin="<?php echo $isAdmin; ?>"></nav-bar>
+</container-box>

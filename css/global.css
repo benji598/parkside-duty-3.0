@@ -23,6 +23,9 @@
   --baby-blue-active: #7cacf8;
   --whatsapp-green: #25d366;
   --sms-blue: #1982fc;
+
+  --animation-duration: 300ms;
+  --animation-timing-function: cubic-bezier(0.465, 0.183, 0.153, 0.946);
 }
 
 * {
@@ -30,37 +33,14 @@
   -webkit-tap-highlight-color: transparent;
 }
 
-body {
-  display: flex;
-  flex-direction: column;
-  margin: 0;
-  overflow-y: hidden;
-}
-
 html,
 body {
-  min-height: 100%;
-  height: 100%;
+  margin: 0;
+  height: 100vh;
+  min-height: 100dvh;
   background-color: var(--background-color);
-}
-
-.container {
-  padding-left: 1rem;
-  padding-right: 1rem;
-}
-
-.overflow {
-  overflow: auto;
-}
-
-:root {
-  --animation-duration: 300ms;
-  --animation-timing-function: cubic-bezier(0.465, 0.183, 0.153, 0.946);
-}
-
-main {
-  contain: layout;
-  overflow: auto;
+  display: flex;
+  flex-direction: column;
 }
 
 nav-bar {
@@ -166,4 +146,9 @@ nav-bar {
   .next::view-transition-new(root) {
     animation-name: fade-in;
   }
+}
+
+::view-transition-old(navbar),
+::view-transition-new(navbar) {
+  animation: none;
 }
