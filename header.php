@@ -30,10 +30,10 @@
         "icon/login-icon.js",
         "icon/admin-icon.js",
         "components/main.js",
-        "components/get-duty-name.js",
         "components/duty-btn.js",
         "components/btn-design.js",
         "components/duty-btn-grid.js",
+        "components/get-duty-name.js",
         "components/network-status.js",
         "components/nav-bar.js"
     ];

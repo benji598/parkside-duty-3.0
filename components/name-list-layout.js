@@ -28,23 +28,15 @@ class NameListLayout extends HTMLElement {
 
     connectedCallback() {
         document.addEventListener('duty-name-received', (dutyName) => {
-            // if (!this.hasFetchedData) {
             this.getUsers(dutyName.detail);
-            // this.hasFetchedData = true;
-            // }
         });
     }
 
     async getUsers(dutyName) {
         try {
             const response = await fetch(`/api/sub-users/${this.dutyId}`);
-            if (!response.ok) {
-                // Check if the response was successful (status in the range 200-299)
-                throw new Error(`HTTP error! status: ${response.status}`); // Throw an error with a message including the status
-            }
             const users = await response.json();
 
-            // Assuming sorting is needed; adjust the attribute names as necessary.
             users.sort((a, b) => `${a.firstname} ${a.lastname}`.localeCompare(`${b.firstname} ${b.lastname}`));
 
             users.forEach((user) => {
@@ -69,7 +61,6 @@ class NameListLayout extends HTMLElement {
             });
         } catch (error) {
             console.error('Failed to fetch users:', error.message);
-            // Here you could handle errors, e.g., by displaying an error message to the user
         }
     }
 }

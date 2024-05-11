@@ -29,8 +29,8 @@ include 'header.php';
 ?>
 
 
-<container-box>
+<main-wrapper>
     <form-container icon="<login-icon></login-icon>" title="Login" form="<login-form></login-form>"
         data-error="<?php echo $errMessage; ?>"></form-container>
-    <nav-bar isAdmin="<?php echo $isAdmin; ?>"></nav-bar>
-</container-box>
+</main-wrapper>
+<nav-bar isAdmin="<?php echo $isAdmin; ?>"></nav-bar>

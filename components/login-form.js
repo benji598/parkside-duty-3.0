@@ -137,7 +137,7 @@ LoginFormTemplate.innerHTML = /*html*/ `
     }
 </style>
 
-<div>
+<main-wrapper>
 
     <!-- Display any login error messages -->
     <form action="login.php" method="post">
@@ -155,80 +155,81 @@ LoginFormTemplate.innerHTML = /*html*/ `
 
         <!-- The Register button should point to a PHP file that handles registration -->
         <!-- <button class="secondary-btn" onclick="location.href='register.php'">Register</button> -->
-        <button class="secondary-btn">Register</button>
+        <!-- <button class="secondary-btn">Register</button> -->
         <div>
             <a href="forgot_password.php">Forgot Password?</a>
         </div>
     </form>
+</main-wrapper>
 
-    `;
+`;
 
 class LoginForm extends HTMLElement {
-    constructor() {
-        super();
-        this.attachShadow({
-            mode: 'open',
-        });
-        this.shadowRoot.appendChild(LoginFormTemplate.content.cloneNode(true));
+  constructor() {
+    super();
+    this.attachShadow({
+      mode: 'open',
+    });
+    this.shadowRoot.appendChild(LoginFormTemplate.content.cloneNode(true));
 
-        this.validatePassword = this.validatePassword.bind(this);
-        this.shadowRoot.querySelector('form').addEventListener('input', this.validatePassword);
+    this.validatePassword = this.validatePassword.bind(this);
+    this.shadowRoot.querySelector('form').addEventListener('input', this.validatePassword);
+  }
+
+  connectedCallback() {
+    this.toRegister();
+    this.initializeLabelPositions();
+  }
+
+  validatePassword() {
+    const passwordInput = this.shadowRoot.querySelector('#password');
+    const hasUpperCase = /[A-Z]/.test(passwordInput.value);
+    const isLongEnough = passwordInput.value.length >= 8;
+
+    if (!hasUpperCase || !isLongEnough) {
+      if (!hasUpperCase && !isLongEnough) {
+        passwordInput.setCustomValidity('Password must be at least 8 characters long and include at least one uppercase letter.');
+      } else if (!hasUpperCase) {
+        passwordInput.setCustomValidity('Password must include at least one uppercase letter.');
+      } else if (!isLongEnough) {
+        passwordInput.setCustomValidity('Password must be at least 8 characters long.');
+      }
+    } else {
+      passwordInput.setCustomValidity('');
     }
+  }
 
-    connectedCallback() {
-        this.toRegister();
-        this.initializeLabelPositions();
+  toRegister() {
+    this.shadowRoot.querySelector('.secondary-btn').addEventListener('click', (e) => {
+      e.preventDefault();
+      window.location.href = 'register.php';
+    });
+  }
+
+  initializeLabelPositions() {
+    const inputs = this.shadowRoot.querySelectorAll('input[type=email], input[type=password]');
+    inputs.forEach((input) => {
+      this.updateLabelPosition(input);
+      input.addEventListener('input', () => this.updateLabelPosition(input));
+    });
+  }
+
+  updateLabelPosition(input) {
+    const label = input.nextElementSibling;
+
+    if (input.value) {
+      label.classList.add('has-content');
+      if (input.checkValidity()) {
+        input.classList.add('valid');
+        input.classList.remove('invalid');
+      } else {
+        input.classList.add('invalid');
+        input.classList.remove('valid');
+      }
+    } else {
+      label.classList.remove('has-content');
+      input.classList.remove('invalid', 'valid');
     }
-
-    validatePassword() {
-        const passwordInput = this.shadowRoot.querySelector('#password');
-        const hasUpperCase = /[A-Z]/.test(passwordInput.value);
-        const isLongEnough = passwordInput.value.length >= 8;
-
-        if (!hasUpperCase || !isLongEnough) {
-            if (!hasUpperCase && !isLongEnough) {
-                passwordInput.setCustomValidity('Password must be at least 8 characters long and include at least one uppercase letter.');
-            } else if (!hasUpperCase) {
-                passwordInput.setCustomValidity('Password must include at least one uppercase letter.');
-            } else if (!isLongEnough) {
-                passwordInput.setCustomValidity('Password must be at least 8 characters long.');
-            }
-        } else {
-            passwordInput.setCustomValidity('');
-        }
-    }
-
-    toRegister() {
-        this.shadowRoot.querySelector('.secondary-btn').addEventListener('click', (e) => {
-            e.preventDefault();
-            window.location.href = 'register.php';
-        });
-    }
-
-    initializeLabelPositions() {
-        const inputs = this.shadowRoot.querySelectorAll('input[type=email], input[type=password]');
-        inputs.forEach((input) => {
-            this.updateLabelPosition(input);
-            input.addEventListener('input', () => this.updateLabelPosition(input));
-        });
-    }
-
-    updateLabelPosition(input) {
-        const label = input.nextElementSibling;
-
-        if (input.value) {
-            label.classList.add('has-content');
-            if (input.checkValidity()) {
-                input.classList.add('valid');
-                input.classList.remove('invalid');
-            } else {
-                input.classList.add('invalid');
-                input.classList.remove('valid');
-            }
-        } else {
-            label.classList.remove('has-content');
-            input.classList.remove('invalid', 'valid');
-        }
-    }
+  }
 }
 customElements.define('login-form', LoginForm);

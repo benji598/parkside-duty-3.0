@@ -2,7 +2,7 @@ const NameHolderTemplate = document.createElement('template');
 NameHolderTemplate.innerHTML = /*html*/ `
 
 <style>
-    .name-holder {
+    :host {
         display: flex;
         align-items: center;
         padding-left: 1rem;
@@ -14,9 +14,9 @@ NameHolderTemplate.innerHTML = /*html*/ `
     }
 </style>
 
-<div class="name-holder">
-    <slot></slot>
-</div>
+
+<slot></slot>
+
 
 
 `;

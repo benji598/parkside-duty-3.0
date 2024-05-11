@@ -11,9 +11,6 @@ NavBarTemplate.innerHTML = /*html*/ `
         min-height: 64px;
         padding: 0.5rem 0rem;
         background-color: var(--bg-blue);
-        position: fixed;
-        bottom: 0;
-        width: 100%;
     }
 
     :host a {
@@ -22,6 +19,8 @@ NavBarTemplate.innerHTML = /*html*/ `
         min-width: 64px;
         text-decoration: var(--anchor-decoration);
     }
+
+
 
     duties-icon,
     .icon-container {
@@ -37,6 +36,7 @@ NavBarTemplate.innerHTML = /*html*/ `
     }
 </style>
 
+
 <a href="/">
     <duties-icon></duties-icon>
     <small>Duties</small>
@@ -46,6 +46,7 @@ NavBarTemplate.innerHTML = /*html*/ `
     <div class="icon-container"></div>
     <small>Login</small>
 </a>
+
 
 `;
 

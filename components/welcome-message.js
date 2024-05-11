@@ -5,6 +5,7 @@ WelcomeMessageTemplate.innerHTML = `
 
   :host {
     padding:1rem;
+    display: block;
   }
 
   .greeting {

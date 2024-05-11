@@ -5,9 +5,7 @@ MainWrapperTemplate.innerHTML = /*html*/ `
     :host {
         contain: layout;
         overflow: auto;
-        flex: 1;
-        display: flex;
-        flex-direction: column;
+        margin-bottom: 64px;
     }
 </style>
 

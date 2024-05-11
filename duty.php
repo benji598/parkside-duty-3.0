@@ -30,9 +30,9 @@ include 'header.php';
 
         <?php if ($isAdmin): ?> <?php endif; ?>
 
-        <nav-bar isAdmin="<?php echo $isAdmin; ?>"></nav-bar>
-
     </main-wrapper>
+    <nav-bar isAdmin="<?php echo $isAdmin; ?>"></nav-bar>
+
 </body>
 
 </html>
