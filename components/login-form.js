@@ -39,13 +39,20 @@ LoginFormTemplate.innerHTML = /*html*/ `
     /* Style for label when input has content */
     input[type=email]+label.has-content,
     input[type=password]+label.has-content {
-        top: -5px;
         font-size: 10px;
+        left: 15px;
+    }
+
+    input[type=email]+label.has-content,
+    input[type=password]+label.has-content,
+    input[type=email]:focus+label,
+    input[type=password]:focus+label {
+        top: -5px;
         background-color: white;
-        width: fit-content;
         padding-left: 5px;
         padding-right: 5px;
         padding-top: 0;
+        width: fit-content;
         height: fit-content;
         left: 15px;
     }
@@ -55,15 +62,7 @@ LoginFormTemplate.innerHTML = /*html*/ `
     input[type=email]:focus+label,
     input[type=password]:focus+label {
         color: var(--bg-blue);
-        top: -5px;
         font-size: 10px;
-        background-color: white;
-        padding-left: 5px;
-        padding-right: 5px;
-        padding-top: 0;
-        width: fit-content;
-        height: fit-content;
-        left: 15px;
     }
 
     input[type=email]:focus,
@@ -177,7 +176,6 @@ class LoginForm extends HTMLElement {
   }
 
   connectedCallback() {
-    this.toRegister();
     this.initializeLabelPositions();
   }
 
@@ -199,13 +197,6 @@ class LoginForm extends HTMLElement {
     }
   }
 
-  toRegister() {
-    this.shadowRoot.querySelector('.secondary-btn').addEventListener('click', (e) => {
-      e.preventDefault();
-      window.location.href = 'register.php';
-    });
-  }
-
   initializeLabelPositions() {
     const inputs = this.shadowRoot.querySelectorAll('input[type=email], input[type=password]');
     inputs.forEach((input) => {
@@ -215,6 +206,7 @@ class LoginForm extends HTMLElement {
   }
 
   updateLabelPosition(input) {
+    console.log('clicked');
     const label = input.nextElementSibling;
 
     if (input.value) {
