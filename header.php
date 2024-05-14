@@ -1,4 +1,5 @@
-<?php if (!isset($_SESSION)) { session_start(); } ?>
+<?php if (!isset($_SESSION)) { session_start(); } header("Cache-Control: max-age=3600"); // Cache for 1 hour
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -10,6 +11,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Park Side</title>
     <meta name="description" content="New Parkside duty app" />
+
 
     <?php
     // Stylesheets
@@ -58,13 +60,13 @@
 
     <script type="speculationrules">
         {
-  "prerender": [
-    {
-      "source": "list",
-      "urls": ["index.php", "duty.php", "splash.php", "admin.php"]
-    }
-  ]
-}
+            "prerender": [
+                {
+                "source": "list",
+                "urls": ["index.php", "duty.php", "splash.php", "admin.php"]
+                }
+            ]
+            }
 </script>
 </head>
 
