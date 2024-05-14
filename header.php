@@ -56,12 +56,12 @@
     }
     </style>
 
-<script type="speculationrules">
-{
+    <script type="speculationrules">
+        {
   "prerender": [
     {
       "source": "list",
-      "urls": ["index.php", "duty.php"]
+      "urls": ["index.php", "duty.php", "splash.php", "admin.php"]
     }
   ]
 }

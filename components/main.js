@@ -6,6 +6,7 @@ MainWrapperTemplate.innerHTML = /*html*/ `
         contain: layout;
         overflow: auto;
         margin-bottom: 64px;
+        height: 100%;
     }
 </style>
 
