@@ -41,6 +41,7 @@ include 'header.php';
     <header-info title="Parkside Duties" subtitle="Choose a Duty">
     </header-info>
     <main-wrapper>
+        dasdsadsa help
         <duty-btn-grid></duty-btn-grid>
     </main-wrapper>
     <nav-bar isAdmin="<?php echo $isAdmin; ?>"></nav-bar>
