@@ -17,7 +17,7 @@ $pageSpecificScripts = [
 // Include the header file
 include 'header.php'; 
 ?>
-<html class="next">
+
 
 <body>
 
@@ -26,13 +26,11 @@ include 'header.php';
     <main-wrapper>
         <duty-name></duty-name>
         <name-list-layout id="nameListLayout"></name-list-layout>
-
-
         <?php if ($isAdmin): ?> <?php endif; ?>
 
     </main-wrapper>
-    <nav-bar isAdmin="<?php echo $isAdmin; ?>"></nav-bar>
 
+    <nav-bar isAdmin="<?php echo $isAdmin; ?>"></nav-bar>
 </body>
 
 </html>

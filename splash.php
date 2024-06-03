@@ -28,9 +28,12 @@ $pageSpecificScripts = [
 include 'header.php'; 
 ?>
 
+<body>
+    <main-wrapper>
+        <form-container icon="<login-icon></login-icon>" title="Login" form="<login-form></login-form>"
+            data-error="<?php echo $errMessage; ?>"></form-container>
+    </main-wrapper>
+    <nav-bar isAdmin="<?php echo $isAdmin; ?>"></nav-bar>
+</body>
 
-<main-wrapper>
-    <form-container icon="<login-icon></login-icon>" title="Login" form="<login-form></login-form>"
-        data-error="<?php echo $errMessage; ?>"></form-container>
-</main-wrapper>
-<nav-bar isAdmin="<?php echo $isAdmin; ?>"></nav-bar>
+</html>

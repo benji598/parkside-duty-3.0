@@ -56,8 +56,6 @@ class NameListLayout extends HTMLElement {
 
                 this.appendChild(nameDiv);
                 this.appendChild(sendBtn);
-
-                console.log(nameDiv);
             });
         } catch (error) {
             console.error('Failed to fetch users:', error.message);

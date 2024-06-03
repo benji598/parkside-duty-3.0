@@ -18,44 +18,44 @@ DutyBtnGridLayoutTemplate.innerHTML = /*html*/ `
 `;
 
 class DutyBtnGridLayout extends HTMLElement {
-    constructor() {
-        super();
+  constructor() {
+    super();
 
-        this.attachShadow({
-            mode: 'open',
-        });
-        this.shadowRoot.appendChild(DutyBtnGridLayoutTemplate.content.cloneNode(true));
-    }
+    this.attachShadow({
+      mode: 'open',
+    });
+    this.shadowRoot.appendChild(DutyBtnGridLayoutTemplate.content.cloneNode(true));
+  }
 
-    connectedCallback() {
-        this.getData();
-    }
+  connectedCallback() {
+    this.getData();
+  }
 
-    async getData() {
-        const response = await fetch('/api/duty-types');
-        const data = await response.json();
+  async getData() {
+    const response = await fetch('/api/duty-types');
+    const data = await response.json();
 
-        this.createBtns(data);
-    }
+    console.log(data);
 
-    createBtns(data) {
-        data.forEach((duty) => {
-            const dutyBtn = document.createElement('duty-button');
+    this.createBtns(data);
+  }
 
-            console.log(data);
+  createBtns(data) {
+    data.forEach((duty) => {
+      const dutyBtn = document.createElement('duty-button');
 
-            dutyBtn.setAttribute('title', duty.name);
-            dutyBtn.setAttribute('link', `duty.php?id=${duty.id}`);
-            dutyBtn.setAttribute('subtitle', 'Duty');
+      dutyBtn.setAttribute('title', duty.name);
+      dutyBtn.setAttribute('link', `duty.php?id=${duty.id}`);
+      dutyBtn.setAttribute('subtitle', 'Duty');
 
-            const changeName = duty.name;
-            const formatIconName = changeName.toLowerCase().replace(' ', '-');
+      const changeName = duty.name;
+      const formatIconName = changeName.toLowerCase().replace(' ', '-');
 
-            dutyBtn.setAttribute('icon', `<${formatIconName}-icon></${formatIconName}-icon>`);
+      dutyBtn.setAttribute('icon', `<${formatIconName}-icon></${formatIconName}-icon>`);
 
-            this.appendChild(dutyBtn);
-        });
-    }
+      this.appendChild(dutyBtn);
+    });
+  }
 }
 
 customElements.define('duty-btn-grid', DutyBtnGridLayout);

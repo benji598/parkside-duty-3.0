@@ -33,6 +33,134 @@
   -webkit-tap-highlight-color: transparent;
 }
 
+@view-transition {
+  navigation: auto;
+}
+
+/* Keyframe Animations (can be in a separate file) */
+@keyframes slide-in {
+  from {
+    transform: translateX(100%);
+  }
+
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes slide-out {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes slide-inHome {
+  from {
+    transform: translateX(-30%);
+  }
+
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes slide-outHome {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-30%);
+  }
+}
+
+/* Create a separate layer for view transitions */
+@view-transition {
+  navigation: auto;
+}
+
+view-transition {
+  navigation: auto;
+}
+
+@keyframes slide-in {
+  from {
+    translate: 100vw 0;
+  }
+}
+@keyframes slide-out {
+  to {
+    translate: 100vw 0;
+  }
+}
+
+@keyframes slide-inHome {
+  from {
+    translate: -30vw 0;
+  }
+}
+@keyframes slide-outHome {
+  to {
+    translate: -30vw 0;
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+}
+@keyframes fade-out {
+  to {
+    opacity: 0;
+  }
+}
+
+:root {
+  view-transition-name: none;
+}
+body {
+  view-transition-name: page;
+}
+
+::view-transition-group(page) {
+  animation-duration: 0.3s;
+}
+
+:root[data-transition='reload'] {
+  &::view-transition-old(page) {
+    display: none;
+  }
+  &::view-transition-new(page) {
+    animation-name: fade-in;
+  }
+}
+
+/*  */
+
+.push {
+  &::view-transition-old(page) {
+    animation-name: slide-outHome;
+  }
+}
+&::view-transition-new(page) {
+  animation-name: slide-in;
+}
+
+.pop {
+  &::view-transition-old(page) {
+    animation-name: slide-out;
+    z-index: 1;
+  }
+  &::view-transition-new(page) {
+    animation-name: slide-inHome;
+  }
+}
+
 html,
 body {
   margin: 0;
@@ -41,106 +169,6 @@ body {
   background-color: var(--background-color);
   display: flex;
   flex-direction: column;
-}
-
-@keyframes fade-in {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-@keyframes fade-out {
-  from {
-    opacity: 1;
-  }
-  to {
-    opacity: 0;
-  }
-}
-
-@keyframes slide-out {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-30%);
-  }
-}
-
-@keyframes slide-out-reverse {
-  from {
-    transform: translateX(-30%);
-  }
-  to {
-    transform: translateX(0);
-  }
-}
-
-@keyframes slide-in {
-  from {
-    transform: translateX(100%);
-  }
-  to {
-    transform: translateX(0);
-  }
-}
-
-@keyframes slide-in-reverse {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(100%);
-  }
-}
-
-::view-transition-new(root),
-::view-transition-old(root) {
-  animation-duration: var(--animation-duration);
-  animation-timing-function: var(--animation-timing-function);
-  animation-direction: normal;
-}
-
-.next::view-transition-old(root) {
-  animation-name: slide-out;
-}
-
-.next::view-transition-new(root) {
-  animation-name: slide-in;
-  mix-blend-mode: normal;
-}
-
-.home::view-transition-new(root) {
-  animation-name: slide-out-reverse;
-}
-
-.home::view-transition-old(root) {
-  animation-name: slide-in-reverse;
-  mix-blend-mode: normal;
-  z-index: 1;
-}
-
-@media screen and (min-width: 1024px) {
-  .home::view-transition-old(root) {
-    animation-name: fade-out;
-  }
-
-  .home::view-transition-new(root) {
-    animation-name: fade-in;
-  }
-}
-
-@media screen and (min-width: 1024px) {
-  .next::view-transition-old(root) {
-    animation-name: fade-out;
-  }
-
-  .next::view-transition-new(root) {
-    animation-name: fade-in;
-  }
 }
 
 nav-bar {

@@ -5,18 +5,31 @@
 <html lang="en">
 
 <head>
-    <meta name="view-transition" content="same-origin" />
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Park Side</title>
     <meta name="description" content="New Parkside duty app" />
 
+    <link href="/css/global.css" rel="prefetch">
+    <link href="/css/global.css" rel="stylesheet" type="text/css">
+
+    <script src="components/header-info.js" defer></script>
+    <script src="icon/duties-icon.js" defer></script>
+    <script src="icon/login-icon.js" defer></script>
+    <script src="icon/admin-icon.js" defer></script>
+    <script src="components/main.js" defer></script>
+    <script src="components/duty-btn.js" defer></script>
+    <script src="components/btn-design.js" defer></script>
+    <script src="components/duty-btn-grid.js" defer></script>
+    <script src="components/get-duty-name.js" defer></script>
+    <script src="components/network-status.js" defer></script>
+    <script src="components/nav-bar.js" defer></script>
+    <script src="js/global.js" async></script>
 
     <?php
     // Stylesheets
     $styles = $styles ?? [
-        '/css/global.css',
         '/css/admin.css',
         '/css/tables.css'
     ];
@@ -25,25 +38,7 @@
         echo "<link rel='preload' href='{$style}' as='style' />";
     }
 
-    // Global scripts that are needed on every page
-    $globalScripts = [
-        "components/header-info.js",
-        "icon/duties-icon.js",
-        "icon/login-icon.js",
-        "icon/admin-icon.js",
-        "components/main.js",
-        "components/duty-btn.js",
-        "components/btn-design.js",
-        "components/duty-btn-grid.js",
-        "components/get-duty-name.js",
-        "components/network-status.js",
-        "components/nav-bar.js"
-    ];
-
-    foreach ($globalScripts as $script) {
-        echo "<script src='{$script}' defer></script>";
-    }
-
+  
     // Include page-specific scripts
     if (!empty($pageSpecificScripts)) {
         foreach ($pageSpecificScripts as $script) {
@@ -51,23 +46,37 @@
         }
     }
     ?>
-
     <style>
     body {
-        font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        font-family:
+            system-ui,
+            -apple-system,
+            BlinkMacSystemFont,
+            'Segoe UI',
+            Roboto,
+            Oxygen,
+            Ubuntu,
+            Cantarell,
+            'Open Sans',
+            'Helvetica Neue',
+            sans-serif;
     }
     </style>
 
     <script type="speculationrules">
         {
-            "prerender": [
-                {
-                "source": "list",
-                "urls": ["index.php", "duty.php", "splash.php", "admin.php"]
-                }
-            ]
-            }
-</script>
+        "prerender": [
+          {
+            "source": "document",
+            "where": {
+              "href_matches": "/*"
+            },
+            "eagerness": "moderate"
+          }
+        ]
+      }
+    </script>
+
 </head>
 
 
