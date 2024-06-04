@@ -25,7 +25,7 @@
     <script src="components/get-duty-name.js" defer></script>
     <script src="components/network-status.js" defer></script>
     <script src="components/nav-bar.js" defer></script>
-    <script src="js/global.js" async></script>
+    <script src="js/global.js"></script>
 
     <?php
     // Stylesheets
