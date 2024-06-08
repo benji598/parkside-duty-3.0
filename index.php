@@ -40,6 +40,7 @@ include 'header.php';
 
     <header-info title="Parkside Duties" subtitle="Choose a Duty">
     </header-info>
+    <h1>hellow world 2</h1>
     <main-wrapper>
         <duty-btn-grid></duty-btn-grid>
     </main-wrapper>
