@@ -40,7 +40,6 @@ include 'header.php';
 
     <header-info title="Parkside Duties" subtitle="Choose a Duty">
     </header-info>
-    testing
     <main-wrapper>
         <duty-btn-grid></duty-btn-grid>
     </main-wrapper>
